@@ -1,0 +1,257 @@
+{
+  "_comment": "Image manifest, shared by lib/data/images.ts (typed accessors) and scripts/build-photography.mjs (which renders every file listed here from a pinned Unsplash source). Every entry is real photography under the Unsplash Licence — free for commercial use, no attribution required. To swap in the cafe's own work: drop the photo into /public/images under the same `file` name and delete that key from PHOTOS in the build script so it stops being overwritten. Keep `width`/`height` accurate — next/image uses them to reserve space and avoid layout shift.",
+  "images": [
+    {
+      "key": "logo",
+      "file": "waterboy-logo.png",
+      "alt": "The Waterboy Cafe logo — a circular slate badge reading The Waterboy Cafe, Phillip Island, around a line drawing of a boy carrying a takeaway coffee cup",
+      "width": 1024,
+      "height": 1024,
+      "tone": "dusk",
+      "label": "The Waterboy Cafe"
+    },
+    {
+      "key": "heroMain",
+      "file": "waterboy-resort.png",
+      "alt": "Late afternoon light across a beachside cafe terrace, with timber tables, woven rattan pendant lights and the water beyond",
+      "width": 2400,
+      "height": 2000,
+      "tone": "dusk",
+      "label": "Beachside terrace"
+    },
+    {
+      "key": "storyInterior",
+      "file": "sitting.png",
+      "alt": "A light-filled cafe dining room with timber tables, bentwood chairs and pendant lights",
+      "width": 1600,
+      "height": 2000,
+      "tone": "linen",
+      "label": "The dining room"
+    },
+    {
+      "key": "storyPour",
+      "file": "self-working.jpg",
+      "alt": "A barista finishing latte art in a flat white made with Five Senses Coffee",
+      "width": 1600,
+      "height": 1200,
+      "tone": "espresso",
+      "label": "Every cup, poured by hand"
+    },
+    {
+      "key": "dishScramble",
+      "file": "dish-chilli-chive-scramble-sourdough.jpg",
+      "alt": "Soft scrambled eggs with bacon and toasted sourdough on a pale ceramic plate",
+      "width": 1200,
+      "height": 1500,
+      "tone": "clay",
+      "label": "Chilli & chive scramble"
+    },
+    {
+      "key": "dishSalmon",
+      "file": "dish-smoked-salmon-potato-rosti.jpg",
+      "alt": "Poached eggs and smoked salmon on toast, finished with dill and capers",
+      "width": 1200,
+      "height": 1500,
+      "tone": "rose",
+      "label": "Smoked salmon & potato rösti"
+    },
+    {
+      "key": "dishAvocado",
+      "file": "dish-smashed-avocado-sourdough-dukkah.jpg",
+      "alt": "Smashed avocado on thick toasted sourdough, scattered with chilli and dressed with olive oil",
+      "width": 1200,
+      "height": 1500,
+      "tone": "sage",
+      "label": "Smashed avocado"
+    },
+    {
+      "key": "dishBenedict",
+      "file": "dish-eggs-benedict-hollandaise.jpg",
+      "alt": "Two poached eggs under hollandaise on wilted greens, topped with micro herbs",
+      "width": 1200,
+      "height": 1500,
+      "tone": "butter",
+      "label": "Eggs benedict"
+    },
+    {
+      "key": "dishMushroom",
+      "file": "dish-roasted-mushrooms-soft-polenta.jpg",
+      "alt": "Roasted mushrooms and a poached egg on sourdough with confit tomatoes",
+      "width": 1200,
+      "height": 1500,
+      "tone": "coffee",
+      "label": "Mushroom bruschetta"
+    },
+    {
+      "key": "dishBurger",
+      "file": "dish-waterboy-beef-burger-brioche.jpg",
+      "alt": "A beef burger in a glossy brioche bun with lettuce and tomato relish",
+      "width": 1200,
+      "height": 1500,
+      "tone": "clay",
+      "label": "Asian chicken burger"
+    },
+    {
+      "key": "dishSalad",
+      "file": "dish-island-garden-bowl-quinoa.jpg",
+      "alt": "A grain bowl of quinoa, avocado, edamame, cherry tomatoes and boiled eggs",
+      "width": 1200,
+      "height": 1500,
+      "tone": "sage",
+      "label": "Sweet potato salad"
+    },
+    {
+      "key": "dishBrownie",
+      "file": "dish-salted-dark-chocolate-brownie.jpg",
+      "alt": "A stack of dark chocolate brownies with a crackled top on a white plate",
+      "width": 1200,
+      "height": 1500,
+      "tone": "espresso",
+      "label": "From the cabinet"
+    },
+    {
+      "key": "dishWaffle",
+      "file": "dish-belgian-waffles-berry-compote.jpg",
+      "alt": "Belgian waffles with berry compote, whipped mascarpone and a dusting of icing sugar",
+      "width": 1200,
+      "height": 1500,
+      "tone": "butter",
+      "label": "Belgium Waterboy waffles"
+    },
+    {
+      "key": "coffeeFlatWhite",
+      "file": "drink-house-blend-flat-white-latte-art.jpg",
+      "alt": "A flat white in a white cup and saucer, its latte art rosetta lit from the side",
+      "width": 1200,
+      "height": 1500,
+      "tone": "espresso",
+      "label": "Five Senses flat white"
+    },
+    {
+      "key": "galleryTerrace",
+      "file": "gallery-outdoor-courtyard-seating.jpg",
+      "alt": "Guests at outdoor cafe tables under a canvas umbrella, shaded by gum trees",
+      "width": 1400,
+      "height": 1750,
+      "tone": "sage",
+      "label": "Courtyard seating"
+    },
+    {
+      "key": "galleryCounter",
+      "file": "gallery-pastry-cabinet-counter.jpg",
+      "alt": "A glass cabinet of fruit tarts and chocolate cakes on the cafe counter",
+      "width": 1400,
+      "height": 1050,
+      "tone": "rose",
+      "label": "The cabinet"
+    },
+    {
+      "key": "galleryDog",
+      "file": "gallery-dog-friendly-patio.jpg",
+      "alt": "A small dog waiting beside a cafe table while its owner has coffee and cake",
+      "width": 1400,
+      "height": 1400,
+      "tone": "clay",
+      "label": "Dogs welcome"
+    },
+    {
+      "key": "galleryBeach",
+      "file": "gallery-cowes-foreshore-western-port.jpg",
+      "alt": "The coastline from above, a long jetty reaching out into calm water past the foreshore",
+      "width": 1400,
+      "height": 1050,
+      "tone": "dusk",
+      "label": "The foreshore, minutes away"
+    },
+    {
+      "key": "galleryBeans",
+      "file": "gallery-five-senses-coffee-beans.jpg",
+      "alt": "Freshly roasted coffee beans filling the frame",
+      "width": 1400,
+      "height": 1750,
+      "tone": "espresso",
+      "label": "Five Senses beans"
+    },
+    {
+      "key": "galleryKitchen",
+      "file": "gallery-kitchen-morning-prep.jpg",
+      "alt": "A chef working the pans in a warmly lit kitchen during morning service",
+      "width": 1400,
+      "height": 1050,
+      "tone": "coffee",
+      "label": "Morning prep"
+    },
+    {
+      "key": "galleryTable",
+      "file": "gallery-shared-table-brunch-spread.jpg",
+      "alt": "A shared table spread with brunch plates, bowls and coffee cups",
+      "width": 1400,
+      "height": 1400,
+      "tone": "butter",
+      "label": "Brunch, shared"
+    },
+    {
+      "key": "galleryWindow",
+      "file": "founders.png",
+      "alt": "Afternoon sun falling across timber stools at a cafe window counter",
+      "width": 1400,
+      "height": 1750,
+      "tone": "clay",
+      "label": "Window seat"
+    },
+    {
+      "key": "galleryCake",
+      "file": "gallery-cake-of-the-day-slice.jpg",
+      "alt": "A slice of butter cake on a small plate set on marble",
+      "width": 1400,
+      "height": 1050,
+      "tone": "linen",
+      "label": "Cake of the day"
+    },
+    {
+      "key": "gallerySignage",
+      "file": "gallery-cafe-frontage-signage.jpg",
+      "alt": "A cafe frontage with tall glazing, a lantern and its menu in the window",
+      "width": 1400,
+      "height": 1400,
+      "tone": "coffee",
+      "label": "Out the front"
+    },
+    {
+      "key": "galleryTeam",
+      "file": "gallery-team.png",
+      "alt": "Baristas working behind the espresso machine on a timber counter",
+      "width": 1400,
+      "height": 1050,
+      "tone": "dusk",
+      "label": "Behind the machine"
+    },
+    {
+      "key": "aboutFounders",
+      "file": "founders.png",
+      "alt": "Two members of the cafe team smiling behind the counter under the drinks board",
+      "width": 1600,
+      "height": 1200,
+      "tone": "coffee",
+      "label": "The team out front"
+    },
+    {
+      "key": "aboutSourcing",
+      "file": "about-local-produce-sourcing.jpg",
+      "alt": "Crates of fresh vegetables and herbs stacked at a produce market",
+      "width": 1600,
+      "height": 1200,
+      "tone": "sage",
+      "label": "Produce, picked close to home"
+    },
+    {
+      "key": "ogDefault",
+      "file": "og-the-waterboy-cafe-phillip-island.jpg",
+      "alt": "The Waterboy Cafe — a beachside cafe terrace in Cowes, Phillip Island",
+      "width": 1200,
+      "height": 630,
+      "tone": "dusk",
+      "label": "The Waterboy Cafe"
+    }
+  ]
+}
