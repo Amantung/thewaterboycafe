@@ -134,7 +134,7 @@ export function Hero() {
               courtyard with your name on it.
             </motion.p>
 
-            <motion.div
+            <motion.div 
               variants={rise}
               className="mt-11 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4 lg:justify-start"
             >
