@@ -23,9 +23,17 @@ export type OpeningHours = {
   closes: string | null
 }
 
-/** Origin used for canonicals, OG tags, sitemap and the JSON-LD @id graph. */
+/**
+ * Origin used for canonicals, OG tags, sitemap and the JSON-LD @id graph.
+ *
+ * `||` rather than `??`: some hosts (Vercel, Netlify, …) let an env var be
+ * declared with an empty value, which reads back as `""` — not `undefined` —
+ * so a nullish-coalescing fallback never kicks in and `new URL('')` throws
+ * `ERR_INVALID_URL` while collecting page data for every route, including the
+ * automatic /not-found page.
+ */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.thewaterboycafe.com.au'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thewaterboycafe.com.au'
 ).replace(/\/$/, '')
 
 export const site = {
