@@ -8,34 +8,7 @@ import { img } from '@/lib/data/images'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
-
-/**
- * Full-bleed hero.
- *
- * ── The composition ───────────────────────────────────────────────────────
- * The copy sits in a left-hand column rather than dead centre. Centred hero
- * text over a photograph is the default everyone reaches for, and it fights
- * the image: the headline lands on the busiest part of the frame and nothing
- * has a clear reading order. Anchoring the block low and left gives a single
- * diagonal — eyebrow, headline, standfirst, buttons — and leaves the
- * photograph's own subject (the tables, the palm, the water) unobstructed on
- * the right.
- *
- * Hierarchy is carried by scale and colour, not by weight: DM Serif Display
- * has one weight, so the headline steps up two full sizes from the standfirst
- * and the second line goes italic clay. That is the whole emphasis system.
- *
- * ── Performance ───────────────────────────────────────────────────────────
- * This is the LCP element on the site, so:
- *   • `priority` + `fetchPriority="high"`, no lazy loading, so the image is in
- *     the first wave of requests.
- *   • The parallax moves the image with `transform` only — a compositor-only
- *     property, so scrolling never triggers layout or paint.
- *   • The headline is server-rendered text with a CSS-driven entrance, not a
- *     JS typewriter, so the LCP text paints on the first frame.
- *   • Reduced motion disables the parallax and the stagger entirely rather
- *     than merely shortening them.
- */
+ 
 
 /** One ease and one duration for the whole entrance, so it reads as one move. */
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -80,7 +53,7 @@ export function Hero() {
           fetchPriority="high"
           quality={82}
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[50%_35%]"
         />
       </motion.div>
 
@@ -135,36 +108,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
         </Container>
-      </motion.div>
-
-      {/* Scroll cue ------------------------------------------------------- */}
-      <motion.a
-        href="#story"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.9 }}
-        className="absolute bottom-7 right-6 z-10 hidden rounded-full p-2 text-cream/50 transition-colors hover:text-cream lg:right-12 lg:block"
-        aria-label="Skip to our story"
-      >
-        <motion.span
-          animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
-          transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="block"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="h-6 w-6"
-            stroke="currentColor"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 4v15m0 0-6-6m6 6 6-6" />
-          </svg>
-        </motion.span>
-      </motion.a>
+      </motion.div> 
     </section>
   )
 }
