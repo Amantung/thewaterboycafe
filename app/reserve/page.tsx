@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { ReservationForm } from '@/components/forms/ReservationForm'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 
@@ -52,7 +53,7 @@ export default function ReservePage() {
         title="Reserve a table"
         description="Send a request and we will confirm by phone or email. Nothing is locked in until you hear back from us — we would rather be clear than have you turn up to a table that was never held."
         breadcrumbs={[{ name: 'Reserve', path: '/reserve' }]}
-        image="galleryTable"
+        image="galleryDog"
       />
 
       <Section
@@ -70,7 +71,7 @@ export default function ReservePage() {
         <aside className="space-y-8">
           <Reveal delay={0.08}>
             <div className="rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7">
-              <h3 className="u-eyebrow text-clay-deep">Good to know</h3>
+              <Badge as="h3">Good to know</Badge>
               <ul className="mt-6 space-y-6">
                 {GOOD_TO_KNOW.map((item) => (
                   <li key={item.title} className="flex gap-4">
@@ -87,10 +88,9 @@ export default function ReservePage() {
 
           <Reveal delay={0.14}>
             <div className="rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7">
-              <h3 className="u-eyebrow flex items-center gap-2.5 text-clay-deep">
-                <Icon name="clock" className="h-3.5 w-3.5" />
+              <Badge as="h3" icon="clock">
                 When we are open
-              </h3>
+              </Badge>
               <dl className="mt-5 space-y-2.5">
                 {hours.map((row) => (
                   <div key={row.label} className="flex items-baseline justify-between gap-4 text-body-sm">

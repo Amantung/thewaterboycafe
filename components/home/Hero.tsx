@@ -4,11 +4,10 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
-import { openingSummary } from '@/lib/site'
 import { img } from '@/lib/data/images'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
-import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 
 /**
  * Full-bleed hero.
@@ -46,12 +45,6 @@ const rise = {
   shown: { opacity: 1, y: 0, transition: { duration: 0.95, ease: EASE } },
 }
 
-const facts = [
-  { icon: 'clock' as const, label: openingSummary() },
-  { icon: 'bean' as const, label: 'Five Senses Coffee' },
-  { icon: 'paw' as const, label: 'Dog-friendly courtyard' },
-]
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
@@ -72,7 +65,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-espresso"
+      className="relative flex min-h-[calc(100svh-4.75rem)] items-end overflow-hidden bg-espresso sm:min-h-[calc(100svh-8rem)]"
     >
       {/* Photography ------------------------------------------------------ */}
       <motion.div
@@ -95,8 +88,7 @@ export function Hero() {
           the whole frame shares one paper texture. */}
       <div aria-hidden="true" className="u-hero-scrim absolute inset-0" />
       <div aria-hidden="true" className="u-grain absolute inset-0 opacity-60" />
-
-      {/* Copy ------------------------------------------------------------- */}
+ 
       <motion.div
         style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
         className="relative w-full pb-24 pt-40 sm:pb-28 lg:pb-32"
@@ -108,13 +100,9 @@ export function Hero() {
             transition={reduceMotion ? { duration: 0 } : { staggerChildren: 0.11 }}
             className="max-w-3xl text-center lg:text-left"
           >
-            <motion.p
-              variants={rise}
-              className="u-eyebrow flex items-center justify-center gap-3 text-cream/70 lg:justify-start"
-            >
-              <span aria-hidden="true" className="h-px w-10 flex-none bg-clay" />
-              Cowes · Phillip Island
-            </motion.p>
+            <motion.div variants={rise} className="flex justify-center lg:justify-start">
+              <Badge tone="dark">Cowes · Phillip Island</Badge>
+            </motion.div>
 
             <motion.h1
               id="hero-heading"
@@ -145,24 +133,6 @@ export function Hero() {
                 Find us
               </Button>
             </motion.div>
-
-            {/* Trust strip — the three facts a first-time visitor wants, set
-                off by a hairline so it reads as a footnote to the block
-                rather than a fourth level of hierarchy. */}
-            <motion.ul
-              variants={rise}
-              className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-cream/15 pt-7 text-cream/70 lg:justify-start"
-            >
-              {facts.map((fact) => (
-                <li
-                  key={fact.label}
-                  className="flex items-center gap-2.5 text-body-sm"
-                >
-                  <Icon name={fact.icon} className="h-4 w-4 flex-none text-clay" />
-                  {fact.label}
-                </li>
-              ))}
-            </motion.ul>
           </motion.div>
         </Container>
       </motion.div>

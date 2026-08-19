@@ -13,29 +13,29 @@
     {
       "key": "heroMain",
       "file": "waterboy-resort.png",
-      "alt": "Late afternoon light across a beachside cafe terrace, with timber tables, woven rattan pendant lights and the water beyond",
-      "width": 2400,
-      "height": 2000,
+      "alt": "The Waterboy Cafe's shopfront on Chapel Street, Cowes, with the cafe's name lettered across the awning and the doors open to the street",
+      "width": 1672,
+      "height": 941,
       "tone": "dusk",
-      "label": "Beachside terrace"
+      "label": "Our Chapel Street shopfront"
     },
     {
       "key": "storyInterior",
       "file": "sitting.png",
-      "alt": "A light-filled cafe dining room with timber tables, bentwood chairs and pendant lights",
-      "width": 1600,
-      "height": 2000,
+      "alt": "The dining room's timber tables and bentwood chairs under rattan pendant lights, with Western Port Bay through the window",
+      "width": 1672,
+      "height": 941,
       "tone": "linen",
       "label": "The dining room"
     },
     {
       "key": "storyPour",
       "file": "self-working.jpg",
-      "alt": "A barista finishing latte art in a flat white made with Five Senses Coffee",
-      "width": 1600,
-      "height": 1200,
+      "alt": "A chef leaning in to finish a plate on the pass during morning service, in black and white",
+      "width": 1440,
+      "height": 1920,
       "tone": "espresso",
-      "label": "Every cup, poured by hand"
+      "label": "In the kitchen"
     },
     {
       "key": "dishScramble",
@@ -182,17 +182,8 @@
       "label": "Morning prep"
     },
     {
-      "key": "galleryTable",
-      "file": "gallery-shared-table-brunch-spread.jpg",
-      "alt": "A shared table spread with brunch plates, bowls and coffee cups",
-      "width": 1400,
-      "height": 1400,
-      "tone": "butter",
-      "label": "Brunch, shared"
-    },
-    {
       "key": "galleryWindow",
-      "file": "founders.png",
+      "file": "gallery-window-seat-timber-stools.jpg",
       "alt": "Afternoon sun falling across timber stools at a cafe window counter",
       "width": 1400,
       "height": 1750,
@@ -220,18 +211,18 @@
     {
       "key": "galleryTeam",
       "file": "gallery-team.png",
-      "alt": "Baristas working behind the espresso machine on a timber counter",
-      "width": 1400,
-      "height": 1050,
+      "alt": "Four members of the team standing together behind the counter, aprons on, ready for service",
+      "width": 1086,
+      "height": 1448,
       "tone": "dusk",
-      "label": "Behind the machine"
+      "label": "The team"
     },
     {
       "key": "aboutFounders",
       "file": "founders.png",
-      "alt": "Two members of the cafe team smiling behind the counter under the drinks board",
-      "width": 1600,
-      "height": 1200,
+      "alt": "Two members of the cafe team smiling beside the pastry cabinet, with the espresso machine and coffee shelves behind them",
+      "width": 1122,
+      "height": 1402,
       "tone": "coffee",
       "label": "The team out front"
     },
@@ -247,7 +238,7 @@
     {
       "key": "ogDefault",
       "file": "og-the-waterboy-cafe-phillip-island.jpg",
-      "alt": "The Waterboy Cafe — a beachside cafe terrace in Cowes, Phillip Island",
+      "alt": "The Waterboy Cafe's shopfront on Chapel Street, Cowes, Phillip Island",
       "width": 1200,
       "height": 630,
       "tone": "dusk",

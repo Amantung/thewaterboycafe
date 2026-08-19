@@ -16,3 +16,8 @@ next-env.d.ts
 # Downloaded Unsplash originals cached by scripts/build-photography.mjs —
 # reproducible from lib/data/images.json, no need to commit the bytes twice.
 .cache/
+
+# Raw Instagram/camera-roll exports staged for scripts/build-photography.mjs
+# to crop into /public/images. Originals stay local; only the processed
+# output gets committed.
+/instagram-export/

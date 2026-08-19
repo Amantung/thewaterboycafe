@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import { Reveal } from '@/components/ui/Reveal'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { img, type ImageKey } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 
@@ -20,7 +21,8 @@ import { cn } from '@/lib/utils'
  * `Reveal` wrapper, `priority` + `fetchPriority="high"`, same discipline as
  * the homepage Hero. Only the copy beside it animates in.
  *
- * Extra top padding clears the fixed 5rem navbar, which is out of flow.
+ * Top padding here is breathing room, not navbar clearance — the sticky
+ * Navbar sits in normal document flow and already occupies its own space.
  */
 export function PageHeader({
   eyebrow,
@@ -44,7 +46,7 @@ export function PageHeader({
   return (
     <header
       className={cn(
-        'relative overflow-hidden border-b border-beige bg-linen pt-28 sm:pt-36',
+        'relative overflow-hidden border-b border-beige bg-linen pt-12 sm:pt-16',
         className,
       )}
     >
@@ -90,10 +92,7 @@ export function PageHeader({
           <div className="order-2 min-w-0 max-w-xl lg:order-1">
             {eyebrow && (
               <Reveal>
-                <p className="u-eyebrow mb-5 flex items-center gap-3 text-clay-deep">
-                  <span aria-hidden="true" className="h-px w-8 bg-clay-deep/45" />
-                  {eyebrow}
-                </p>
+                <Badge className="mb-5">{eyebrow}</Badge>
               </Reveal>
             )}
 

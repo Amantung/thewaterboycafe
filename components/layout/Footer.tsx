@@ -7,6 +7,7 @@ import { img } from '@/lib/data/images'
 import { Icon } from '@/components/ui/Icon'
 import { Container } from '@/components/ui/Container'
 import { NewsletterForm } from '@/components/forms/NewsletterForm'
+import { cn } from '@/lib/utils'
 
 const logo = img('logo')
 
@@ -98,7 +99,7 @@ export function Footer() {
           {/* Nav columns */}
           {footerNav.map((column) => (
             <nav key={column.heading} aria-label={column.heading} className="lg:col-span-2">
-              <h3 className="u-eyebrow text-cream/45">{column.heading}</h3>
+              <h3 className="u-eyebrow text-cream">{column.heading}</h3>
               <ul className="mt-5 space-y-3">
                 {column.links.map((link) => (
                   <li key={`${column.heading}-${link.href}`}>
@@ -160,6 +161,12 @@ export function Footer() {
   )
 }
 
+/**
+ * Instagram gets the featured treatment — filled, warm, a little more
+ * physical — since it is where the day-to-day content actually lives.
+ * Facebook stays the quiet outline. Two different weights, not two copies of
+ * the same generic circle-with-a-glyph button.
+ */
 function SocialLink({
   href,
   icon,
@@ -169,15 +176,25 @@ function SocialLink({
   icon: 'instagram' | 'facebook'
   label: string
 }) {
+  const isInstagram = icon === 'instagram'
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cream/20 text-cream/75 transition-all duration-300 hover:-translate-y-0.5 hover:border-clay hover:bg-clay/15 hover:text-cream"
+      className={cn(
+        'group inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-500 ease-editorial motion-ok:hover:-translate-y-0.5',
+        isInstagram
+          ? 'border-clay bg-clay/90 text-cream shadow-soft hover:bg-clay-deep hover:shadow-lifted'
+          : 'border-cream/20 text-cream/75 hover:border-cream/40 hover:bg-cream/10 hover:text-cream',
+      )}
     >
-      <Icon name={icon} className="h-[1.15rem] w-[1.15rem]" />
+      <Icon
+        name={icon}
+        className="h-[1.15rem] w-[1.15rem] transition-transform duration-500 ease-editorial group-hover:rotate-[8deg]"
+      />
     </a>
   )
 }

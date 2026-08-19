@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { TestimonialCard } from '@/components/ui/TestimonialCard'
 import { StarRating, Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
 
@@ -62,9 +63,9 @@ export default function ReviewsPage() {
 
       {/* Themes ------------------------------------------------------------ */}
       <Section aria-labelledby="themes-heading" className="border-b border-beige bg-cream" space="sm">
-        <h2 id="themes-heading" className="u-eyebrow text-clay-deep">
+        <Badge as="h2" id="themes-heading">
           What comes up most
-        </h2>
+        </Badge>
 
         <RevealGroup className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {THEMES.map((theme) => (

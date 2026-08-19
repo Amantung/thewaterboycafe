@@ -40,7 +40,7 @@ npm run dev                    # http://localhost:3000
 | `npm run lint` | ESLint (`eslint-config-next`) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run photos` | Render every photo in `public/images/` from the sources pinned in `scripts/build-photography.mjs` (add `-- --force` to redraw existing files) |
-| `npm run logo` | Publish the brand mark and every favicon size from `assets/brand/waterboy-logo-master.png` |
+| `npm run logo` | Publish the brand mark and every favicon size from `assets/brand/waterboy-logo.png` |
 
 Requires Node 18.18+.
 
@@ -112,7 +112,7 @@ scripts/
 
 assets/
   brand/
-    waterboy-logo-master.png   The reconstructed, transparent 1024×1024 brand mark
+    waterboy-logo.png   The reconstructed, transparent 1024×1024 brand mark
 ```
 
 ★ = the files you will actually edit to change content.
@@ -213,7 +213,7 @@ The brand mark arrived as a small, lossy JPEG on an opaque white square, which f
 softened at anything above ~40px. It has been reconstructed — cropped to the disc's true
 bounding box, upscaled, and its two flat inks (slate disc, white line art) rebuilt from a
 luminance ramp rather than merely stretched — into a crisp, transparent 1024×1024 PNG at
-`assets/brand/waterboy-logo-master.png`. `scripts/build-logo.mjs` publishes that master to
+`assets/brand/waterboy-logo.png`. `scripts/build-logo.mjs` publishes that master to
 `public/images/waterboy-logo.png` and derives every favicon size from it. If the cafe's
 actual vector artwork ever turns up, drop it in as the new master (same 1024px-square,
 transparent, disc-touches-all-edges shape) and re-run `npm run logo`.

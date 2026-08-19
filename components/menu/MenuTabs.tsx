@@ -7,6 +7,7 @@ import type { MenuCategory } from '@/lib/data/menu'
 import { cn } from '@/lib/utils'
 import { MenuCard, MenuRow } from '@/components/menu/MenuCard'
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal'
+import { Badge } from '@/components/ui/Badge'
 
 /**
  * Category switcher for the full menu.
@@ -153,13 +154,13 @@ export function MenuTabs({ categories }: { categories: MenuCategory[] }) {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="max-w-2xl">
-                <p className="u-eyebrow text-clay-deep">{category.eyebrow}</p>
+                <Badge>{category.eyebrow}</Badge>
                 <h2 className="mt-4 text-display-md text-coffee">{category.name}</h2>
                 <p className="mt-5 text-lead font-light text-coffee-soft">
                   {category.description}
                 </p>
                 {category.note && (
-                  <p className="mt-3 text-body-sm italic text-coffee-soft/80">{category.note}</p>
+                  <p className="mt-3 text-body-sm text-coffee-soft/80">{category.note}</p>
                 )}
               </div>
 

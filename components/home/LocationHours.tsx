@@ -7,6 +7,7 @@ import {
 } from '@/lib/site'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
@@ -50,7 +51,7 @@ export function LocationHours({
         <div className="space-y-8">
           <Reveal>
             <div className="rounded-[var(--radius-organic)] border border-beige bg-linen/70 p-7 sm:p-8">
-              <h3 className="u-eyebrow text-clay-deep">Where</h3>
+              <Badge as="h3">Where</Badge>
 
               <address className="mt-5 space-y-4 not-italic">
                 <p className="text-display-xs leading-snug text-coffee">
@@ -94,10 +95,9 @@ export function LocationHours({
 
           <Reveal delay={0.1}>
             <div className="rounded-[var(--radius-organic)] border border-beige bg-linen/70 p-7 sm:p-8">
-              <h3 className="u-eyebrow flex items-center gap-2.5 text-clay-deep">
-                <Icon name="clock" className="h-3.5 w-3.5" />
+              <Badge as="h3" icon="clock">
                 Opening hours
-              </h3>
+              </Badge>
 
               <dl className="mt-5 space-y-3">
                 {hours.map((row) => (

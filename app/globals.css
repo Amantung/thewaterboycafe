@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @theme {
   --color-linen: #f2f0eb;
   --color-cream: #f8f4e8;
@@ -131,10 +131,10 @@
 @layer components { 
   .u-eyebrow {
     font-family: var(--font-body);
-    font-size: 0.6875rem;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.4;
-    letter-spacing: 0.24em;
+    letter-spacing: 1px;
     text-transform: uppercase;
   } 
   .u-label {
@@ -234,23 +234,25 @@
 @layer utilities {
   .u-hero-scrim {
     background:
+      /* Vertical — darkest where the copy block sits, lightest through the
+         middle third so the photograph still reads as a photograph. */
       linear-gradient(
         to bottom,
-        rgb(28 20 18 / 0.62) 0%,
-        rgb(28 20 18 / 0.28) 26%,
-        rgb(28 20 18 / 0.34) 52%,
-        rgb(28 20 18 / 0.7) 82%,
-        rgb(28 20 18 / 0.86) 100%
+        rgb(28 20 18 / 0.6) 0%,
+        rgb(28 20 18 / 0.26) 26%,
+        rgb(28 20 18 / 0.32) 52%,
+        rgb(28 20 18 / 0.72) 82%,
+        rgb(28 20 18 / 0.88) 100%
       ),
-        linear-gradient(to bottom right, rgb(76 57 53 / 0.22), rgb(42 33 31 / 0.1));
-  }
-
-  .u-masonry {
-    column-gap: 1rem;
-  }
-  .u-masonry > * {
-    break-inside: avoid;
-    margin-bottom: 1rem;
+      /* Horizontal — a soft wash behind the left-anchored text on desktop,
+         gone by two-thirds across so the right side of the frame stays clear. */
+      linear-gradient(
+        to right,
+        rgb(20 14 12 / 0.46) 0%,
+        rgb(20 14 12 / 0.14) 42%,
+        transparent 66%
+      ),
+      linear-gradient(to bottom right, rgb(76 57 53 / 0.2), rgb(42 33 31 / 0.1));
   }
 
   .u-no-scrollbar {

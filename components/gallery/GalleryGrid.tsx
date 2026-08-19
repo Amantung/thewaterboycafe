@@ -7,20 +7,54 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { SiteImage } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal'
 
 /**
- * Masonry gallery with a keyboard-accessible lightbox.
+ * Editorial grid gallery with a keyboard-accessible lightbox.
  *
- * Layout is CSS columns rather than a JS masonry library: it renders correctly
- * on the server, needs no measurement pass, and never reflows after hydration.
- * The trade-off is column-major reading order, which is fine for a photo wall
- * where there is no narrative sequence.
+ * A real CSS Grid with `grid-auto-flow: dense`, not CSS columns. Columns give
+ * every image the same width and let the ragged column bottoms do the
+ * "curation" for you — which is exactly the uneven, gap-prone look this
+ * replaces. Here every tile is deliberately one of a handful of shapes
+ * (`SHAPES` below), assigned by position so the wall reads as an edited
+ * sequence — a feature shot, then a run of smaller ones, then the next
+ * feature — rather than a grid of identical frames. `dense` packing means a
+ * wide or tall tile never leaves a hole for the tile behind it to fall into.
  *
  * The lightbox is a real modal: Escape closes, arrows page, focus is moved in
  * on open and restored to the triggering thumbnail on close, and the page
  * behind it is scroll-locked and inert to screen readers via aria-modal.
  */
+
+/**
+ * One shape per position, cycling every 12 images. Long enough that neither
+ * the homepage's 8-image preview nor the full gallery's ~10 ever visibly
+ * repeats it. `col-span-2` reads as "full width" at 2 columns (mobile) and
+ * "half width" at 4 (desktop) — the same class does the right thing at both
+ * without a breakpoint variant.
+ */
+const SHAPES = [
+  'col-span-2 row-span-2', // feature
+  '',
+  'row-span-2', // tall
+  '',
+  '',
+  'col-span-2', // wide
+  '',
+  'row-span-2', // tall
+  '',
+  'col-span-2', // wide
+  '',
+  '',
+] as const
+
+const GRID_COLS: Record<2 | 3 | 4, string> = {
+  2: 'grid-cols-2',
+  3: 'grid-cols-2 sm:grid-cols-3',
+  4: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4',
+}
+
 export function GalleryGrid({
   images,
   columns = 3,
@@ -68,15 +102,16 @@ export function GalleryGrid({
     }
   }, [openIndex, close, step])
 
-  const columnClass = {
-    2: 'columns-1 sm:columns-2',
-    3: 'columns-1 sm:columns-2 lg:columns-3',
-    4: 'columns-2 sm:columns-3 lg:columns-4',
-  }[columns]
-
   return (
     <>
-      <RevealGroup className={cn('u-masonry', columnClass, className)} stagger={0.06}>
+      <RevealGroup
+        className={cn(
+          'grid auto-rows-[150px] gap-3 [grid-auto-flow:dense] sm:auto-rows-[180px] sm:gap-4 lg:auto-rows-[210px] lg:gap-5',
+          GRID_COLS[columns],
+          className,
+        )}
+        stagger={0.05}
+      >
         {images.map((image, index) => (
           <RevealItem
             key={image.key}
@@ -87,32 +122,30 @@ export function GalleryGrid({
             type="button"
             onClick={() => setOpenIndex(index)}
             aria-label={`Open image: ${image.label}`}
-            className="group relative block w-full overflow-hidden rounded-2xl border border-beige bg-sand text-left shadow-soft transition-shadow duration-500 hover:shadow-lifted motion-ok:hover:-translate-y-1"
+            className={cn(
+              'group relative overflow-hidden rounded-2xl border border-beige bg-sand text-left shadow-soft',
+              'transition-shadow duration-500 hover:shadow-lifted motion-ok:hover:-translate-y-0.5',
+              SHAPES[index % SHAPES.length],
+            )}
           >
             <Image
               src={`/images/${image.file}`}
               alt={image.alt}
-              width={image.width}
-              height={image.height}
+              fill
               loading="lazy"
-              sizes="(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw"
-              className="h-auto w-full object-cover transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.05]"
+              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 46vw, 92vw"
+              className="object-cover transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.06]"
             />
 
             {/* Caption veil — hidden until hover/focus so the wall stays clean. */}
-            <span className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-espresso/75 via-espresso/10 to-transparent p-5 opacity-0 transition-opacity duration-400 group-hover:opacity-100 group-focus-visible:opacity-100">
-              <span className="u-eyebrow text-cream">{image.label}</span>
+            <span className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-espresso/80 via-espresso/15 to-transparent p-4 opacity-0 transition-opacity duration-400 group-hover:opacity-100 group-focus-visible:opacity-100">
+              <Badge tone="dark">{image.label}</Badge>
             </span>
           </RevealItem>
         ))}
       </RevealGroup>
 
-      <Lightbox
-        images={images}
-        index={openIndex}
-        onClose={close}
-        onStep={step}
-      />
+      <Lightbox images={images} index={openIndex} onClose={close} onStep={step} />
     </>
   )
 }
@@ -190,11 +223,9 @@ function Lightbox({
               priority
               className="max-h-[74vh] w-auto rounded-2xl object-contain shadow-lifted"
             />
-            <figcaption className="text-center">
-              <p className="u-eyebrow text-cream/90">{image.label}</p>
-              <p className="mx-auto mt-2 max-w-xl text-body-sm text-cream/55">
-                {image.alt}
-              </p>
+            <figcaption className="flex flex-col items-center text-center">
+              <Badge tone="dark">{image.label}</Badge>
+              <p className="mx-auto mt-3 max-w-xl text-body-sm text-cream/55">{image.alt}</p>
               <p className="u-label mt-3 text-caption text-cream/35">
                 {(index ?? 0) + 1} / {images.length}
               </p>

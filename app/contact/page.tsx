@@ -10,6 +10,7 @@ import { LocationHours } from '@/components/home/LocationHours'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
@@ -154,7 +155,7 @@ function ContactMethod({
         </span>
 
         <div>
-          <p className="u-eyebrow text-coffee-soft/70">{label}</p>
+          <Badge className="border-beige-strong/70 bg-transparent text-coffee-soft">{label}</Badge>
           <a
             href={href}
             {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

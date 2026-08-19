@@ -11,6 +11,7 @@ import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 import { Highlights } from '@/components/home/Highlights'
 
 export const metadata: Metadata = {
@@ -57,7 +58,7 @@ export default function AboutPage() {
                     aria-hidden="true"
                     className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full border-2 border-linen bg-clay"
                   />
-                  <p className="u-eyebrow text-clay-deep">{chapter.eyebrow}</p>
+                  <Badge>{chapter.eyebrow}</Badge>
                   <h3 className="mt-3 text-display-sm text-coffee">{chapter.heading}</h3>
                   <p className="mt-4 text-body text-coffee-soft">{chapter.body}</p>
                 </article>
@@ -139,7 +140,7 @@ export default function AboutPage() {
           {about.team.map((member) => (
             <RevealItem key={member.id}>
               <article className="h-full rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7 sm:p-8">
-                <p className="u-eyebrow text-clay-deep">{member.role}</p>
+                <Badge>{member.role}</Badge>
                 <h3 className="mt-3 text-display-xs text-coffee">{member.name}</h3>
                 <p className="mt-4 text-body-sm text-coffee-soft">{member.bio}</p>
               </article>

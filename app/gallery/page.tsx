@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 
@@ -56,7 +57,7 @@ export default function GalleryPage() {
 
       <Section className="border-t border-beige bg-cream" space="sm" width="narrow" innerClassName="text-center">
         <Reveal>
-          <p className="u-eyebrow text-clay-deep">Day to day</p>
+          <Badge>Day to day</Badge>
           <h2 className="mt-4 text-display-md text-coffee">
             The specials board lives on Instagram
           </h2>

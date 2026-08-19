@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/ui/Reveal'
+import { Badge } from '@/components/ui/Badge'
 
 /**
  * The one section header on the site: a tracked uppercase eyebrow, a DM Serif
@@ -73,20 +74,9 @@ export function SectionHeading({
     >
       {eyebrow && (
         <Reveal>
-          <p
-            className={cn(
-              'u-eyebrow flex items-center gap-3',
-              align === 'center' && 'justify-center',
-              dark ? 'text-clay' : 'text-clay-deep',
-            )}
-          >
-            {/* Short rule as a typographic flourish, not a divider. */}
-            <span
-              aria-hidden="true"
-              className={cn('h-px w-8 flex-none', dark ? 'bg-clay/60' : 'bg-clay-deep/45')}
-            />
-            {eyebrow}
-          </p>
+          <div className={cn(align === 'center' && 'flex justify-center')}>
+            <Badge tone={dark ? 'dark' : 'light'}>{eyebrow}</Badge>
+          </div>
         </Reveal>
       )}
 

@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Serif_Display, Poppins } from 'next/font/google'
 
-import './globals.css'
-
+import './globals.css' 
 import { site, SITE_URL } from '@/lib/site'
 import { img } from '@/lib/data/images'
 import { buildGraph, cafeSchema, websiteSchema } from '@/lib/schema'

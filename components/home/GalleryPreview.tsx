@@ -30,9 +30,9 @@ export function GalleryPreview() {
             <Button href="/gallery" variant="secondary" withArrow>
               Full gallery
             </Button>
-            <Button href={site.socials.instagram} variant="ghost">
+            <Button href={site.socials.instagram} variant="secondary">
               <Icon name="instagram" className="h-4 w-4" />
-              {site.socials.instagramHandle}
+              Follow {site.socials.instagramHandle}
             </Button>
           </div>
         </Reveal>

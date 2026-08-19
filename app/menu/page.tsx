@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { MenuTabs } from '@/components/menu/MenuTabs'
 import { LocationHours } from '@/components/home/LocationHours'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 
@@ -56,7 +57,7 @@ export default function MenuPage() {
           {/* Dietary key ------------------------------------------------- */}
           <Reveal>
             <div className="mt-20 rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7 sm:p-9">
-              <h2 className="u-eyebrow text-clay-deep">Dietary key</h2>
+              <Badge as="h2">Dietary key</Badge>
 
               <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
                 {Object.entries(dietaryLabels).map(([tag, label]) => (

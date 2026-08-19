@@ -79,7 +79,7 @@ export function StoryStrip() {
                 Read our story
               </Button>
 
-              <p className="text-display-xs italic text-clay-deep">{story.signature}</p>
+              <p className="text-display-xs text-clay-deep">{story.signature}</p>
             </div>
           </Reveal>
         </div>

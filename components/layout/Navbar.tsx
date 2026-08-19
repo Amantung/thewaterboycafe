@@ -12,22 +12,8 @@ import { img } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-
-/**
- * Sticky navigation.
- *
- * Two behaviours worth knowing about:
- *
- * 1. On the homepage the bar starts transparent over the hero and turns into a
- *    solid linen bar once you scroll past it. Everywhere else it is solid from
- *    the first paint — there is no hero to sit over, and a transparent bar on a
- *    linen page is just an invisible bar.
- *
- * 2. Homepage only, the section links are scroll-spied with IntersectionObserver
- *    rather than a scroll handler, so highlighting costs nothing per frame.
- */
-
-const SOLID_AFTER = 80 // px scrolled before the bar commits to solid
+ 
+const SHADOW_AFTER = 24 
 
 const logo = img('logo')
 
@@ -41,9 +27,9 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
 
-  /* --- Solid / transparent ------------------------------------------------ */
+  /* --- Shadow depth on scroll ---------------------------------------------- */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > SOLID_AFTER)
+    const onScroll = () => setScrolled(window.scrollY > SHADOW_AFTER)
     onScroll() // Correct state on load and on a restored scroll position.
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -109,15 +95,13 @@ export function Navbar() {
     }
   }, [menuOpen, closeMenu])
 
-  const solid = scrolled || !isHome || menuOpen
-
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-        solid
-          ? 'border-b border-beige/80 bg-linen/92 backdrop-blur-md supports-[backdrop-filter]:bg-linen/80'
-          : 'border-b border-transparent bg-transparent',
+        'sticky top-0 z-50 border-b border-beige/80 bg-linen/95 backdrop-blur-md',
+        'transition-shadow duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+        'supports-[backdrop-filter]:bg-linen/85',
+        scrolled && 'shadow-soft',
       )}
     >
       <nav
@@ -158,13 +142,7 @@ export function Navbar() {
                   aria-current={pathname === link.href ? 'page' : undefined}
                   className={cn(
                     'u-eyebrow relative rounded-full px-4 py-2.5 transition-colors duration-300',
-                    solid
-                      ? isActive
-                        ? 'text-coffee'
-                        : 'text-coffee-soft hover:text-coffee'
-                      : isActive
-                        ? 'text-cream'
-                        : 'text-cream/80 hover:text-cream',
+                    isActive ? 'text-coffee' : 'text-coffee-soft hover:text-coffee',
                   )}
                 >
                   {link.label}
@@ -179,10 +157,7 @@ export function Navbar() {
                           ? { duration: 0 }
                           : { type: 'spring', stiffness: 380, damping: 32 }
                       }
-                      className={cn(
-                        'absolute inset-x-4 -bottom-0.5 h-px',
-                        solid ? 'bg-clay-deep' : 'bg-cream',
-                      )}
+                      className="absolute inset-x-4 -bottom-0.5 h-px bg-clay-deep"
                     />
                   )}
                 </Link>
@@ -195,10 +170,7 @@ export function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <a
             href={`tel:${site.phone}`}
-            className={cn(
-              'hidden items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors duration-300 md:inline-flex',
-              solid ? 'text-coffee-soft hover:text-coffee' : 'text-cream/85 hover:text-cream',
-            )}
+            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm text-coffee-soft transition-colors duration-300 hover:text-coffee md:inline-flex"
           >
             <Icon name="phone" className="h-4 w-4" />
             <span className="u-label">{site.phoneDisplay}</span>
@@ -207,7 +179,7 @@ export function Navbar() {
           <Button
             href="/reserve"
             size="sm"
-            variant={solid ? 'primary' : 'onDark'}
+            variant="primary"
             className="hidden sm:inline-flex"
           >
             Reserve a table
@@ -219,12 +191,7 @@ export function Navbar() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            className={cn(
-              'inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-300 lg:hidden',
-              solid
-                ? 'border-beige-strong text-coffee hover:bg-sand'
-                : 'border-cream/40 text-cream hover:bg-cream/10',
-            )}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-beige-strong text-coffee transition-colors duration-300 hover:bg-sand lg:hidden"
           >
             <Icon
               name={menuOpen ? 'close' : 'menu'}

@@ -21,7 +21,7 @@
  *   3. Masked with a mathematically exact circle, so the disc edge no longer
  *      inherits the JPEG's fringe and everything outside it is transparent.
  *
- * The result is checked in at assets/brand/waterboy-logo-master.png and is now
+ * The result is checked in at assets/brand/waterboy-logo.png and is now
  * the source of truth. This script only publishes and downsamples it, so it is
  * idempotent — re-running never re-applies the ramp and degrades the art.
  *
@@ -39,7 +39,7 @@ const root = path.resolve(here, '..')
 const publicDir = path.join(root, 'public')
 const imagesDir = path.join(publicDir, 'images')
 
-const MASTER = path.join(root, 'assets', 'brand', 'waterboy-logo-master.png')
+const MASTER = path.join(root, 'assets', 'brand', 'waterboy-logo.png')
 
 /** Linen, matching --color-linen, for the icons that must be opaque. */
 const LINEN = { r: 242, g: 240, b: 235, alpha: 1 }

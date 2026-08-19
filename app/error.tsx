@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/Badge'
 
 /**
  * Route-level error boundary. Must be a client component — React needs the
@@ -20,9 +21,9 @@ export default function Error({
   }, [error])
 
   return (
-    <section className="flex min-h-[70svh] items-center bg-linen px-5 pb-24 pt-40 sm:px-8">
+    <section className="flex min-h-[70svh] items-center bg-linen px-5 pb-24 pt-16 sm:px-8 sm:pt-20">
       <div className="mx-auto max-w-xl text-center">
-        <p className="u-eyebrow text-clay-deep">Something went wrong</p>
+        <Badge>Something went wrong</Badge>
         <h1 className="mt-5 text-display-lg text-coffee">We have dropped a plate</h1>
         <p className="mt-5 text-lead font-light text-coffee-soft">
           An unexpected error stopped this page loading. Try again — and if it keeps
