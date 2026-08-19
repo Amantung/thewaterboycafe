@@ -9,7 +9,6 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "photos": "node scripts/build-photography.mjs",
     "logo": "node scripts/build-logo.mjs"
   },
   "dependencies": {

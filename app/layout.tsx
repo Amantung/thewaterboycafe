@@ -3,7 +3,6 @@ import { DM_Serif_Display, Poppins } from 'next/font/google'
 
 import './globals.css' 
 import { site, SITE_URL } from '@/lib/site'
-import { img } from '@/lib/data/images'
 import { buildGraph, cafeSchema, websiteSchema } from '@/lib/schema'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -35,7 +34,12 @@ const poppins = Poppins({
   preload: true,
 })
 
-const og = img('ogDefault')
+const og = {
+  src: '/images/og-the-waterboy-cafe-phillip-island.jpg',
+  width: 1200,
+  height: 630,
+  alt: "The Waterboy Cafe's shopfront on Chapel Street, Cowes, Phillip Island",
+}
 
 export const metadata: Metadata = { 
   metadataBase: new URL(SITE_URL), 

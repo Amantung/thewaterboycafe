@@ -1,7 +1,6 @@
 import Image from 'next/image'
 
 import { formatPrice, dietaryLabels, type MenuItem } from '@/lib/data/menu'
-import { img } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 
 /**
@@ -35,8 +34,6 @@ export function MenuCard({
   priority?: boolean
   className?: string
 }) {
-  const photo = item.image ? img(item.image) : null
-
   return (
     <article
       className={cn(
@@ -48,10 +45,10 @@ export function MenuCard({
       )}
     >
       <div className="relative aspect-4/5 overflow-hidden bg-sand">
-        {photo ? (
+        {item.image ? (
           <Image
-            src={photo.src}
-            alt={photo.alt}
+            src={item.image}
+            alt={item.name}
             fill
             priority={priority}
             loading={priority ? undefined : 'lazy'}

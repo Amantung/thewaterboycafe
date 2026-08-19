@@ -4,55 +4,33 @@ import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
-import type { SiteImage } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
 import { Badge } from '@/components/ui/Badge'
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal'
+import type { GalleryPhoto } from '@/components/gallery/photos'
 
 /**
- * Editorial grid gallery with a keyboard-accessible lightbox.
+ * Editorial masonry gallery with a keyboard-accessible lightbox.
  *
- * A real CSS Grid with `grid-auto-flow: dense`, not CSS columns. Columns give
- * every image the same width and let the ragged column bottoms do the
- * "curation" for you — which is exactly the uneven, gap-prone look this
- * replaces. Here every tile is deliberately one of a handful of shapes
- * (`SHAPES` below), assigned by position so the wall reads as an edited
- * sequence — a feature shot, then a run of smaller ones, then the next
- * feature — rather than a grid of identical frames. `dense` packing means a
- * wide or tall tile never leaves a hole for the tile behind it to fall into.
+ * A real CSS multi-column layout, not a fixed-row grid: every photo keeps its
+ * own intrinsic aspect ratio (no cropping, no stretching) and the column flow
+ * does the "curated wall" look for free — no manual per-tile shape map to
+ * maintain. `break-inside-avoid` keeps a photo from splitting across columns.
  *
  * The lightbox is a real modal: Escape closes, arrows page, focus is moved in
  * on open and restored to the triggering thumbnail on close, and the page
  * behind it is scroll-locked and inert to screen readers via aria-modal.
+ *
+ * The photo list itself lives in ./photos.ts, a plain (non-`'use client'`)
+ * module — this file needs `'use client'` for its hooks, and a Server
+ * Component importing plain data back out of a client module doesn't work in
+ * the App Router.
  */
 
-/**
- * One shape per position, cycling every 12 images. Long enough that neither
- * the homepage's 8-image preview nor the full gallery's ~10 ever visibly
- * repeats it. `col-span-2` reads as "full width" at 2 columns (mobile) and
- * "half width" at 4 (desktop) — the same class does the right thing at both
- * without a breakpoint variant.
- */
-const SHAPES = [
-  'col-span-2 row-span-2', // feature
-  '',
-  'row-span-2', // tall
-  '',
-  '',
-  'col-span-2', // wide
-  '',
-  'row-span-2', // tall
-  '',
-  'col-span-2', // wide
-  '',
-  '',
-] as const
-
-const GRID_COLS: Record<2 | 3 | 4, string> = {
-  2: 'grid-cols-2',
-  3: 'grid-cols-2 sm:grid-cols-3',
-  4: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4',
+const COLUMNS: Record<3 | 4, string> = {
+  3: 'columns-2 sm:columns-3',
+  4: 'columns-2 sm:columns-3 lg:columns-4',
 }
 
 export function GalleryGrid({
@@ -60,8 +38,8 @@ export function GalleryGrid({
   columns = 3,
   className,
 }: {
-  images: SiteImage[]
-  columns?: 2 | 3 | 4
+  images: GalleryPhoto[]
+  columns?: 3 | 4
   className?: string
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -105,16 +83,13 @@ export function GalleryGrid({
   return (
     <>
       <RevealGroup
-        className={cn(
-          'grid auto-rows-[150px] gap-3 [grid-auto-flow:dense] sm:auto-rows-[180px] sm:gap-4 lg:auto-rows-[210px] lg:gap-5',
-          GRID_COLS[columns],
-          className,
-        )}
+        as="div"
+        className={cn('gap-3 sm:gap-4 lg:gap-5', COLUMNS[columns], className)}
         stagger={0.05}
       >
         {images.map((image, index) => (
           <RevealItem
-            key={image.key}
+            key={image.src}
             as="button"
             ref={(element: HTMLElement | null) => {
               triggerRefs.current[index] = element
@@ -122,19 +97,16 @@ export function GalleryGrid({
             type="button"
             onClick={() => setOpenIndex(index)}
             aria-label={`Open image: ${image.label}`}
-            className={cn(
-              'group relative overflow-hidden rounded-2xl border border-beige bg-sand text-left shadow-soft',
-              'transition-shadow duration-500 hover:shadow-lifted motion-ok:hover:-translate-y-0.5',
-              SHAPES[index % SHAPES.length],
-            )}
+            className="group relative mb-3 block w-full break-inside-avoid overflow-hidden bg-sand text-left sm:mb-4 lg:mb-5"
           >
             <Image
-              src={`/images/${image.file}`}
+              src={image.src}
               alt={image.alt}
-              fill
+              width={image.width}
+              height={image.height}
               loading="lazy"
-              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 46vw, 92vw"
-              className="object-cover transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.06]"
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              className="h-auto w-full object-cover transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.05]"
             />
 
             {/* Caption veil — hidden until hover/focus so the wall stays clean. */}
@@ -160,7 +132,7 @@ function Lightbox({
   onClose,
   onStep,
 }: {
-  images: SiteImage[]
+  images: GalleryPhoto[]
   index: number | null
   onClose: () => void
   onStep: (delta: number) => void
@@ -208,14 +180,14 @@ function Lightbox({
           )}
 
           <motion.figure
-            key={image.key}
+            key={image.src}
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="flex max-h-full w-full max-w-5xl flex-col items-center gap-5"
           >
             <Image
-              src={`/images/${image.file}`}
+              src={image.src}
               alt={image.alt}
               width={image.width}
               height={image.height}

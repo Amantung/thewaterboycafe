@@ -62,9 +62,9 @@
 
   html {
     scroll-behavior: smooth;
-    /* Sticky nav is ~8rem tall at sm+ (logo-driven) — keep anchored sections
-       clear of it. */
-    scroll-padding-top: 8rem;
+    /* Sticky nav is ~6.5rem tall at sm+ (logo-driven) — keep anchored
+       sections clear of it. */
+    scroll-padding-top: 7rem;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -260,5 +260,29 @@
   }
   .u-no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Two duplicated copies of the same track, translated exactly one copy's
+     width — the seam lands precisely on the loop point so it's invisible. */
+  .u-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: u-marquee var(--marquee-duration, 42s) linear infinite;
+    will-change: transform;
+  }
+  .u-marquee-track--reverse {
+    animation-direction: reverse;
+  }
+  .u-marquee-row:hover .u-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes u-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }

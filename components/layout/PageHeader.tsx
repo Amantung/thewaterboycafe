@@ -6,30 +6,30 @@ import { Reveal } from '@/components/ui/Reveal'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { Badge } from '@/components/ui/Badge'
-import { img, type ImageKey } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 
 /**
  * Masthead for interior pages.
  *
- * Carries the single <h1> for the page plus a visible breadcrumb trail. The
- * trail is a real <nav aria-label="Breadcrumb"> with an ordered list — the
- * same structure the BreadcrumbList JSON-LD describes, so the visible UI and
- * the markup agree.
+ * A full-bleed photograph with the same scrim recipe as the homepage Hero
+ * (`u-hero-scrim`, defined once in globals.css) — one visual language for
+ * "photograph with type over it" across the whole site, not a second design
+ * invented for interior pages. Carries the single <h1> for the page plus a
+ * visible breadcrumb trail: a real <nav aria-label="Breadcrumb"> with an
+ * ordered list, matching the BreadcrumbList JSON-LD structure.
  *
  * The photograph is this page's LCP element, so it ships instantly — no
  * `Reveal` wrapper, `priority` + `fetchPriority="high"`, same discipline as
- * the homepage Hero. Only the copy beside it animates in.
- *
- * Top padding here is breathing room, not navbar clearance — the sticky
- * Navbar sits in normal document flow and already occupies its own space.
+ * the Hero. Only the copy over it animates in.
  */
 export function PageHeader({
   eyebrow,
   title,
   description,
   breadcrumbs = [],
-  image,
+  imageSrc,
+  imageAlt,
+  imagePosition = 'object-center',
   children,
   className,
 }: {
@@ -37,28 +37,37 @@ export function PageHeader({
   title: string
   description?: ReactNode
   breadcrumbs?: { name: string; path: string }[]
-  image: ImageKey
+  imageSrc: string
+  imageAlt: string
+  /** Tailwind object-position utility — override when the subject sits off-centre. */
+  imagePosition?: string
   children?: ReactNode
   className?: string
 }) {
-  const photo = img(image)
-
   return (
-    <header
-      className={cn(
-        'relative overflow-hidden border-b border-beige bg-linen pt-12 sm:pt-16',
-        className,
-      )}
-    >
-      <div aria-hidden="true" className="u-grain absolute inset-0 opacity-60" />
+    <header className={cn('relative overflow-hidden bg-espresso', className)}>
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className={cn('object-cover', imagePosition)}
+      />
 
-      <Container className="relative">
-        {breadcrumbs.length > 0 && (
-          <Reveal>
-            <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex flex-wrap items-center gap-2 text-caption text-coffee-soft/75">
+      {/* Same scrim as the homepage Hero — one photograph-with-type language
+          across the whole site. */}
+      <div aria-hidden="true" className="u-hero-scrim absolute inset-0" />
+      <div aria-hidden="true" className="u-grain absolute inset-0 opacity-50" />
+
+      {breadcrumbs.length > 0 && (
+        <Reveal as="div" className="absolute inset-x-0 top-8 z-10 sm:top-10">
+          <Container>
+            <nav aria-label="Breadcrumb">
+              <ol className="flex flex-wrap items-center gap-2 text-caption text-cream/70">
                 <li>
-                  <Link href="/" className="u-underline transition-colors hover:text-coffee">
+                  <Link href="/" className="u-underline transition-colors hover:text-cream">
                     Home
                   </Link>
                 </li>
@@ -66,15 +75,15 @@ export function PageHeader({
                   const isLast = index === breadcrumbs.length - 1
                   return (
                     <li key={crumb.path} className="flex items-center gap-2">
-                      <Icon name="arrowRight" className="h-3 w-3 opacity-40" />
+                      <Icon name="arrowRight" className="h-3 w-3 opacity-50" />
                       {isLast ? (
-                        <span aria-current="page" className="text-coffee">
+                        <span aria-current="page" className="text-cream">
                           {crumb.name}
                         </span>
                       ) : (
                         <Link
                           href={crumb.path}
-                          className="u-underline transition-colors hover:text-coffee"
+                          className="u-underline transition-colors hover:text-cream"
                         >
                           {crumb.name}
                         </Link>
@@ -84,63 +93,35 @@ export function PageHeader({
                 })}
               </ol>
             </nav>
-          </Reveal>
-        )}
+          </Container>
+        </Reveal>
+      )}
 
-        <div className="grid grid-cols-1 gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:pb-24">
-          {/* Copy -------------------------------------------------------- */}
-          <div className="order-2 min-w-0 max-w-xl lg:order-1">
-            {eyebrow && (
-              <Reveal>
-                <Badge className="mb-5">{eyebrow}</Badge>
-              </Reveal>
-            )}
-
-            <Reveal delay={0.05}>
-              <h1 className="text-display-lg text-coffee">{title}</h1>
+      <Container className="relative flex min-h-[24rem] flex-col justify-end gap-8 pb-12 pt-28 sm:min-h-[28rem] sm:pb-16 sm:pt-32 lg:min-h-[32rem] lg:pb-20">
+        <div className="max-w-2xl">
+          {eyebrow && (
+            <Reveal>
+              <Badge tone="dark">{eyebrow}</Badge>
             </Reveal>
+          )}
 
-            {description && (
-              <Reveal delay={0.1}>
-                <div className="mt-6 max-w-2xl text-lead font-light text-coffee-soft">
-                  {description}
-                </div>
-              </Reveal>
-            )}
+          <Reveal delay={0.05}>
+            <h1 className="mt-5 text-display-lg text-cream">{title}</h1>
+          </Reveal>
 
-            {children && (
-              <Reveal delay={0.16}>
-                <div className="mt-9">{children}</div>
-              </Reveal>
-            )}
-          </div>
+          {description && (
+            <Reveal delay={0.1}>
+              <div className="mt-5 max-w-xl text-lead font-light text-cream/80">
+                {description}
+              </div>
+            </Reveal>
+          )}
 
-          {/* Photograph ---------------------------------------------------
-              Full-bleed strip on mobile (broken out of the container gutter),
-              settles into a framed, bordered card from sm: up — the same
-              recipe StoryStrip and the About chapters already use, so the
-              banner reads as one more member of an existing family rather
-              than a new visual idea. */}
-          <div className="order-1 -mx-5 sm:mx-0 lg:order-2">
-            <div className="relative aspect-4/3 overflow-hidden bg-sand sm:aspect-video sm:rounded-[var(--radius-organic)] sm:border sm:border-beige sm:shadow-soft lg:aspect-4/5 lg:shadow-lifted">
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                priority
-                fetchPriority="high"
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover"
-              />
-              {/* Fades the mobile full-bleed crop into the page background
-                  instead of ending on a hard line. Hidden once the image
-                  becomes a contained card at sm:+. */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-linen sm:hidden"
-              />
-            </div>
-          </div>
+          {children && (
+            <Reveal delay={0.16}>
+              <div className="mt-8">{children}</div>
+            </Reveal>
+          )}
         </div>
       </Container>
     </header>

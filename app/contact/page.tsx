@@ -37,7 +37,8 @@ export default function ContactPage() {
         title="Get in touch"
         description="Questions about the menu, a group booking, a function, or something we could be doing better — it all reaches the same small team."
         breadcrumbs={[{ name: 'Contact', path: '/contact' }]}
-        image="gallerySignage"
+        imageSrc="/images/gallery-cafe-frontage-signage.jpg"
+        imageAlt="A cafe frontage with tall glazing, a lantern and its menu in the window"
       />
 
       {/* Quick contact + form ---------------------------------------------- */}

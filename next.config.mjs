@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     // AVIF first, WebP fallback — smallest payload for the photography-heavy layout.
     formats: ['image/avif', 'image/webp'],
+    // The hero photo asks for a bespoke 82 (see Hero.tsx); everything else uses
+    // next/image's default 75. Both must be explicit from Next.js 16 on.
+    qualities: [75, 82],
     // Matches the breakpoints the layout actually renders at, so we don't
     // generate variants nobody downloads.
     deviceSizes: [420, 640, 828, 1080, 1200, 1600, 1920, 2048],

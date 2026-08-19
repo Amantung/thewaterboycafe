@@ -3,13 +3,12 @@ import Link from 'next/link'
 
 import { site, formattedAddress, groupedHours, directionsUrl } from '@/lib/site'
 import { footerNav } from '@/lib/data/navigation'
-import { img } from '@/lib/data/images'
 import { Icon } from '@/components/ui/Icon'
 import { Container } from '@/components/ui/Container'
 import { NewsletterForm } from '@/components/forms/NewsletterForm'
 import { cn } from '@/lib/utils'
 
-const logo = img('logo')
+const LOGO = { src: '/images/waterboy-logo.png', width: 1024, height: 1024 }
 
 /**
  * Site footer.
@@ -47,14 +46,14 @@ export function Footer() {
           {/* Brand + NAP */}
           <div className="lg:col-span-4">
             <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
+              src={LOGO.src}
+              alt={`${site.name} logo`}
+              width={LOGO.width}
+              height={LOGO.height}
               loading="lazy"
-              sizes="150px"
+              sizes="96px"
               className="h-24 w-24 rounded-full"
-            /> 
+            />
 
             <address className="mt-6 space-y-3 text-body-sm not-italic">
               <a

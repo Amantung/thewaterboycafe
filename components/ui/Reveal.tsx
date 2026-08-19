@@ -36,7 +36,7 @@ export function Reveal({
   className,
 }: RevealProps) {
   const reduceMotion = useReducedMotion()
-  const MotionTag = motion(as as ElementType)
+  const MotionTag = motion.create(as as ElementType)
 
   const offset = {
     up: { y: distance },
@@ -88,7 +88,7 @@ export function RevealGroup({
   as?: ElementType
 }) {
   const reduceMotion = useReducedMotion()
-  const MotionTag = motion(as as ElementType)
+  const MotionTag = motion.create(as as ElementType)
 
   return (
     <MotionTag
@@ -126,7 +126,7 @@ export const RevealItem = forwardRef<HTMLElement, RevealItemProps>(function Reve
   ref,
 ) {
   const reduceMotion = useReducedMotion()
-  const MotionTag = motion(as as ElementType)
+  const MotionTag = motion.create(as as ElementType)
 
   return (
     <MotionTag

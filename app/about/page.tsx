@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 
 import { site } from '@/lib/site'
 import { about } from '@/lib/data/content'
-import { img } from '@/lib/data/images'
 import { buildGraph, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
@@ -26,10 +25,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function AboutPage() {
-  const founders = img('aboutFounders')
-  const sourcing = img('aboutSourcing')
+const founders = {
+  src: '/images/founders.jpg',
+  alt: 'Two members of the cafe team smiling beside the pastry cabinet, with the espresso machine and coffee shelves behind them',
+}
+const sourcing = {
+  src: '/images/about-local-produce-sourcing.jpg',
+  alt: 'Crates of fresh vegetables and herbs stacked at a produce market',
+}
 
+export default function AboutPage() {
   const graph = buildGraph(breadcrumbSchema([{ name: 'About', path: '/about' }]))
 
   return (
@@ -39,7 +44,8 @@ export default function AboutPage() {
         title="A family-run cafe with the best window in Cowes"
         description={about.intro}
         breadcrumbs={[{ name: 'About', path: '/about' }]}
-        image="galleryWindow"
+        imageSrc="/images/gallery-window-seat-timber-stools.jpg"
+        imageAlt="Afternoon sun falling across timber stools at a cafe window counter"
       />
 
       {/* Chapters ---------------------------------------------------------- */}

@@ -8,14 +8,13 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 import { primaryNav, homeSections } from '@/lib/data/navigation'
 import { site } from '@/lib/site'
-import { img } from '@/lib/data/images'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
- 
-const SHADOW_AFTER = 24 
 
-const logo = img('logo')
+const SHADOW_AFTER = 24
+
+const LOGO = { src: '/images/waterboy-logo.png', width: 1024, height: 1024 }
 
 export function Navbar() {
   const pathname = usePathname()
@@ -98,38 +97,46 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 border-b border-beige/80 bg-linen/95 backdrop-blur-md',
-        'transition-shadow duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-        'supports-[backdrop-filter]:bg-linen/85',
-        scrolled && 'shadow-soft',
+        'sticky top-0 z-50 border-b bg-white',
+        'transition-[box-shadow,border-color] duration-300 ease-out',
+        scrolled ? 'border-beige shadow-soft' : 'border-transparent',
       )}
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-(--container-shell) items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12"
+        className="relative mx-auto flex min-h-[5rem] max-w-(--container-shell) items-center px-5 py-2 sm:min-h-[6.5rem] sm:px-8 lg:px-12"
       >
-        {/* Logo  -------------------------------------------------- */}
+        {/* Logo — absolutely centred on the header itself, not on the space
+            left over between the nav links and the actions. Removed from
+            normal flow entirely so shrinking it on scroll can never change
+            the header's height or push anything else around. */}
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-3"
           aria-label={`${site.name} — home`}
+          className="group absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
         >
-          {/* The real brand mark. Decorative here — the wordmark beside it
-              carries the accessible name via the link's aria-label. */}
+          {/* The real brand mark. Decorative here — the link above carries
+              the accessible name. */}
           <Image
-            src={logo.src}
+            src={LOGO.src}
             alt=""
             aria-hidden="true"
-            width={logo.width}
-            height={logo.height}
+            width={LOGO.width}
+            height={LOGO.height}
             priority
-            sizes="150px"
-            className="h-11 w-11 shrink-0 rounded-full transition-transform duration-500 ease-editorial group-hover:rotate-[8deg] sm:h-24 sm:w-24"
-          /> 
+            sizes="100px"
+            className={cn(
+              'rounded-full shadow-soft transition-[height,width,transform] duration-300 ease-out motion-reduce:transition-none',
+              'group-hover:rotate-[8deg]',
+              scrolled ? 'h-12 w-12 sm:h-16 sm:w-16' : 'h-14 w-14 sm:h-20 sm:w-20',
+            )}
+          />
         </Link>
 
-        {/* Desktop links --------------------------------------------------- */}
-        <ul className="hidden items-center gap-1 lg:flex">
+        {/* Desktop links — held to `xl:` rather than `lg:` so this group and
+            the actions group never have to sit close enough to the true
+            centre to crowd the logo; see the note on the phone link below. */}
+        <ul className="hidden items-center gap-1 xl:flex">
           {primaryNav.map((link) => {
             const isActive =
               pathname === link.href ||
@@ -142,6 +149,7 @@ export function Navbar() {
                   aria-current={pathname === link.href ? 'page' : undefined}
                   className={cn(
                     'u-eyebrow relative rounded-full px-4 py-2.5 transition-colors duration-300',
+                    'hover:bg-sand/70',
                     isActive ? 'text-coffee' : 'text-coffee-soft hover:text-coffee',
                   )}
                 >
@@ -166,11 +174,16 @@ export function Navbar() {
           })}
         </ul>
 
-        {/* Actions --------------------------------------------------------- */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Actions — `ml-auto` (not `justify-between`) pushes this to the far
+            right whether or not the nav links beside it are rendered, so the
+            layout holds on both mobile (links hidden) and desktop. */}
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          {/* Only appears once there is genuine room beside the nav links —
+              at narrower desktop/tablet widths it would sit close enough to
+              the centred logo to crowd it. */}
           <a
             href={`tel:${site.phone}`}
-            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm text-coffee-soft transition-colors duration-300 hover:text-coffee md:inline-flex"
+            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm text-coffee-soft transition-colors duration-300 hover:text-coffee xl:inline-flex"
           >
             <Icon name="phone" className="h-4 w-4" />
             <span className="u-label">{site.phoneDisplay}</span>
@@ -180,6 +193,7 @@ export function Navbar() {
             href="/reserve"
             size="sm"
             variant="primary"
+            withArrow
             className="hidden sm:inline-flex"
           >
             Reserve a table
@@ -191,7 +205,7 @@ export function Navbar() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-beige-strong text-coffee transition-colors duration-300 hover:bg-sand lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-beige-strong text-coffee transition-colors duration-300 hover:bg-sand xl:hidden"
           >
             <Icon
               name={menuOpen ? 'close' : 'menu'}
@@ -211,7 +225,7 @@ export function Navbar() {
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, height: 'auto' }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.36, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-beige bg-linen lg:hidden"
+            className="overflow-hidden border-t border-beige bg-linen xl:hidden"
           >
             <ul className="mx-auto max-w-(--container-shell) px-5 py-4 sm:px-8">
               {primaryNav.map((link) => (
@@ -233,7 +247,7 @@ export function Navbar() {
             </ul>
 
             <div className="mx-auto flex max-w-(--container-shell) flex-col gap-3 px-5 pb-6 sm:px-8">
-              <Button href="/reserve" onClick={closeMenu} size="md" className="w-full">
+              <Button href="/reserve" onClick={closeMenu} size="md" withArrow className="w-full">
                 Reserve a table
               </Button>
               <Button href={`tel:${site.phone}`} variant="secondary" size="md" className="w-full">

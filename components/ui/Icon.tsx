@@ -17,6 +17,8 @@ export type IconName =
   | 'wave'
   | 'paw'
   | 'bean'
+  | 'cup'
+  | 'utensils'
   | 'leaf'
   | 'heart'
   | 'clock'
@@ -66,6 +68,20 @@ const PATHS: Record<IconName, React.ReactNode> = {
     <>
       <path d="M20 4c0 8.8-4.6 13.2-10.4 13.2A5.6 5.6 0 0 1 4 11.6C4 6.4 10.6 4 20 4Z" />
       <path d="M4.5 19.5C8 15 12.4 11.6 17 9.6" />
+    </>
+  ),
+  cup: (
+    <>
+      <path d="M5.5 9.5h10.2v5.1a4.3 4.3 0 0 1-4.3 4.3h-1.6a4.3 4.3 0 0 1-4.3-4.3V9.5Z" />
+      <path d="M15.7 10.6h1.2a2.35 2.35 0 1 1 0 4.7h-1.2" />
+      <path d="M8.3 6.3c.6-.7 0-1.2-.3-1.9M12.2 6.3c.6-.7 0-1.2-.3-1.9" />
+    </>
+  ),
+  utensils: (
+    <>
+      <path d="M6 3v4a3 3 0 0 0 3 3v11M9 3v4" />
+      <ellipse cx="17.3" cy="6.4" rx="2.7" ry="3.4" />
+      <path d="M17.3 9.8V21" />
     </>
   ),
   heart: (

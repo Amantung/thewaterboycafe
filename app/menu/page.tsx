@@ -38,7 +38,8 @@ export default function MenuPage() {
         title="The menu"
         description="Cooked to order from produce we mostly picked up ourselves. Please order and pay at the counter."
         breadcrumbs={[{ name: 'Menu', path: '/menu' }]}
-        image="galleryKitchen"
+        imageSrc="/images/gallery-kitchen-morning-prep.jpg"
+        imageAlt="A chef working the pans in a warmly lit kitchen during morning service"
       >
         <div className="flex flex-wrap gap-3">
           <Button href="/reserve" withArrow>

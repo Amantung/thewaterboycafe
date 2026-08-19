@@ -1,7 +1,6 @@
 import Image from 'next/image'
 
 import { story } from '@/lib/data/content'
-import { img } from '@/lib/data/images'
 import { Button } from '@/components/ui/Button'
 import { Section } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
@@ -14,9 +13,16 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
  * absolute positioning, so the section still reflows sensibly at every width
  * and the images keep their intrinsic aspect ratios.
  */
+const interior = {
+  src: '/images/sitting.jpg',
+  alt: "The dining room's timber tables and bentwood chairs under rattan pendant lights, with Western Port Bay through the window",
+}
+const pour = {
+  src: '/images/coffee.jpg',
+  alt: 'A chef leaning in to finish a plate on the pass during morning service, in black and white',
+}
+
 export function StoryStrip() {
-  const interior = img('storyInterior')
-  const pour = img('storyPour')
 
   return (
     <Section

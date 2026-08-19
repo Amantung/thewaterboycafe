@@ -65,17 +65,7 @@ export const site = {
   phoneDisplay: '(03) 5952 5765',
   email: 'hello@thewaterboycafe.com.au',
 
-  /* ---- Hours ----------------------------------------------------------- */
-  /**
-   * Opening times follow the Instagram bio: "Open 7.30am Daily (7 days)".
-   *
-   * ⚠️  The site never displays a closing time — see `formatDayHours` below.
-   * `closes` exists only because schema.org's `openingHoursSpecification`
-   * requires both ends of a range to validate, and Google will not surface an
-   * opening-hours block without it. It is a best estimate, so confirm it
-   * against the Google Business Profile before launch: it feeds the knowledge
-   * panel even though no visitor sees it on the page.
-   */
+
   hours: [
     { day: 'Monday', opens: '07:30', closes: '15:00' },
     { day: 'Tuesday', opens: '07:30', closes: '15:00' },

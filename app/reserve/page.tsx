@@ -53,7 +53,8 @@ export default function ReservePage() {
         title="Reserve a table"
         description="Send a request and we will confirm by phone or email. Nothing is locked in until you hear back from us — we would rather be clear than have you turn up to a table that was never held."
         breadcrumbs={[{ name: 'Reserve', path: '/reserve' }]}
-        image="galleryDog"
+        imageSrc="/images/gallery-dog-friendly-patio.jpg"
+        imageAlt="A small dog waiting beside a cafe table while its owner has coffee and cake"
       />
 
       <Section

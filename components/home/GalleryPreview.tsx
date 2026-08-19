@@ -1,4 +1,3 @@
-import { galleryImages } from '@/lib/data/images'
 import { site } from '@/lib/site'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -6,13 +5,14 @@ import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
+import { GALLERY_PHOTOS } from '@/components/gallery/photos'
 
 /**
- * Homepage gallery strip — the first eight images, linking out to /gallery and
+ * Homepage gallery strip — the first eight photos, linking out to /gallery and
  * to Instagram. Shares the lightbox implementation with the full gallery page.
  */
 export function GalleryPreview() {
-  const preview = galleryImages.slice(0, 8)
+  const preview = GALLERY_PHOTOS.slice(0, 8)
 
   return (
     <Section id="gallery" aria-labelledby="gallery-heading" className="bg-linen">

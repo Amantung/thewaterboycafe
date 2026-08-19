@@ -11,11 +11,11 @@ export type NavLink = {
 }
 
 export const primaryNav: NavLink[] = [
-  { label: 'Menu', href: '/menu' },
-  { label: 'About', href: '/about' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Reviews', href: '/reviews' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Reviews', href: '/reviews' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'About', href: '/about' },
+  { label: 'Menu', href: '/menu' },
 ]
 
 /** In-page anchors the homepage scroll-spy tracks, in document order. */

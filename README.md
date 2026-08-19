@@ -28,7 +28,6 @@ both against the Google Business Profile.
 ```bash
 npm install
 cp .env.example .env.local     # then edit
-npm run photos                 # render the photography from lib/data/images.json
 npm run dev                    # http://localhost:3000
 ```
 
@@ -39,7 +38,6 @@ npm run dev                    # http://localhost:3000
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint (`eslint-config-next`) |
 | `npm run typecheck` | `tsc --noEmit` |
-| `npm run photos` | Render every photo in `public/images/` from the sources pinned in `scripts/build-photography.mjs` (add `-- --force` to redraw existing files) |
 | `npm run logo` | Publish the brand mark and every favicon size from `assets/brand/waterboy-logo.png` |
 
 Requires Node 18.18+.
@@ -102,13 +100,15 @@ lib/
     menu.ts           ★ Menu content, transcribed from the printed board
     testimonials.ts   ★ Reviews
     content.ts        Story, highlights, about, FAQs
-    images.json        ★ Image manifest (shared with scripts/build-photography.mjs)
-    images.ts          Typed accessors over the manifest
     navigation.ts      Nav model
 
 scripts/
-  build-photography.mjs   Renders every /public/images/*.jpg from pinned Unsplash sources
   build-logo.mjs          Publishes the brand mark + every favicon size
+
+public/images/
+  Real, static photography — referenced directly by path (e.g.
+  `/images/dish-belgian-waffles-berry-compote.jpg`) from the component that
+  needs it. No manifest, no lookup layer.
 
 assets/
   brand/
@@ -186,26 +186,23 @@ this component; there are no hand-rolled `<button>` styles left in the app.
 
 ## Photography
 
-Every photograph in `public/images/` is real photography under the [Unsplash
-Licence](https://unsplash.com/license) — free for commercial use, no attribution required.
-None of it is the cafe's own work; it was sourced to match the brand's warm, beachside,
-timber-and-linen palette while real photography is arranged.
+Photos live directly in `public/images/`, named descriptively (e.g.
+`dish-belgian-waffles-berry-compote.jpg`), and each component that shows one references
+its path straight in the JSX or in `lib/data/menu.ts` — there is no manifest or lookup
+layer to keep in sync.
 
-`scripts/build-photography.mjs` is the single source of truth: it pins one Unsplash photo
-ID per manifest key, downloads it once into `.cache/unsplash/` (git-ignored), crops it to
-the manifest's exact `width`/`height`, and writes the JPEG. Re-running the script is a
-no-op for files that already exist.
+Several images are still stock photography under the [Unsplash
+Licence](https://unsplash.com/license) (free for commercial use, no attribution required),
+sourced to match the brand's warm, beachside, timber-and-linen palette while the cafe's own
+photography is arranged.
 
-**To swap in the cafe's own photography**, file-for-file, no code changes:
+**To swap in the cafe's own photography**, file-for-file, no code changes needed:
 
-1. Save the photo into `public/images/` using **the same `file` name** listed in
-   `lib/data/images.json` (the names are descriptive and keyword-bearing on purpose — good
-   for image SEO).
-2. Update `width`/`height` in the manifest to the real pixel dimensions — this reserves the
-   layout box and is the whole CLS story for this site.
-3. Rewrite `alt` to describe the actual photo.
-4. Remove that key from `PHOTOS` in `scripts/build-photography.mjs` so the script stops
-   overwriting your file on the next run.
+1. Save the new photo into `public/images/` under the same file name as the one it
+   replaces (or add a new descriptive, keyword-bearing name — good for image SEO).
+2. If you're adding a new file rather than replacing one, update the `src`/`alt` wherever
+   it's referenced (grep the file name you're retiring to find every call site).
+3. Write real `alt` text describing the actual photo.
 
 ### The logo
 
@@ -343,9 +340,6 @@ Content is typed data, not JSX. `lib/data/*` exports plain, flat, id-keyed struc
 map cleanly onto a Sanity or Contentful schema, and every component imports the *shape*
 rather than the strings. Swapping in a CMS means replacing the bodies of those modules with
 queries — no component changes.
-
-`images.json` is JSON rather than TypeScript specifically so the build script and the app
-can read one manifest without drifting.
 
 ---
 

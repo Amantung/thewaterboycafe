@@ -21,8 +21,6 @@
  * module, so nothing else needs touching when the content changes.
  */
 
-import type { ImageKey } from '@/lib/data/images'
-
 export type DietaryTag = 'v' | 'vg' | 'gf' | 'gfo' | 'df' | 'dfo'
 
 export type MenuItem = {
@@ -41,7 +39,8 @@ export type MenuItem = {
   featured?: boolean
   /** Renders a small clay "Kitchen favourite" flag. */
   popular?: boolean
-  image?: ImageKey
+  /** Static path into /public/images. */
+  image?: string
 }
 
 export type MenuCategory = {
@@ -115,7 +114,7 @@ export const menu: MenuCategory[] = [
         addOns: [{ label: 'ice cream', price: 3 }],
         dietary: ['v'],
         featured: true,
-        image: 'dishWaffle',
+        image: '/images/dish-belgian-waffles-berry-compote.jpg',
       },
       {
         id: 'bacon-egg-turkish-roll',
@@ -139,7 +138,7 @@ export const menu: MenuCategory[] = [
         price: 24,
         dietary: ['gfo'],
         featured: true,
-        image: 'dishBenedict',
+        image: '/images/dish-eggs-benedict-hollandaise.jpg',
       },
       {
         id: 'chilli-chive-scramble',
@@ -150,7 +149,7 @@ export const menu: MenuCategory[] = [
         dietary: ['v', 'gfo'],
         featured: true,
         popular: true,
-        image: 'dishScramble',
+        image: '/images/dish-chilli-chive-scramble-sourdough.jpg',
       },
       {
         id: 'smashed-avocado',
@@ -160,7 +159,7 @@ export const menu: MenuCategory[] = [
         price: 19.5,
         dietary: ['v', 'gfo'],
         featured: true,
-        image: 'dishAvocado',
+        image: '/images/dish-smashed-avocado-sourdough-dukkah.jpg',
       },
       {
         id: 'smoked-salmon-potato-rosti',
@@ -170,7 +169,7 @@ export const menu: MenuCategory[] = [
         price: 25,
         dietary: ['gf'],
         featured: true,
-        image: 'dishSalmon',
+        image: '/images/dish-smoked-salmon-potato-rosti.jpg',
       },
       {
         id: 'housemade-harissa-beans',
@@ -186,7 +185,7 @@ export const menu: MenuCategory[] = [
           'Sautéed mushrooms with thyme on sourdough, with crumbled fetta and a poached egg.',
         price: 25,
         dietary: ['v', 'gfo'],
-        image: 'dishMushroom',
+        image: '/images/dish-roasted-mushrooms-soft-polenta.jpg',
       },
       {
         id: 'egyptian-eggs',
@@ -222,7 +221,7 @@ export const menu: MenuCategory[] = [
         price: 26,
         featured: true,
         popular: true,
-        image: 'dishBurger',
+        image: '/images/dish-waterboy-beef-burger-brioche.jpg',
       },
       {
         id: 'bao-buns',
@@ -265,7 +264,7 @@ export const menu: MenuCategory[] = [
         price: 24,
         dietary: ['v', 'gf'],
         featured: true,
-        image: 'dishSalad',
+        image: '/images/dish-island-garden-bowl-quinoa.jpg',
       },
       {
         id: 'chips-tomato-sauce',
@@ -330,7 +329,7 @@ export const menu: MenuCategory[] = [
         ],
         featured: true,
         popular: true,
-        image: 'coffeeFlatWhite',
+        image: '/images/drink-house-blend-flat-white-latte-art.jpg',
       },
       {
         id: 'mofo-hot-chocolate',

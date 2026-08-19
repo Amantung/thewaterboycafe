@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 import { site } from '@/lib/site'
-import { galleryImages } from '@/lib/data/images'
 import { buildGraph, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
+import { GALLERY_PHOTOS } from '@/components/gallery/photos'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Badge } from '@/components/ui/Badge'
@@ -34,7 +34,8 @@ export default function GalleryPage() {
         title="A look around"
         description="The room, the courtyard, the cabinet before it empties, and the bay that makes people stay an extra half hour."
         breadcrumbs={[{ name: 'Gallery', path: '/gallery' }]}
-        image="galleryTerrace"
+        imageSrc="/images/gallery-outdoor-courtyard-seating.jpg"
+        imageAlt="Guests at outdoor cafe tables under a canvas umbrella, shaded by gum trees"
       >
         <Button href={site.socials.instagram} variant="secondary">
           <Icon name="instagram" className="h-4 w-4" />
@@ -44,7 +45,7 @@ export default function GalleryPage() {
 
       <Section className="bg-linen" space="sm">
         <Reveal>
-          <GalleryGrid images={galleryImages} columns={3} />
+          <GalleryGrid images={GALLERY_PHOTOS} columns={3} />
         </Reveal>
 
         <Reveal delay={0.1}>

@@ -21,8 +21,11 @@ import {
   aggregateRating,
   EMIT_REVIEW_SCHEMA,
 } from '@/lib/data/testimonials'
-import { img } from '@/lib/data/images'
 import { faqs } from '@/lib/data/content'
+
+const HERO_IMAGE = '/images/waterboy-resort.jpg'
+const OG_IMAGE = '/images/og-the-waterboy-cafe-phillip-island.jpg'
+const LOGO_IMAGE = { src: '/images/waterboy-logo.png', width: 1024, height: 1024 }
 
 /** Stable node ids — reused as reference targets across the graph. */
 const ID = {
@@ -59,10 +62,6 @@ function openingHoursSpecification() {
 /* -------------------------------------------------------------------------- */
 
 export function cafeSchema() {
-  const hero = img('heroMain')
-  const og = img('ogDefault')
-  const logo = img('logo')
-
   const node: Record<string, unknown> = {
     '@type': ['CafeOrCoffeeShop', 'LocalBusiness', 'Restaurant'],
     '@id': ID.business,
@@ -72,14 +71,14 @@ export function cafeSchema() {
     url: SITE_URL,
     telephone: site.phone,
     email: site.email,
-    image: [`${SITE_URL}${hero.src}`, `${SITE_URL}${og.src}`],
+    image: [`${SITE_URL}${HERO_IMAGE}`, `${SITE_URL}${OG_IMAGE}`],
     // The real brand mark, not the OG card — Google surfaces `logo` in the
     // knowledge panel, where a wide banner crops badly.
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE_URL}${logo.src}`,
-      width: logo.width,
-      height: logo.height,
+      url: `${SITE_URL}${LOGO_IMAGE.src}`,
+      width: LOGO_IMAGE.width,
+      height: LOGO_IMAGE.height,
     },
     priceRange: site.priceRange,
     currenciesAccepted: site.currency,
@@ -156,7 +155,7 @@ function menuSection(category: MenuCategory) {
       '@type': 'MenuItem',
       name: item.name,
       description: item.description,
-      ...(item.image ? { image: `${SITE_URL}${img(item.image).src}` } : {}),
+      ...(item.image ? { image: `${SITE_URL}${item.image}` } : {}),
       ...(item.dietary?.includes('vg')
         ? { suitableForDiet: 'https://schema.org/VeganDiet' }
         : item.dietary?.includes('v')

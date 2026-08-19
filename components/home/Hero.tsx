@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 
-import { img } from '@/lib/data/images'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Badge } from '@/components/ui/Badge'
@@ -18,10 +17,14 @@ const rise = {
   shown: { opacity: 1, y: 0, transition: { duration: 0.95, ease: EASE } },
 }
 
+const hero = {
+  src: '/images/waterboy-resort.jpg',
+  alt: "The Waterboy Cafe's shopfront on Chapel Street, Cowes, with the cafe's name lettered across the awning and the doors open to the street",
+}
+
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
-  const hero = img('heroMain')
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -38,7 +41,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[calc(100svh-4.75rem)] items-end overflow-hidden bg-espresso sm:min-h-[calc(100svh-8rem)]"
+      className="relative flex min-h-[calc(100svh-5rem)] items-end overflow-hidden bg-espresso sm:min-h-[calc(100svh-6.5rem)]"
     >
       {/* Photography ------------------------------------------------------ */}
       <motion.div

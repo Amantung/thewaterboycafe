@@ -42,7 +42,9 @@ export default function ReviewsPage() {
         title="What people say"
         description="Collected from the people who actually come in. The same handful of things come up again and again, which is about the best feedback a small cafe can hope for."
         breadcrumbs={[{ name: 'Reviews', path: '/reviews' }]}
-        image="galleryTeam"
+        imageSrc="/images/gallery-team.jpg"
+        imageAlt="Four members of the team standing together behind the counter, aprons on, ready for service"
+        imagePosition="object-[center_20%]"
       >
         <div className="flex flex-wrap items-center gap-6">
           <div className="flex items-center gap-4">
