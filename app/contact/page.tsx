@@ -107,19 +107,21 @@ export default function ContactPage() {
         <div className="mx-auto mt-14 max-w-3xl divide-y divide-beige border-y border-beige">
           {faqs.map((faq, index) => (
             <Reveal key={faq.question} delay={index * 0.03}>
-              <details className="group py-6">
+              <details className="group py-7">
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-left [&::-webkit-details-marker]:hidden">
-                  <h3 className="text-display-xs text-coffee">{faq.question}</h3>
+                  <h3 className="text-display-sm text-coffee transition-colors duration-300 group-hover:text-clay-deep">
+                    {faq.question}
+                  </h3>
                   <span
                     aria-hidden="true"
-                    className="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-beige-strong text-coffee-soft transition-transform duration-300 group-open:rotate-45"
+                    className="mt-1.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-beige-strong text-coffee-soft transition-all duration-300 group-hover:border-clay-deep group-hover:text-clay-deep group-open:rotate-45 group-open:border-clay-deep group-open:text-clay-deep"
                   >
                     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-4 max-w-2xl pr-12 text-body-sm text-coffee-soft">
+                <p className="mt-4 max-w-2xl pr-12 text-body text-coffee-soft">
                   {faq.answer}
                 </p>
               </details>
@@ -151,7 +153,7 @@ function ContactMethod({
   return (
     <Reveal>
       <div className="flex gap-4">
-        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-beige bg-cream text-clay-deep">
+        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-beige bg-cream text-clay-deep">
           <Icon name={icon} className="h-4.5 w-4.5" />
         </span>
 

@@ -6,9 +6,9 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
 import { GALLERY_PHOTOS } from '@/components/gallery/photos'
+import { InstagramSection } from '@/components/home/InstagramSection'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
 import { Reveal } from '@/components/ui/Reveal'
 
@@ -37,7 +37,7 @@ export default function GalleryPage() {
         imageSrc="/images/gallery-outdoor-courtyard-seating.jpg"
         imageAlt="Guests at outdoor cafe tables under a canvas umbrella, shaded by gum trees"
       >
-        <Button href={site.socials.instagram} variant="secondary">
+        <Button href={site.socials.instagram} variant="onDarkOutline">
           <Icon name="instagram" className="h-4 w-4" />
           Follow {site.socials.instagramHandle}
         </Button>
@@ -45,7 +45,7 @@ export default function GalleryPage() {
 
       <Section className="bg-linen" space="sm">
         <Reveal>
-          <GalleryGrid images={GALLERY_PHOTOS} columns={3} />
+          <GalleryGrid images={GALLERY_PHOTOS} />
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -56,24 +56,7 @@ export default function GalleryPage() {
         </Reveal>
       </Section>
 
-      <Section className="border-t border-beige bg-cream" space="sm" width="narrow" innerClassName="text-center">
-        <Reveal>
-          <Badge>Day to day</Badge>
-          <h2 className="mt-4 text-display-md text-coffee">
-            The specials board lives on Instagram
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-lead font-light text-coffee-soft">
-            What is in the cabinet, what the kitchen is cooking, and the occasional
-            photograph of a dog who has made himself at home.
-          </p>
-          <div className="mt-9 flex justify-center">
-            <Button href={site.socials.instagram} size="lg">
-              <Icon name="instagram" className="h-4 w-4" />
-              {site.socials.instagramHandle}
-            </Button>
-          </div>
-        </Reveal>
-      </Section>
+      <InstagramSection />
 
       <JsonLd id="schema-gallery" data={graph} />
     </>

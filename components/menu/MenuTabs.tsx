@@ -104,7 +104,7 @@ export function MenuTabs({ categories }: { categories: MenuCategory[] }) {
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => select(category.id)}
                 className={cn(
-                  'relative shrink-0 whitespace-nowrap rounded-full px-5 py-3 text-sm transition-colors duration-300',
+                  'relative shrink-0 whitespace-nowrap rounded-full px-5 py-3 text-body-sm transition-colors duration-300',
                   isActive ? 'text-coffee' : 'text-coffee-soft hover:text-coffee',
                 )}
               >
@@ -160,7 +160,7 @@ export function MenuTabs({ categories }: { categories: MenuCategory[] }) {
                   {category.description}
                 </p>
                 {category.note && (
-                  <p className="mt-3 text-body-sm text-coffee-soft/80">{category.note}</p>
+                  <p className="mt-3 text-body-sm text-coffee-soft/85">{category.note}</p>
                 )}
               </div>
 

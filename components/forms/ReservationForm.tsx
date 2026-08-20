@@ -57,7 +57,7 @@ export function ReservationForm() {
   // form on screen invites a duplicate submission.
   if (state.status === 'success') {
     return (
-      <div className="rounded-[var(--radius-organic)] border border-sage/30 bg-sage/[0.07] p-8 sm:p-10">
+      <div className="rounded-md border border-sage/30 bg-sage/[0.07] p-8 sm:p-10">
         <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-sage/20 text-sage-deep">
           <Icon name="check" className="h-5 w-5" />
         </span>
@@ -81,7 +81,7 @@ export function ReservationForm() {
     <form
       action={formAction}
       noValidate
-      className="relative rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-6 shadow-soft sm:p-9"
+      className="relative rounded-md border border-beige bg-cream/60 p-6 shadow-soft sm:p-9"
     >
       <Honeypot />
 

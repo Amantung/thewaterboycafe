@@ -50,7 +50,7 @@ export function NewsletterForm() {
           aria-invalid={hasError || undefined}
           aria-describedby={state.message ? messageId : undefined}
           className={cn(
-            'flex-1 rounded-full border bg-cream/[0.07] px-5 py-3.5 text-body-sm text-cream',
+            'flex-1 rounded-sm border bg-cream/[0.07] px-5 py-3.5 text-body-sm text-cream',
             'placeholder:text-cream/35',
             'transition-colors duration-200 focus:bg-cream/[0.12] focus:outline-none',
             hasError ? 'border-clay' : 'border-cream/20 focus:border-clay',

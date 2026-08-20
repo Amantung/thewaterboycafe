@@ -71,14 +71,14 @@ export default function ReservePage() {
 
         <aside className="space-y-8">
           <Reveal delay={0.08}>
-            <div className="rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7">
+            <div className="rounded-md border border-beige bg-cream/60 p-7">
               <Badge as="h3">Good to know</Badge>
               <ul className="mt-6 space-y-6">
                 {GOOD_TO_KNOW.map((item) => (
                   <li key={item.title} className="flex gap-4">
                     <Icon name={item.icon} className="mt-0.5 h-5 w-5 shrink-0 text-clay-deep" />
                     <div>
-                      <h4 className="text-body font-medium text-coffee">{item.title}</h4>
+                      <h4 className="text-display-xs text-coffee">{item.title}</h4>
                       <p className="mt-1.5 text-body-sm text-coffee-soft">{item.body}</p>
                     </div>
                   </li>
@@ -88,7 +88,7 @@ export default function ReservePage() {
           </Reveal>
 
           <Reveal delay={0.14}>
-            <div className="rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7">
+            <div className="rounded-md border border-beige bg-cream/60 p-7">
               <Badge as="h3" icon="clock">
                 When we are open
               </Badge>

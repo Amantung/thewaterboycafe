@@ -76,7 +76,7 @@ export default function AboutPage() {
               timeline on desktop, stacks normally on mobile. */}
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Reveal direction="left">
-              <div className="relative aspect-4/3 overflow-hidden rounded-[var(--radius-organic)] bg-sand shadow-lifted">
+              <div className="relative aspect-4/3 overflow-hidden rounded-md bg-sand shadow-lifted">
                 <Image
                   src={founders.src}
                   alt={founders.alt}
@@ -89,7 +89,7 @@ export default function AboutPage() {
             </Reveal>
 
             <Reveal delay={0.1} direction="left">
-              <div className="relative mt-5 aspect-4/3 overflow-hidden rounded-[var(--radius-organic)] bg-sand shadow-soft">
+              <div className="relative mt-5 aspect-4/3 overflow-hidden rounded-md bg-sand shadow-soft">
                 <Image
                   src={sourcing.src}
                   alt={sourcing.alt}
@@ -145,7 +145,7 @@ export default function AboutPage() {
         <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {about.team.map((member) => (
             <RevealItem key={member.id}>
-              <article className="h-full rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7 sm:p-8">
+              <article className="h-full rounded-md border border-beige bg-cream/60 p-7 sm:p-8">
                 <Badge>{member.role}</Badge>
                 <h3 className="mt-3 text-display-xs text-coffee">{member.name}</h3>
                 <p className="mt-4 text-body-sm text-coffee-soft">{member.bio}</p>

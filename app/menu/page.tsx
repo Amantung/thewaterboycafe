@@ -42,10 +42,10 @@ export default function MenuPage() {
         imageAlt="A chef working the pans in a warmly lit kitchen during morning service"
       >
         <div className="flex flex-wrap gap-3">
-          <Button href="/reserve" withArrow>
+          <Button href="/reserve" variant="onDark" withArrow>
             Reserve a table
           </Button>
-          <Button href={`tel:${site.phone}`} variant="secondary">
+          <Button href={`tel:${site.phone}`} variant="onDarkOutline">
             Call {site.phoneDisplay}
           </Button>
         </div>
@@ -57,13 +57,13 @@ export default function MenuPage() {
 
           {/* Dietary key ------------------------------------------------- */}
           <Reveal>
-            <div className="mt-20 rounded-[var(--radius-organic)] border border-beige bg-cream/60 p-7 sm:p-9">
+            <div className="mt-20 rounded-md border border-beige bg-cream/60 p-7 sm:p-9">
               <Badge as="h2">Dietary key</Badge>
 
               <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
                 {Object.entries(dietaryLabels).map(([tag, label]) => (
                   <div key={tag} className="flex items-center gap-3">
-                    <dt className="u-label inline-flex min-w-11 justify-center rounded-full border border-sage/35 bg-sage/10 px-2.5 py-0.5 text-[0.625rem] uppercase tracking-[0.12em] text-sage-deep">
+                    <dt className="u-micro inline-flex min-w-11 justify-center rounded-full border border-sage/35 bg-sage/10 px-2.5 py-0.5 text-sage-deep">
                       {tag}
                     </dt>
                     <dd className="text-body-sm text-coffee-soft">{label}</dd>

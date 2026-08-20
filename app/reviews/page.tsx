@@ -48,16 +48,16 @@ export default function ReviewsPage() {
       >
         <div className="flex flex-wrap items-center gap-6">
           <div className="flex items-center gap-4">
-            <p className="text-display-lg text-coffee">{aggregateRating.value.toFixed(1)}</p>
+            <p className="text-display-lg text-cream">{aggregateRating.value.toFixed(1)}</p>
             <div>
-              <StarRating rating={aggregateRating.value} className="text-clay-deep" />
-              <p className="mt-1.5 text-body-sm text-coffee-soft">
+              <StarRating rating={aggregateRating.value} className="text-clay" />
+              <p className="mt-1.5 text-body-sm text-cream/70">
                 from {aggregateRating.count} reviews
               </p>
             </div>
           </div>
 
-          <Button href={`tel:${site.phone}`} variant="secondary" size="sm">
+          <Button href={`tel:${site.phone}`} variant="onDarkOutline" size="sm">
             Call {site.phoneDisplay}
           </Button>
         </div>

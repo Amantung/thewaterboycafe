@@ -1,236 +1,149 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, type Variants } from 'framer-motion'
 
 import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
-import { Badge } from '@/components/ui/Badge'
-import { RevealGroup, RevealItem } from '@/components/ui/Reveal'
 import type { GalleryPhoto } from '@/components/gallery/photos'
+import { Lightbox, useLightbox } from '@/components/gallery/Lightbox'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 /**
- * Editorial masonry gallery with a keyboard-accessible lightbox.
+ * One drift pattern per tile, keyed by position rather than repeated
+ * identically — the point of a choreographed entrance is that no two
+ * neighbouring tiles arrive the same way. Each pairs a small directional
+ * offset with a clip-path mask, so a tile reveals from an edge rather than
+ * simply fading up.
+ */
+const DRIFT = [
+  { x: 0, y: 24, clip: 'inset(10% 0% 0% 0%)' },
+  { x: -16, y: 8, clip: 'inset(0% 0% 0% 10%)' },
+  { x: 14, y: 16, clip: 'inset(0% 10% 0% 0%)' },
+  { x: 0, y: -14, clip: 'inset(0% 0% 10% 0%)' },
+  { x: 12, y: 10, clip: 'inset(6% 6% 0% 0%)' },
+] as const
+
+function tileVariants(index: number, isFeature: boolean, reduceMotion: boolean | null): Variants {
+  if (reduceMotion) {
+    return { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.001 } } }
+  }
+
+  const drift = DRIFT[index % DRIFT.length]
+
+  return {
+    hidden: {
+      opacity: 0,
+      x: drift.x,
+      y: drift.y,
+      scale: isFeature ? 1.05 : 1.025,
+      clipPath: drift.clip,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      clipPath: 'inset(0% 0% 0% 0%)',
+      transition: { duration: isFeature ? 0.85 : 0.65, ease: EASE, delay: (index % 6) * 0.07 },
+    },
+  }
+}
+
+/**
+ * The dense gallery wall, for the /gallery page.
  *
- * A real CSS multi-column layout, not a fixed-row grid: every photo keeps its
- * own intrinsic aspect ratio (no cropping, no stretching) and the column flow
- * does the "curated wall" look for free — no manual per-tile shape map to
- * maintain. `break-inside-avoid` keeps a photo from splitting across columns.
+ * A bento composition art-directed via `size` on each `GalleryPhoto` (see
+ * photos.ts) rather than derived from aspect ratio: a handful of tiles are
+ * deliberately much larger than the rest, and `grid-flow-dense` packs the
+ * remainder into whatever gaps they leave at every column count without a
+ * hand-written placement table per breakpoint. Photos are cropped to their
+ * cell — a considered trade against never cropping, because the size contrast
+ * is the entire point of a wall.
  *
- * The lightbox is a real modal: Escape closes, arrows page, focus is moved in
- * on open and restored to the triggering thumbnail on close, and the page
- * behind it is scroll-locked and inert to screen readers via aria-modal.
- *
- * The photo list itself lives in ./photos.ts, a plain (non-`'use client'`)
- * module — this file needs `'use client'` for its hooks, and a Server
- * Component importing plain data back out of a client module doesn't work in
- * the App Router.
+ * Square corners and no drop shadows. The radius-and-shadow treatment this
+ * used to carry turned every photograph into a card floating above the page;
+ * flush edges on a shared grid read as a printed plate on a sheet. The
+ * homepage runs its own, far sparser composition — see `GalleryPreview` —
+ * because a wall and a spread are two different jobs. Both open the same
+ * shared `Lightbox`.
  */
 
-const COLUMNS: Record<3 | 4, string> = {
-  3: 'columns-2 sm:columns-3',
-  4: 'columns-2 sm:columns-3 lg:columns-4',
+const SIZE_SPAN: Record<NonNullable<GalleryPhoto['size']>, string> = {
+  feature: 'col-span-2 row-span-2',
+  wide: 'col-span-2 row-span-1',
+  tall: 'col-span-1 row-span-2',
+  normal: 'col-span-1 row-span-1',
 }
 
 export function GalleryGrid({
   images,
-  columns = 3,
   className,
 }: {
   images: GalleryPhoto[]
-  columns?: 3 | 4
   className?: string
 }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const triggerRefs = useRef<(HTMLElement | null)[]>([])
-
-  const close = useCallback(() => {
-    setOpenIndex((current) => {
-      // Hand focus back to the thumbnail the user opened from.
-      if (current !== null) triggerRefs.current[current]?.focus()
-      return null
-    })
-  }, [])
-
-  const step = useCallback(
-    (delta: number) =>
-      setOpenIndex((current) =>
-        current === null ? null : (current + delta + images.length) % images.length,
-      ),
-    [images.length],
-  )
-
-  useEffect(() => {
-    if (openIndex === null) return
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') close()
-      if (event.key === 'ArrowRight') step(1)
-      if (event.key === 'ArrowLeft') step(-1)
-    }
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [openIndex, close, step])
+  const reduceMotion = useReducedMotion()
+  const { openIndex, open, close, step, jump, triggerRefs } = useLightbox(images.length)
 
   return (
     <>
-      <RevealGroup
-        as="div"
-        className={cn('gap-3 sm:gap-4 lg:gap-5', COLUMNS[columns], className)}
-        stagger={0.05}
+      <motion.div
+        className={cn(
+          'grid grid-flow-row-dense grid-cols-2 sm:grid-cols-4 lg:grid-cols-6',
+          'auto-rows-[11rem] gap-3 sm:auto-rows-[12rem] sm:gap-4 lg:auto-rows-[13rem]',
+          className,
+        )}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '0px 0px -10% 0px' }}
       >
-        {images.map((image, index) => (
-          <RevealItem
-            key={image.src}
-            as="button"
-            ref={(element: HTMLElement | null) => {
-              triggerRefs.current[index] = element
-            }}
-            type="button"
-            onClick={() => setOpenIndex(index)}
-            aria-label={`Open image: ${image.label}`}
-            className="group relative mb-3 block w-full break-inside-avoid overflow-hidden bg-sand text-left sm:mb-4 lg:mb-5"
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading="lazy"
-              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-              className="h-auto w-full object-cover transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.05]"
-            />
+        {images.map((image, index) => {
+          const size = image.size ?? 'normal'
+          const isFeature = size === 'feature'
 
-            {/* Caption veil — hidden until hover/focus so the wall stays clean. */}
-            <span className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-espresso/80 via-espresso/15 to-transparent p-4 opacity-0 transition-opacity duration-400 group-hover:opacity-100 group-focus-visible:opacity-100">
-              <Badge tone="dark">{image.label}</Badge>
-            </span>
-          </RevealItem>
-        ))}
-      </RevealGroup>
+          return (
+            <motion.button
+              key={image.src}
+              ref={(element: HTMLButtonElement | null) => {
+                triggerRefs.current[index] = element
+              }}
+              variants={tileVariants(index, isFeature, reduceMotion)}
+              style={{ willChange: 'transform, opacity, clip-path' }}
+              type="button"
+              onClick={() => open(index)}
+              aria-label={`Open image: ${image.label}`}
+              className={cn('group relative block overflow-hidden bg-sand text-left', SIZE_SPAN[size])}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                loading="lazy"
+                sizes={
+                  size === 'feature' || size === 'wide'
+                    ? '(min-width: 1024px) 45vw, 66vw'
+                    : '(min-width: 1024px) 20vw, 33vw'
+                }
+                className="object-cover transition-transform duration-[900ms] ease-editorial motion-ok:group-hover:scale-[1.05]"
+              />
 
-      <Lightbox images={images} index={openIndex} onClose={close} onStep={step} />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 flex items-end justify-between gap-3 bg-gradient-to-t from-espresso/85 via-espresso/10 to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                <span className="u-micro text-cream">{image.label}</span>
+                <span className="inline-flex h-8 w-8 flex-none translate-y-1 items-center justify-center border border-cream/35 text-cream opacity-0 transition-[opacity,transform] duration-500 ease-editorial group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                  <Icon name="arrowRight" className="h-3.5 w-3.5 -rotate-45" />
+                </span>
+              </span>
+            </motion.button>
+          )
+        })}
+      </motion.div>
+
+      <Lightbox images={images} index={openIndex} onClose={close} onStep={step} onJump={jump} />
     </>
-  )
-}
-
-/* -------------------------------------------------------------------------- */
-/* Lightbox                                                                   */
-/* -------------------------------------------------------------------------- */
-
-function Lightbox({
-  images,
-  index,
-  onClose,
-  onStep,
-}: {
-  images: GalleryPhoto[]
-  index: number | null
-  onClose: () => void
-  onStep: (delta: number) => void
-}) {
-  const reduceMotion = useReducedMotion()
-  const closeRef = useRef<HTMLButtonElement>(null)
-  const image = index === null ? null : images[index]
-
-  // Move focus into the dialog so the next Tab stays inside it.
-  useEffect(() => {
-    if (index !== null) closeRef.current?.focus()
-  }, [index])
-
-  return (
-    <AnimatePresence>
-      {image && (
-        <motion.div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${image.label} — image ${(index ?? 0) + 1} of ${images.length}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.25 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-espresso/94 p-4 backdrop-blur-sm sm:p-8"
-          // Click the backdrop to dismiss, but not a click on the image itself.
-          onClick={(event) => {
-            if (event.target === event.currentTarget) onClose()
-          }}
-        >
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-cream/25 text-cream transition-colors hover:bg-cream/10 sm:right-8 sm:top-8"
-          >
-            <Icon name="close" className="h-5 w-5" title="Close gallery" />
-          </button>
-
-          {images.length > 1 && (
-            <>
-              <LightboxArrow direction="left" onClick={() => onStep(-1)} />
-              <LightboxArrow direction="right" onClick={() => onStep(1)} />
-            </>
-          )}
-
-          <motion.figure
-            key={image.src}
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex max-h-full w-full max-w-5xl flex-col items-center gap-5"
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              sizes="(min-width: 1024px) 70vw, 92vw"
-              priority
-              className="max-h-[74vh] w-auto rounded-2xl object-contain shadow-lifted"
-            />
-            <figcaption className="flex flex-col items-center text-center">
-              <Badge tone="dark">{image.label}</Badge>
-              <p className="mx-auto mt-3 max-w-xl text-body-sm text-cream/55">{image.alt}</p>
-              <p className="u-label mt-3 text-caption text-cream/35">
-                {(index ?? 0) + 1} / {images.length}
-              </p>
-            </figcaption>
-          </motion.figure>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
-function LightboxArrow({
-  direction,
-  onClick,
-}: {
-  direction: 'left' | 'right'
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        'absolute top-1/2 z-10 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center',
-        'rounded-full border border-cream/25 text-cream transition-colors hover:bg-cream/10',
-        direction === 'left' ? 'left-3 sm:left-8' : 'right-3 sm:right-8',
-      )}
-    >
-      <Icon
-        name={direction === 'left' ? 'arrowLeft' : 'arrowRight'}
-        className="h-5 w-5"
-        title={direction === 'left' ? 'Previous image' : 'Next image'}
-      />
-    </button>
   )
 }

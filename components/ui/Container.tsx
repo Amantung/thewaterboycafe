@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react'
+import type { CSSProperties, ElementType, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
@@ -36,6 +36,8 @@ type ContainerProps = {
   width?: ContainerWidth
   as?: ElementType
   className?: string
+  /** For values a utility class cannot express — e.g. `--header-h` clearance. */
+  style?: CSSProperties
   id?: string
 }
 
@@ -44,11 +46,13 @@ export function Container({
   width = 'shell',
   as: Tag = 'div',
   className,
+  style,
   id,
 }: ContainerProps) {
   return (
     <Tag
       id={id}
+      style={style}
       className={cn(
         'mx-auto w-full px-5 sm:px-8 lg:px-12',
         WIDTHS[width],

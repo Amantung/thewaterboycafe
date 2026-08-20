@@ -1,24 +1,18 @@
 import Image from 'next/image'
 
-import { formatPrice, dietaryLabels, type MenuItem } from '@/lib/data/menu'
+import { formatPrice, priceLabel, dietaryLabels, type MenuItem } from '@/lib/data/menu'
 import { cn } from '@/lib/utils'
 
 /**
  * Two presentations of one dish.
  *
- * <MenuCard>  — photographic card for the homepage signature strip.
- * <MenuRow>   — dense typographic row for the full /menu page, where a grid of
- *               sixty photos would be both slower and less readable than a
+ * <MenuCard>  — photographic card for the full /menu page's card layout.
+ * <MenuRow>   — dense typographic row for list-layout categories, where a grid
+ *               of sixty photos would be both slower and less readable than a
  *               well-set list.
  *
  * Both are server components; nothing here needs interactivity.
  */
-
-/** "$5 / $6" for a two-size drink, or the plain price otherwise. */
-function priceLabel(item: MenuItem): string {
-  if (!item.sizes?.length) return formatPrice(item.price)
-  return item.sizes.map((size) => formatPrice(size.price)).join(' / ')
-}
 
 /* -------------------------------------------------------------------------- */
 /* Card                                                                       */
@@ -37,7 +31,7 @@ export function MenuCard({
   return (
     <article
       className={cn(
-        'group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-organic)]',
+        'group relative flex h-full flex-col overflow-hidden rounded-md',
         'border border-beige bg-cream/70 shadow-soft',
         'transition-all duration-500 ease-editorial',
         'hover:border-beige-strong hover:shadow-lifted motion-ok:hover:-translate-y-1',
@@ -60,14 +54,14 @@ export function MenuCard({
             aria-hidden="true"
             className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sand to-beige"
           >
-            <span className="font-(--font-display) text-8xl text-clay/25">
+            <span className="font-display text-8xl text-clay/25">
               {item.name.charAt(0)}
             </span>
           </div>
         )}
 
         {item.popular && (
-          <span className="u-label absolute left-4 top-4 rounded-full bg-coffee/85 px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.14em] text-cream backdrop-blur-sm">
+          <span className="u-micro absolute left-4 top-4 rounded-full bg-coffee/85 px-3 py-1.5 text-cream backdrop-blur-sm">
             Kitchen favourite
           </span>
         )}
@@ -76,7 +70,7 @@ export function MenuCard({
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="flex items-start justify-between gap-4">
           <h3 className="text-display-xs">{item.name}</h3>
-          <span className="u-label shrink-0 rounded-full bg-linen px-3 py-1 text-sm text-coffee">
+          <span className="u-label shrink-0 rounded-full bg-linen px-3 py-1 text-body-sm text-coffee">
             {priceLabel(item)}
           </span>
         </div>
@@ -107,7 +101,7 @@ export function MenuRow({ item }: { item: MenuItem }) {
           {item.name}
           {item.popular && (
             <span
-              className="ml-2.5 align-middle text-[0.625rem] uppercase tracking-[0.14em] text-clay-deep"
+              className="u-micro ml-2.5 align-middle text-clay-deep"
               title="A kitchen favourite"
             >
               ★ favourite
@@ -122,14 +116,14 @@ export function MenuRow({ item }: { item: MenuItem }) {
           className="min-w-6 flex-1 translate-y-[-0.3rem] border-b border-dotted border-beige-strong transition-colors duration-300 group-hover:border-clay-deep/60 group-focus-within:border-clay-deep/60"
         />
 
-        <span className="u-label shrink-0 text-base text-coffee sm:text-lg">
+        <span className="u-label shrink-0 text-body text-coffee">
           {item.sizes?.length ? (
             <span className="inline-flex items-baseline gap-2">
               {item.sizes.map((size, index) => (
                 <span key={size.label}>
                   {index > 0 && <span className="mx-1 text-coffee-soft/50">/</span>}
                   {formatPrice(size.price)}
-                  <span className="ml-1 text-[0.6875rem] uppercase tracking-[0.08em] text-coffee-soft/70">
+                  <span className="u-micro ml-1 text-coffee-soft/70">
                     {size.label}
                   </span>
                 </span>
@@ -146,7 +140,7 @@ export function MenuRow({ item }: { item: MenuItem }) {
       )}
 
       {item.addOns && item.addOns.length > 0 && (
-        <p className="mt-2.5 text-sm text-coffee-soft/85">
+        <p className="mt-2.5 text-body-sm text-coffee-soft/85">
           <span className="u-eyebrow mr-2 text-clay-deep">Add</span>
           {item.addOns.map((addOn, index) => (
             <span key={addOn.label}>
@@ -180,7 +174,7 @@ function DietaryTags({ item }: { item: MenuItem }) {
         <span
           key={tag}
           title={dietaryLabels[tag]}
-          className="u-label inline-flex items-center rounded-full border border-sage/35 bg-sage/10 px-2.5 py-0.5 text-[0.625rem] uppercase tracking-[0.12em] text-sage-deep"
+          className="u-micro inline-flex items-center rounded-full border border-sage/35 bg-sage/10 px-2.5 py-0.5 text-sage-deep"
         >
           {tag}
         </span>

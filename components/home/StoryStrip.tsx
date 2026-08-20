@@ -34,7 +34,7 @@ export function StoryStrip() {
         {/* Images ---------------------------------------------------------- */}
         <div className="relative">
           <Reveal direction="right" distance={32}>
-            <div className="relative aspect-4/5 overflow-hidden rounded-[var(--radius-organic)] bg-sand shadow-lifted">
+            <div className="relative aspect-4/5 overflow-hidden rounded-md bg-sand shadow-lifted">
               <Image
                 src={interior.src}
                 alt={interior.alt}
@@ -49,7 +49,7 @@ export function StoryStrip() {
           {/* Overlapping detail shot, hidden on the narrowest screens where
               it would crowd the primary image rather than complement it. */}
           <Reveal delay={0.18} direction="up" distance={28}>
-            <div className="absolute -bottom-10 -right-4 hidden aspect-square w-40 overflow-hidden rounded-[1.25rem] border-4 border-linen bg-sand shadow-lifted sm:block sm:w-52 lg:-right-10 lg:w-56">
+            <div className="absolute -bottom-10 -right-4 hidden aspect-square w-40 overflow-hidden rounded-md border-4 border-linen bg-sand shadow-lifted sm:block sm:w-52 lg:-right-10 lg:w-56">
               <Image
                 src={pour.src}
                 alt={pour.alt}
@@ -66,6 +66,7 @@ export function StoryStrip() {
         <div className="lg:pl-4">
           <SectionHeading
             id="story-heading"
+            index={1}
             eyebrow={story.eyebrow}
             title={story.heading}
             size="md"

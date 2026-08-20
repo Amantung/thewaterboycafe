@@ -5,6 +5,13 @@ export type GalleryPhoto = {
   height: number
   /** Short caption shown on hover and in the lightbox. */
   label: string
+  /**
+   * Art-directed cell size for the editorial bento grid in `GalleryGrid`.
+   * Curated by hand rather than derived from the aspect ratio — the point of
+   * a bento composition is a deliberate rhythm of large-anchor, wide and tall
+   * moments, not a mechanical rule. Defaults to `'normal'` (a single cell).
+   */
+  size?: 'feature' | 'wide' | 'tall' | 'normal'
 }
 
 /** Real photographs, referenced directly from /public/images. */
@@ -15,6 +22,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1750,
     label: 'Courtyard seating',
+    size: 'feature',
   },
   {
     src: '/images/gallery-pastry-cabinet-counter.jpg',
@@ -22,6 +30,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1050,
     label: 'The cabinet',
+    size: 'wide',
   },
   {
     src: '/images/gallery-dog-friendly-patio.jpg',
@@ -29,6 +38,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1400,
     label: 'Dogs welcome',
+    size: 'normal',
   },
   {
     src: '/images/gallery-cowes-foreshore-western-port.jpg',
@@ -36,6 +46,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1050,
     label: 'The foreshore, minutes away',
+    size: 'wide',
   },
   {
     src: '/images/gallery-five-senses-coffee-beans.jpg',
@@ -43,6 +54,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1750,
     label: 'Five Senses beans',
+    size: 'tall',
   },
   {
     src: '/images/gallery-kitchen-morning-prep.jpg',
@@ -50,6 +62,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1050,
     label: 'Morning prep',
+    size: 'normal',
   },
   {
     src: '/images/gallery-window-seat-timber-stools.jpg',
@@ -57,6 +70,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1750,
     label: 'Window seat',
+    size: 'tall',
   },
   {
     src: '/images/gallery-cake-of-the-day-slice.jpg',
@@ -64,13 +78,15 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1400,
     height: 1050,
     label: 'Cake of the day',
+    size: 'normal',
   },
   {
     src: '/images/gallery-cafe-frontage-signage.jpg',
     alt: 'A cafe frontage with tall glazing, a lantern and its menu in the window',
     width: 1400,
-    height: 1400,
+    height: 1050,
     label: 'Out the front',
+    size: 'wide',
   },
   {
     src: '/images/gallery-team.jpg',
@@ -78,5 +94,6 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     width: 1086,
     height: 1448,
     label: 'The team',
+    size: 'tall',
   },
 ]

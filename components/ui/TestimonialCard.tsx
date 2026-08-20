@@ -23,7 +23,7 @@ export function TestimonialCard({
   return (
     <figure
       className={cn(
-        'relative flex h-full flex-col rounded-[var(--radius-organic)] border p-7 sm:p-9',
+        'relative flex h-full flex-col rounded-md border p-7 sm:p-9',
         'transition-all duration-500 ease-editorial',
         isDark
           ? 'border-cream/12 bg-cream/[0.05] hover:border-cream/25'

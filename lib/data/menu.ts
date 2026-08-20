@@ -458,3 +458,9 @@ export function formatPrice(price: number | null): string {
   if (price === null) return 'MP'
   return `$${Number.isInteger(price) ? price : price.toFixed(2)}`
 }
+
+/** "$5 / $6" for a two-size drink, or the plain price otherwise. */
+export function priceLabel(item: MenuItem): string {
+  if (!item.sizes?.length) return formatPrice(item.price)
+  return item.sizes.map((size) => formatPrice(size.price)).join(' / ')
+}

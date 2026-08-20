@@ -1,9 +1,20 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — the single source of truth
+   ==========================================================================
+   Everything typographic, tonal and geometric on this site resolves to a
+   token declared here. If a component needs a size, a radius, a weight or a
+   letter-spacing, it names one of these; it does not invent one inline. That
+   rule is the whole reason this file exists, and it is what keeps eight very
+   different-looking sections reading as one website.
+   ========================================================================== */
 @theme {
   --color-linen: #f2f0eb;
   --color-cream: #f8f4e8;
-  --color-sand: #ede8dc; 
+  --color-sand: #ede8dc;
   --color-espresso: #2a211f;
+  --color-espresso-deep: #1b1513;
   --color-coffee: #4c3935;
   --color-coffee-soft: #6b524c;
   --color-clay: #b5764c;
@@ -12,8 +23,23 @@
   --color-sage-deep: #5f6d54;
   --color-beige: #e4dccb;
   --color-beige-strong: #d6cbb4;
+
+  /* Two faces, no more. `font-display` and `font-body` are the only two
+     font utilities in the codebase — never a raw font-family. */
   --font-display: var(--font-dm-serif-display), ui-serif, Georgia, 'Times New Roman', serif;
   --font-body: var(--font-poppins), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* ── Display ramp ───────────────────────────────────────────────────────
+     One ladder, seven rungs, used in order. Tracking tightens as the size
+     grows, the way metal type was cut, so a large size never looks like a
+     small size that got scaled up — and negative tracking at the top is why
+     these never need a per-instance `tracking-*` override. */
+  --text-statement: clamp(3rem, 0.2rem + 11.6vw, 7rem);
+  --text-statement--line-height: 0.9;
+  --text-statement--letter-spacing: -0.04em;
+  --text-display-2xl: clamp(2.75rem, 0.9rem + 7vw, 6.5rem);
+  --text-display-2xl--line-height: 0.95;
+  --text-display-2xl--letter-spacing: -0.032em;
   --text-display-xl: clamp(2.625rem, 1.35rem + 5.2vw, 5rem);
   --text-display-xl--line-height: 1.03;
   --text-display-xl--letter-spacing: -0.022em;
@@ -29,6 +55,16 @@
   --text-display-xs: 1.125rem;
   --text-display-xs--line-height: 1.32;
   --text-display-xs--letter-spacing: -0.006em;
+
+  /* Marquee sits between the display ramp and the statement — big enough to
+     be a design element, small enough that a row still reads as words. */
+  --text-marquee: clamp(2rem, 0.9rem + 4.4vw, 4.75rem);
+  --text-marquee--line-height: 1;
+  --text-marquee--letter-spacing: -0.02em;
+
+  /* ── Text ramp ─────────────────────────────────────────────────────────
+     `label` and `micro` are the two small-caps rungs and they carry their
+     own tracking, so no component should ever add `tracking-*` on top. */
   --text-lead: 1.1875rem;
   --text-lead--line-height: 1.65;
   --text-lead--letter-spacing: -0.005em;
@@ -41,11 +77,29 @@
   --text-caption: 0.8125rem;
   --text-caption--line-height: 1.55;
   --text-caption--letter-spacing: 0.01em;
+
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+
   --shadow-soft: 0 1px 2px rgb(42 33 31 / 0.04), 0 8px 24px -12px rgb(42 33 31 / 0.14);
   --shadow-lifted: 0 2px 4px rgb(42 33 31 / 0.05), 0 24px 48px -20px rgb(42 33 31 / 0.22);
-  --radius-organic: 1.75rem;
+
+  /* ── Radius ────────────────────────────────────────────────────────────
+     Three steps and a pill, and they intentionally override Tailwind's own
+     `rounded-sm/md/lg` defaults so that *any* `rounded-md` written anywhere
+     in this codebase lands on the brand value. Before this there were six
+     competing vocabularies — a 28px `--radius-organic`, `rounded-2xl`,
+     `rounded-3xl`, `rounded-[1.25rem]`, a 9999px button and a square image
+     frame — which is why photographs and cards did not look related.
+
+       sm — controls: buttons, inputs, focus rings
+       md — the default for anything holding a photograph or content
+       lg — the few feature frames that want a touch more softness
+       pill/full — badges, chips and circular marks only  */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
   --radius-pill: 999px;
+
   --container-shell: 1540px;
 }
 @custom-variant motion-ok (@media (prefers-reduced-motion: no-preference));
@@ -54,6 +108,23 @@
    Base
    ========================================================================== */
 @layer base {
+  /* The header is `fixed` so it can sit transparently over the hero and
+     become an opaque bar on scroll without a second layout. Its height is a
+     token because two other things must agree with it exactly: the clearance
+     `PageHeader` reserves, and `scroll-padding-top` for anchor jumps. Fixed
+     values, not measured ones — a measured header means a layout shift on
+     first paint. */
+  :root {
+    --header-h: 4.5rem;
+    --header-h-scrolled: 4rem;
+  }
+  @media (min-width: 1280px) {
+    :root {
+      --header-h: 6rem;
+      --header-h-scrolled: 4.75rem;
+    }
+  }
+
   *,
   *::before,
   *::after {
@@ -62,9 +133,7 @@
 
   html {
     scroll-behavior: smooth;
-    /* Sticky nav is ~6.5rem tall at sm+ (logo-driven) — keep anchored
-       sections clear of it. */
-    scroll-padding-top: 7rem;
+    scroll-padding-top: calc(var(--header-h-scrolled) + 1.5rem);
     -webkit-text-size-adjust: 100%;
   }
 
@@ -74,12 +143,20 @@
     font-family: var(--font-body);
     font-size: var(--text-body);
     line-height: 1.7;
-    font-weight: 400; 
+    font-weight: 400;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  } 
+    /* An oversized marquee and a few deliberately overhanging images sit
+       wider than the viewport by design. Clipping here rather than on each
+       section means one guarantee instead of six. `clip` rather than
+       `hidden` so `position: sticky` still works inside. */
+    overflow-x: clip;
+  }
+
+  /* Every heading is the display serif at 400. A heading never needs a
+     `font-display` utility of its own — that is what this rule is for. */
   h1,
   h2,
   h3,
@@ -106,7 +183,7 @@
   :focus-visible {
     outline: 2px solid var(--color-clay-deep);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
   }
 
   ::selection {
@@ -127,22 +204,70 @@
     }
   }
 }
- 
-@layer components { 
+
+@layer components {
+  /* ── The two small-caps rungs ──────────────────────────────────────────
+     `u-micro` and `u-eyebrow` are the same voice one step apart: micro for
+     section labels, indices, prices and captions; eyebrow for form labels
+     and anywhere micro would be too quiet to read.
+
+     Both own their letter-spacing. It used to be 0.2em on micro and a flat
+     1px on eyebrow, which is where the "artificial" look came from — at
+     11px, 0.2em puts a fifth of an em between every glyph and the word stops
+     being a word. 0.11em still reads as tracked small caps and still holds
+     a rule beside it, without shouting. Nothing should add `tracking-*`
+     on top of these. */
+  .u-micro {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
   .u-eyebrow {
     font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-  } 
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Sentence-case sans with lining numerals — prices, hours, phone numbers,
+     anything that has to align in a column. */
   .u-label {
     font-family: var(--font-body);
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
-  } 
+  }
+
+  /* The vertical rhythm of a full homepage band. It was written out as the
+     same six-class literal in four different components, which is the sort
+     of thing that drifts the moment one of them is edited on its own. One
+     declaration, one rhythm. `Section` (components/ui/Container) covers the
+     same ground for sections that don't need full-bleed children. */
+  .u-section {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+  }
+  @media (min-width: 640px) {
+    .u-section {
+      padding-top: 7rem;
+      padding-bottom: 8rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .u-section {
+      padding-top: 9rem;
+      padding-bottom: 10rem;
+    }
+  }
+
   .u-rule {
     height: 1px;
     background: linear-gradient(
@@ -153,7 +278,7 @@
       transparent
     );
   }
- 
+
   .u-grain::after {
     content: '';
     position: absolute;
@@ -163,7 +288,7 @@
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");
   }
- 
+
   .u-underline {
     background-image: linear-gradient(currentColor, currentColor);
     background-position: 0 100%;
@@ -176,7 +301,109 @@
   .u-underline:focus-visible {
     background-size: 100% 1px;
   }
- 
+
+  /* ── Navigation link ───────────────────────────────────────────────────
+     Two identical labels stacked in a clipped box; on hover the pair slides
+     up by exactly one line so the outgoing word leaves through the top as
+     the incoming one arrives from the bottom. One `transform` on one
+     element, so it composites on the GPU and cannot reflow.
+
+     No font-size here — the link's own `u-micro` sets it. A size baked into
+     this class was silently overriding the label scale. */
+  .u-nav-link {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .u-nav-link__inner {
+    display: block;
+    transition: transform 0.5s var(--ease-editorial);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .u-nav-link__ghost {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transform: translate3d(0, 100%, 0);
+    transition: transform 0.5s var(--ease-editorial);
+  }
+  /* The hover target is the padded link, not the clipped box — a nav item
+     whose hit area is only as tall as its lowercase letters is a bad link.
+     `__trigger` goes on the padded element and drives the pair inside it. */
+  .u-nav-link:hover .u-nav-link__inner,
+  .u-nav-link:focus-visible .u-nav-link__inner,
+  .u-nav-link__trigger:hover .u-nav-link__inner,
+  .u-nav-link__trigger:focus-visible .u-nav-link__inner {
+    transform: translate3d(0, -100%, 0);
+  }
+  .u-nav-link:hover .u-nav-link__ghost,
+  .u-nav-link:focus-visible .u-nav-link__ghost,
+  .u-nav-link__trigger:hover .u-nav-link__ghost,
+  .u-nav-link__trigger:focus-visible .u-nav-link__ghost {
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* ── Editorial text link ───────────────────────────────────────────────
+     The quiet counterpart to `.u-btn`: a tracked label over a rule that
+     redraws from the left, with an arrow that walks. Used where a button
+     would be too much furniture.
+
+     This is the one implementation. `CtaLink` had grown a parallel copy in
+     TSX — two rules, its own easing curve and its own tracking — which is
+     exactly the kind of drift this file is meant to prevent. */
+  .u-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding-bottom: 0.625rem;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .u-cta::before,
+  .u-cta::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+  }
+  .u-cta::before {
+    background: currentColor;
+    opacity: 0.25;
+  }
+  .u-cta::after {
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s var(--ease-editorial);
+  }
+  .u-cta:hover::after,
+  .u-cta:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .u-cta__arrow {
+    flex: none;
+    transition: transform 0.45s var(--ease-editorial);
+  }
+  .u-cta:hover .u-cta__arrow,
+  .u-cta:focus-visible .u-cta__arrow {
+    transform: translateX(0.3rem);
+  }
+
+  /* ── Button ────────────────────────────────────────────────────────────
+     Radius comes from the token, and the font-size comes from the size
+     class the component applies. Both were hardcoded here — a 9999px pill
+     and `font-size: 14px !important` — which meant the three button sizes
+     all rendered identically and no caller could change the shape. */
   .u-btn {
     position: relative;
     isolation: isolate;
@@ -185,21 +412,37 @@
     justify-content: center;
     gap: 0.625rem;
     overflow: hidden;
-    border-radius: var(--radius-pill);
-    border: 1px solid transparent; 
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
     font-family: var(--font-body);
-    font-weight: 500; 
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.1em;
     line-height: 1;
     white-space: nowrap;
-    text-align: center; 
+    text-align: center;
     transition:
       color 0.45s var(--ease-editorial),
       background-color 0.45s var(--ease-editorial),
       border-color 0.45s var(--ease-editorial),
       box-shadow 0.45s var(--ease-editorial),
       transform 0.45s var(--ease-editorial);
+  }
+  /* Size ramp. Padding is asymmetric on purpose: uppercase labels sit
+     optically high in their line box, so a hair more padding below than
+     above centres them. These lived as arbitrary `text-[0.6875rem]` values
+     in the component; they belong here with the rest of the button. */
+  .u-btn--sm {
+    padding: 0.625rem 1.5rem 0.6875rem;
+    font-size: 0.6875rem;
+  }
+  .u-btn--md {
+    padding: 0.875rem 2rem 0.9375rem;
+    font-size: 0.75rem;
+  }
+  .u-btn--lg {
+    padding: 1.0625rem 2.5rem 1.1875rem;
+    font-size: 0.8125rem;
   }
 
   .u-btn::before {
@@ -211,7 +454,6 @@
     transform: translate3d(0, 101%, 0);
     transition: transform 0.55s var(--ease-editorial);
   }
-
   .u-btn:hover::before,
   .u-btn:focus-visible::before {
     transform: translate3d(0, 0, 0);
@@ -221,13 +463,22 @@
     pointer-events: none;
     opacity: 0.5;
   }
+  /* The label rides forward a hair as the wipe rises — the two moves read as
+     one gesture rather than as a background change under static text. */
+  .u-btn__label {
+    transition: transform 0.45s var(--ease-editorial);
+  }
+  .u-btn:hover .u-btn__label,
+  .u-btn:focus-visible .u-btn__label {
+    transform: translateX(-0.125rem);
+  }
   .u-btn__arrow {
     flex: none;
     transition: transform 0.45s var(--ease-editorial);
   }
   .u-btn:hover .u-btn__arrow,
   .u-btn:focus-visible .u-btn__arrow {
-    transform: translateX(0.25rem);
+    transform: translateX(0.3rem);
   }
 }
 
@@ -245,7 +496,7 @@
         rgb(28 20 18 / 0.88) 100%
       ),
       /* Horizontal — a soft wash behind the left-anchored text on desktop,
-         gone by two-thirds across so the right side of the frame stays clear. */
+         gone by two-thirds across so the right of the frame stays clear. */
       linear-gradient(
         to right,
         rgb(20 14 12 / 0.46) 0%,
@@ -255,6 +506,22 @@
       linear-gradient(to bottom right, rgb(76 57 53 / 0.2), rgb(42 33 31 / 0.1));
   }
 
+  /* The hero carries type at the very top (under a transparent header) as
+     well as at the bottom, so it needs weight at both ends and a genuinely
+     clear middle — a different balance from the interior mastheads. */
+  .u-hero-scrim--home {
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(24 17 15 / 0.66) 0%,
+        rgb(24 17 15 / 0.2) 22%,
+        rgb(24 17 15 / 0.14) 44%,
+        rgb(24 17 15 / 0.62) 78%,
+        rgb(24 17 15 / 0.92) 100%
+      ),
+      linear-gradient(to right, rgb(20 14 12 / 0.42) 0%, rgb(20 14 12 / 0.1) 48%, transparent 72%);
+  }
+
   .u-no-scrollbar {
     scrollbar-width: none;
   }
@@ -262,8 +529,13 @@
     display: none;
   }
 
-  /* Two duplicated copies of the same track, translated exactly one copy's
-     width — the seam lands precisely on the loop point so it's invisible. */
+  /* ── Marquee ───────────────────────────────────────────────────────────
+     One track, one keyframe, two callers. `--marquee-shift` is how far a
+     full loop travels and must equal exactly one copy of the content:
+     -50% for a track duplicated twice, -33.333% for three copies. There
+     used to be a second `@keyframes marquee` plus an `.animate-marquee`
+     appended below the layers to serve the three-copy case; parameterising
+     the shift removes the duplicate. */
   .u-marquee-track {
     display: flex;
     width: max-content;
@@ -273,8 +545,38 @@
   .u-marquee-track--reverse {
     animation-direction: reverse;
   }
-  .u-marquee-row:hover .u-marquee-track {
+  .u-marquee-row:hover .u-marquee-track,
+  .u-marquee-row:focus-within .u-marquee-track {
     animation-play-state: paused;
+  }
+
+  .u-spin {
+    animation: u-spin 14s linear infinite;
+  }
+
+  /* Outlined display type. At statement size a second line of solid text is
+     a second wall of ink, where the same words drawn as an outline read as a
+     counterpoint. Cheaper and sharper than an SVG stroke. */
+  .u-text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(248 244 232 / 0.5);
+  }
+  .u-text-outline-dark {
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--color-coffee) 55%, transparent);
+  }
+
+  /* Google's map embed arrives in its own colour world, which is the reason
+     an embedded map always looks bolted on. Desaturating and warming it puts
+     it in the page's palette; it returns to full colour on hover, when
+     someone is actually reading it. */
+  .u-map {
+    filter: grayscale(1) contrast(0.9) sepia(0.24) brightness(1.02);
+    transition: filter 0.7s var(--ease-editorial);
+  }
+  .u-map:hover,
+  .u-map:focus-within {
+    filter: none;
   }
 }
 
@@ -283,6 +585,15 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(var(--marquee-shift, -50%), 0, 0);
+  }
+}
+
+@keyframes u-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

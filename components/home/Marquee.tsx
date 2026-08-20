@@ -1,50 +1,60 @@
 import type { CSSProperties } from 'react'
 
-import { Icon, type IconName } from '@/components/ui/Icon'
-import { Reveal } from '@/components/ui/Reveal'
 import { cn } from '@/lib/utils'
 
-type MarqueeItem = { label: string; icon: IconName }
-
-const ROW_ONE: MarqueeItem[] = [
-  { label: 'Fresh Coffee', icon: 'cup' },
-  { label: 'Homemade Cakes', icon: 'star' },
-  { label: 'Brunch & Lunch', icon: 'utensils' },
-  { label: 'Freshly Baked', icon: 'sunrise' },
-  { label: 'Good Food, Good Coffee', icon: 'bean' },
+const ROW_ONE = [
+  'Fresh coffee',
+  'Homemade cakes',
+  'Brunch & lunch',
+  'Freshly baked',
+  'Good food, good coffee',
 ]
 
-const ROW_TWO: MarqueeItem[] = [
-  { label: 'Made with love', icon: 'heart' },
-  { label: 'Coffee & cake', icon: 'cup' },
-  { label: 'Phillip Island favourite', icon: 'wave' },
-  { label: 'Relax · Eat · Enjoy', icon: 'leaf' },
-  { label: 'See you at Waterboy', icon: 'star' },
+const ROW_TWO = [
+  'The Waterboy',
+  'Fresh daily',
+  'Beach side',
+  'Made with love',
+  'See you soon',
 ]
 
 /**
- * Two-row marquee bridging the hero into the rest of the homepage.
+ * The band between the hero and the page — a design element, not a notice bar.
  *
- * The loop is a plain CSS keyframe animation, not Framer Motion — once
- * started it never touches the main thread, so it can run indefinitely
- * without a JS-driven `requestAnimationFrame` loop costing CPU. Reduced
- * motion is handled globally (see globals.css), which collapses every
- * animation on the page to a single near-instant pass.
+ * What it was: two rows of 24px labels with icons, inside a bordered strip on
+ * sand. That is an announcement bar, and it read as one.
  *
- * Purely decorative and duplicated for the loop, so the whole band is
- * hidden from assistive tech — the cafe's actual copy lives in the sections
- * either side of it.
+ * What it is now: two oversized rows travelling in opposite directions on
+ * espresso, so the dark of the hero carries through one more beat before the
+ * page opens into linen. The upper row is set in light sans at display size;
+ * the lower row is the same scale in serif italic, drawn as an outline. Two
+ * rows of solid type at this size would be two walls of ink — the outline
+ * makes the second row a counterpoint to the first instead of a repeat of it,
+ * and the opposing directions are what make the band read as movement rather
+ * than as scrolling text.
+ *
+ * The loop is a plain CSS keyframe, not Framer Motion: once started it never
+ * touches the main thread, so an animation that runs forever costs nothing
+ * per frame. `prefers-reduced-motion` is handled globally in globals.css,
+ * which collapses it to a single static pass. Hovering a row pauses that row
+ * only.
+ *
+ * Decorative and duplicated for the seam, so the whole band is hidden from
+ * assistive tech — every claim in it is made properly in the sections either
+ * side.
  */
 export function Marquee() {
   return (
     <section
       aria-hidden="true"
-      className="relative overflow-hidden border-y border-beige bg-sand"
+      className="relative overflow-hidden border-b border-cream/10 bg-espresso py-10 sm:py-14"
     >
-      <Reveal className="flex flex-col gap-5 py-9 sm:gap-6 sm:py-11">
-        <MarqueeRow items={ROW_ONE} direction="left" variant="sans" seconds={40} />
-        <MarqueeRow items={ROW_TWO} direction="right" variant="serif" seconds={48} />
-      </Reveal>
+      <div aria-hidden="true" className="u-grain absolute inset-0" />
+
+      <div className="relative flex flex-col gap-2 sm:gap-4">
+        <MarqueeRow items={ROW_ONE} direction="left" variant="sans" seconds={46} />
+        <MarqueeRow items={ROW_TWO} direction="right" variant="serif" seconds={58} />
+      </div>
     </section>
   )
 }
@@ -55,7 +65,7 @@ function MarqueeRow({
   variant,
   seconds,
 }: {
-  items: MarqueeItem[]
+  items: string[]
   direction: 'left' | 'right'
   variant: 'sans' | 'serif'
   seconds: number
@@ -72,29 +82,53 @@ function MarqueeRow({
         )}
         style={{ '--marquee-duration': `${seconds}s` } as CSSProperties}
       >
-        {track.map((item, index) => (
+        {track.map((label, index) => (
           <span
             key={index}
-            className={cn(
-              'flex shrink-0 items-center gap-3 px-5 opacity-80 transition duration-300 ease-out sm:gap-4 sm:px-7',
-              'hover:scale-[1.05] hover:opacity-100',
-              variant === 'sans'
-                ? 'font-body text-lg font-semibold uppercase tracking-[0.05em] text-coffee sm:text-2xl'
-                : 'font-display text-xl text-clay-deep italic sm:text-3xl',
-            )}
+            className="flex shrink-0 items-center gap-6 pr-6 sm:gap-10 sm:pr-10"
           >
-            <Icon
-              name={item.icon}
+            <span
               className={cn(
-                'h-4 w-4 shrink-0 sm:h-5 sm:w-5',
-                variant === 'sans' ? 'text-clay' : 'text-sage-deep',
+                'text-marquee whitespace-nowrap',
+                variant === 'sans'
+                  ? 'font-body font-light uppercase text-cream/90'
+                  : 'u-text-outline font-display italic',
               )}
-            />
-            {item.label}
-            <span className="text-clay/50">·</span>
+            >
+              {label}
+            </span>
+
+            <Mark variant={variant} />
           </span>
         ))}
       </div>
     </div>
+  )
+}
+
+/** Separator. A clay asterisk between the sans items, a small open diamond
+    between the serif ones — different rhythm markers for different voices. */
+function Mark({ variant }: { variant: 'sans' | 'serif' }) {
+  if (variant === 'serif') {
+    return (
+      <span
+        aria-hidden="true"
+        className="block h-2 w-2 shrink-0 rotate-45 border border-clay/70 sm:h-2.5 sm:w-2.5"
+      />
+    )
+  }
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4 shrink-0 text-clay sm:h-6 sm:w-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+    >
+      <path d="M12 3v18M3.9 7.5l16.2 9M20.1 7.5l-16.2 9" />
+    </svg>
   )
 }

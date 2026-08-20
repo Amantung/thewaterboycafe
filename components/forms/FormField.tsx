@@ -16,7 +16,7 @@ import { Icon } from '@/components/ui/Icon'
  */
 
 const CONTROL = cn(
-  'w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-body-sm text-espresso',
+  'w-full rounded-md border bg-white/70 px-4 py-3.5 text-body-sm text-espresso',
   'placeholder:text-coffee-soft/45',
   'transition-colors duration-200',
   'focus:border-clay-deep focus:bg-white focus:outline-none',
@@ -140,7 +140,7 @@ export function FormBanner({
       role="status"
       aria-live="polite"
       className={cn(
-        'flex items-start gap-3 rounded-2xl border px-4 py-3.5 text-body-sm',
+        'flex items-start gap-3 rounded-md border px-4 py-3.5 text-body-sm',
         isSuccess
           ? 'border-sage/40 bg-sage/10 text-sage-deep'
           : 'border-clay/40 bg-clay/10 text-clay-deep',

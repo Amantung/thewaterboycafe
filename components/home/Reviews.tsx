@@ -26,11 +26,17 @@ export function Reviews() {
 
       <div className="relative">
         <SectionHeading
-          id="reviews-heading"
-          eyebrow="Guest reviews"
-          title="What people say on the way out"
-          tone="dark"
-        />
+                id="reviews-heading"
+                index={6}
+                eyebrow="Guest reviews"
+                size="xl"
+                tone='dark'
+                title={[
+                  <>
+                    What people say on the <span className="text-clay">way out</span>
+                  </>,
+                ]}
+              /> 
 
         <Reveal delay={0.12}>
           <div className="mt-9 flex items-center gap-5">
@@ -45,7 +51,7 @@ export function Reviews() {
         </Reveal>
 
         <Reveal delay={0.18}>
-          <p className="mt-7 max-w-md text-body-sm text-cream/65">
+          <p className="mt-7 max-w-xl text-body-sm text-cream/65">
             The same three things come up again and again: the coffee is
             consistent, the staff are quick and genuinely friendly, and nobody
             minds if you stay a while.

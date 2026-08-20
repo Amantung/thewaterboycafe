@@ -62,7 +62,11 @@ export function PageHeader({
       <div aria-hidden="true" className="u-grain absolute inset-0 opacity-50" />
 
       {breadcrumbs.length > 0 && (
-        <Reveal as="div" className="absolute inset-x-0 top-8 z-10 sm:top-10">
+        <Reveal
+          as="div"
+          className="absolute inset-x-0 z-10"
+          style={{ top: 'calc(var(--header-h) + 0.75rem)' }}
+        >
           <Container>
             <nav aria-label="Breadcrumb">
               <ol className="flex flex-wrap items-center gap-2 text-caption text-cream/70">
@@ -97,7 +101,14 @@ export function PageHeader({
         </Reveal>
       )}
 
-      <Container className="relative flex min-h-[24rem] flex-col justify-end gap-8 pb-12 pt-28 sm:min-h-[28rem] sm:pb-16 sm:pt-32 lg:min-h-[32rem] lg:pb-20">
+      {/* The site header is `fixed` and overlays this masthead by design, so
+          the clearance for it is reserved here rather than by a spacer in the
+          header — that is what lets the header sit transparently on the
+          photograph at the top of every interior page. */}
+      <Container
+        className="relative flex min-h-[26rem] flex-col justify-end gap-8 pb-12 sm:min-h-[30rem] sm:pb-16 lg:min-h-[34rem] lg:pb-20"
+        style={{ paddingTop: 'calc(var(--header-h) + 4.5rem)' }}
+      >
         <div className="max-w-2xl">
           {eyebrow && (
             <Reveal>

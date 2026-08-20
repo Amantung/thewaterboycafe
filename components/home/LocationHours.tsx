@@ -13,46 +13,44 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
 import { cn } from '@/lib/utils'
 
-/**
- * Location, hours and the map.
- *
- * The map is a keyless Google Maps embed resolved by address, so there is no
- * API key to provision and no billing account to attach. It is lazy-loaded —
- * an iframe in the critical path would cost more than the rest of the page put
- * together — and given a title so it is not an unlabelled frame in the
- * accessibility tree.
- *
- * Also carries the canonical on-page NAP, which is what local search actually
- * reads. It matches lib/site.ts and the JSON-LD exactly, by construction.
- */
-export function LocationHours({
-  heading = 'Find us',
+export function LocationHours({ 
   eyebrow = 'Visit',
+  index,
   className,
 }: {
   heading?: string
-  eyebrow?: string
+  eyebrow?: string 
+  index?: number
   className?: string
 }) {
   const hours = groupedHours()
 
   return (
     <Section id="visit" aria-labelledby="visit-heading" className={cn('bg-cream', className)}>
-      <SectionHeading
-        id="visit-heading"
-        eyebrow={eyebrow}
-        title={heading}
-        description={`We are on Chapel Street in Cowes, a short walk up from the foreshore. Street parking out front, and the courtyard is around the side.`}
-        className="max-w-xl"
-      />
-
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+          <SectionHeading
+                id="visit-heading"
+                index={index}
+                eyebrow={eyebrow}
+                size="2xl"
+                title={[
+                  <>
+                    Find <span className="text-clay">us</span>
+                  </>,
+                ]}
+              /> 
+              <Reveal delay={0.12} className="lg:max-w-md lg:pb-3">
+                <p className="text-body text-coffee-soft">
+                  We are on Chapel Street in Cowes, a short walk up from the foreshore. Street parking out front, and the courtyard is around the side.
+                </p>
+              </Reveal>
+              </div>
+              
       <div className="mt-14 grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
         {/* Details ------------------------------------------------------ */}
         <div className="space-y-8">
           <Reveal>
-            <div className="rounded-[var(--radius-organic)] border border-beige bg-linen/70 p-7 sm:p-8">
-              <Badge as="h3">Where</Badge>
-
+            <div className="rounded-md border border-beige bg-linen/70 p-7 sm:p-8"> 
               <address className="mt-5 space-y-4 not-italic">
                 <p className="text-display-xs leading-snug text-coffee">
                   {site.name}
@@ -82,10 +80,12 @@ export function LocationHours({
               </address>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <Button href={directionsUrl} size="sm">
+               <Button href={directionsUrl} size="sm">
+                <span className="flex items-center gap-2">
                   <Icon name="pin" className="h-4 w-4" />
                   Get directions
-                </Button>
+                </span>
+              </Button>
                 <Button href="/reserve" size="sm" variant="secondary">
                   Reserve a table
                 </Button>
@@ -94,7 +94,7 @@ export function LocationHours({
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="rounded-[var(--radius-organic)] border border-beige bg-linen/70 p-7 sm:p-8">
+            <div className="rounded-md border border-beige bg-linen/70 p-7 sm:p-8">
               <Badge as="h3" icon="clock">
                 Opening hours
               </Badge>
@@ -135,7 +135,11 @@ export function LocationHours({
         <Reveal delay={0.15} direction="left">
           <div
             id="find-us"
-            className="h-full min-h-[26rem] overflow-hidden rounded-[var(--radius-organic)] border border-beige bg-sand shadow-soft"
+            // `u-map` desaturates and warms Google's embed into the page's
+            // palette, returning to full colour on hover or keyboard focus —
+            // when someone is actually reading it. An embed left in its own
+            // colour world is the main reason a map always looks bolted on.
+            className="u-map h-full min-h-[26rem] overflow-hidden rounded-md border border-beige bg-sand shadow-soft"
           >
             <iframe
               title={`Google Map showing ${site.name} at ${formattedAddress}`}
