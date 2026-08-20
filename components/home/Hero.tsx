@@ -100,7 +100,7 @@ export function Hero() {
             className="max-w-[30ch]" // You may need to increase the max-width so it fits on one line!
           />
 
-          <div className="mt-9 max-w-[600px] lg:mt-11">
+          <div className="mt-9 max-w-[700px] lg:mt-11">
             <MaskRise delay={0.95} trigger="load">
               <p className="text-lead font-light text-cream/80">
                 A family-run cafe a short walk from the Cowes foreshore.

@@ -10,7 +10,7 @@ import { LocationHours } from '@/components/home/LocationHours'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
-import { Badge } from '@/components/ui/Badge'
+import { SectionLabel } from '@/components/ui/Editorial'
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
@@ -34,11 +34,11 @@ export default function ContactPage() {
     <>
       <PageHeader
         eyebrow="Say hello"
-        title="Get in touch"
+        title={['Come for the coffee.', { text: 'Stay for the view.', accent: true }]}
         description="Questions about the menu, a group booking, a function, or something we could be doing better — it all reaches the same small team."
-        breadcrumbs={[{ name: 'Contact', path: '/contact' }]}
-        imageSrc="/images/gallery-cafe-frontage-signage.jpg"
-        imageAlt="A cafe frontage with tall glazing, a lantern and its menu in the window"
+        imageSrc="/images/sitting.jpg"
+        imageAlt="The dining room's timber tables and bentwood chairs under rattan pendant lights, with Western Port Bay through the window"
+        imagePosition="object-[center_60%]"
       />
 
       {/* Quick contact + form ---------------------------------------------- */}
@@ -51,34 +51,31 @@ export default function ContactPage() {
           <SectionHeading
             id="contact-form-heading"
             eyebrow="Reach us"
-            title="The fastest ways"
+            title={['The fastest', { text: 'ways in', accent: true }]}
+            size="xl"
           />
 
           <div className="mt-9 space-y-6">
             <ContactMethod
-              icon="phone"
-              label="Phone"
+              icon="phone" 
               value={site.phoneDisplay}
               href={`tel:${site.phone}`}
               note="Best during opening hours. If it is busy, leave a message."
             />
             <ContactMethod
-              icon="heart"
-              label="Email"
+              icon="heart" 
               value={site.email}
               href={`mailto:${site.email}`}
               note="We read everything and usually reply within a day."
             />
             <ContactMethod
-              icon="pin"
-              label="Address"
+              icon="pin" 
               value={formattedAddress}
               href={directionsUrl}
               note="Street parking on Chapel Street, courtyard around the side."
             />
             <ContactMethod
-              icon="instagram"
-              label="Instagram"
+              icon="instagram" 
               value={site.socials.instagramHandle}
               href={site.socials.instagram}
               note="Daily specials, the cabinet, and the occasional dog."
@@ -136,14 +133,12 @@ export default function ContactPage() {
 }
 
 function ContactMethod({
-  icon,
-  label,
+  icon, 
   value,
   href,
   note,
 }: {
-  icon: 'phone' | 'heart' | 'pin' | 'instagram'
-  label: string
+  icon: 'phone' | 'heart' | 'pin' | 'instagram' 
   value: string
   href: string
   note: string
@@ -157,8 +152,7 @@ function ContactMethod({
           <Icon name={icon} className="h-4.5 w-4.5" />
         </span>
 
-        <div>
-          <Badge className="border-beige-strong/70 bg-transparent text-coffee-soft">{label}</Badge>
+        <div> 
           <a
             href={href}
             {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}

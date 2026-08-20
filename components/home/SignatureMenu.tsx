@@ -102,8 +102,7 @@ export function SignatureMenu() {
         {/* Opener ------------------------------------------------------- */}
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <SectionHeading
-            id="menu-heading"
-            index={2}
+            id="menu-heading" 
             eyebrow="From the kitchen"
             size="2xl"
             title={["What's on", { text: 'the table', accent: true }]}

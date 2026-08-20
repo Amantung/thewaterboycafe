@@ -51,8 +51,6 @@ export type MenuCategory = {
   description: string
   /** Shown under the category heading. */
   note?: string
-  /** Renders as a compact two-column price list instead of cards. */
-  layout?: 'cards' | 'list'
   items: MenuItem[]
 }
 
@@ -282,7 +280,6 @@ export const menu: MenuCategory[] = [
     eyebrow: 'Under 12',
     description:
       'Smaller plates for smaller people, out of the kitchen fast — because nobody enjoys a long wait at that end of the table.',
-    layout: 'list',
     items: [
       {
         id: 'kids-egg-on-toast',
@@ -317,7 +314,6 @@ export const menu: MenuCategory[] = [
     eyebrow: 'Five Senses Coffee',
     description:
       'We pour Five Senses, roasted in Melbourne, and we will make it however you take it. Alternative milks and syrups are on the extras list.',
-    layout: 'list',
     items: [
       {
         id: 'five-senses-coffee',
@@ -370,7 +366,6 @@ export const menu: MenuCategory[] = [
     name: 'Something Cold',
     eyebrow: 'Iced & blended',
     description: 'For the walk back down to the water.',
-    layout: 'list',
     items: [
       {
         id: 'smoothies',
@@ -403,7 +398,6 @@ export const menu: MenuCategory[] = [
     name: 'Extras',
     eyebrow: 'Add to any plate',
     description: 'Anything on this list can go on anything on the board.',
-    layout: 'list',
     items: [
       { id: 'extra-pork-leek-sausage', name: 'Pork & Leek Sausage', price: 3.5 },
       { id: 'extra-hash-brown', name: 'Hash Brown', price: 3.5, dietary: ['v'] },

@@ -7,7 +7,7 @@ import {
 } from '@/lib/site'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import { Badge } from '@/components/ui/Badge'
+import { SectionLabel } from '@/components/ui/Editorial'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
@@ -15,12 +15,10 @@ import { cn } from '@/lib/utils'
 
 export function LocationHours({ 
   eyebrow = 'Visit',
-  index,
   className,
 }: {
   heading?: string
   eyebrow?: string 
-  index?: number
   className?: string
 }) {
   const hours = groupedHours()
@@ -29,15 +27,19 @@ export function LocationHours({
     <Section id="visit" aria-labelledby="visit-heading" className={cn('bg-cream', className)}>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <SectionHeading
-                id="visit-heading"
-                index={index}
+                id="visit-heading" 
                 eyebrow={eyebrow}
                 size="2xl"
-                title={[
+                // Passed as a single node rather than a one-element array: an
+                // array literal holding an unkeyed element trips React's
+                // key validation at the call site. `SectionHeading` wraps a
+                // lone node itself. Use an array only for multi-line titles,
+                // and key the elements inside it.
+                title={
                   <>
                     Find <span className="text-clay">us</span>
-                  </>,
-                ]}
+                  </>
+                }
               /> 
               <Reveal delay={0.12} className="lg:max-w-md lg:pb-3">
                 <p className="text-body text-coffee-soft">
@@ -95,9 +97,9 @@ export function LocationHours({
 
           <Reveal delay={0.1}>
             <div className="rounded-md border border-beige bg-linen/70 p-7 sm:p-8">
-              <Badge as="h3" icon="clock">
+              <SectionLabel variant="pill" as="h3" icon="clock">
                 Opening hours
-              </Badge>
+              </SectionLabel>
 
               <dl className="mt-5 space-y-3">
                 {hours.map((row) => (

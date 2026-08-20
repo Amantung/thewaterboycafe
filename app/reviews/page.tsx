@@ -8,9 +8,10 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { TestimonialCard } from '@/components/ui/TestimonialCard'
 import { StarRating, Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { Section } from '@/components/ui/Container'
-import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { RevealGroup, RevealItem } from '@/components/ui/Reveal'
+import { Reviews } from '@/components/home/Reviews'
 
 export const metadata: Metadata = {
   title: 'Reviews',
@@ -39,9 +40,8 @@ export default function ReviewsPage() {
     <>
       <PageHeader
         eyebrow="Guest reviews"
-        title="What people say"
+        title={['In the words of', { text: 'the people who come in.', accent: true }]}
         description="Collected from the people who actually come in. The same handful of things come up again and again, which is about the best feedback a small cafe can hope for."
-        breadcrumbs={[{ name: 'Reviews', path: '/reviews' }]}
         imageSrc="/images/gallery-team.jpg"
         imageAlt="Four members of the team standing together behind the counter, aprons on, ready for service"
         imagePosition="object-[center_20%]"
@@ -64,12 +64,15 @@ export default function ReviewsPage() {
       </PageHeader>
 
       {/* Themes ------------------------------------------------------------ */}
-      <Section aria-labelledby="themes-heading" className="border-b border-beige bg-cream" space="sm">
-        <Badge as="h2" id="themes-heading">
-          What comes up most
-        </Badge>
+      <Section aria-labelledby="themes-heading" className="border-b border-beige bg-cream">
+        <SectionHeading
+          id="themes-heading"
+          eyebrow="The pattern"
+          title={['What comes up', { text: 'again and again', accent: true }]}
+          size="xl"
+        />
 
-        <RevealGroup className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:mt-16">
           {THEMES.map((theme) => (
             <RevealItem key={theme.label}>
               <div className="flex gap-4">
@@ -86,9 +89,16 @@ export default function ReviewsPage() {
 
       {/* All reviews -------------------------------------------------------- */}
       <Section aria-labelledby="all-reviews-heading" className="bg-linen">
-        <h2 id="all-reviews-heading" className="sr-only">
-          All reviews
-        </h2>
+        {/* Was a visually-hidden <h2>. A heading that exists only to label a
+            region leaves the section looking like an unheaded slab of cards;
+            giving it a real one costs nothing and adds the hierarchy step. */}
+        <SectionHeading
+          id="all-reviews-heading"
+          eyebrow={`All ${testimonials.length} reviews`}
+          title="Every word, unedited"
+          size="xl"
+          className="mb-14 sm:mb-16"
+        />
 
         <RevealGroup className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {testimonials.map((review) => (
@@ -99,24 +109,30 @@ export default function ReviewsPage() {
         </RevealGroup>
       </Section>
 
+    {/* crousel-reviews */}
+      <Reviews />
+
       {/* CTA ---------------------------------------------------------------- */}
       <Section className="border-t border-beige bg-cream" space="sm" width="narrow" innerClassName="text-center">
-        <Reveal>
-          <h2 className="text-display-md text-coffee">Been in recently?</h2>
-          <p className="mx-auto mt-5 max-w-lg text-lead font-light text-coffee-soft">
-            Reviews genuinely help a small cafe on a big island. If we got it right —
-            or got it wrong — we would like to hear about it.
-          </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <SectionHeading
+          eyebrow="Your turn"
+          title={['Been in', { text: 'recently?', accent: true }]}
+          description="Reviews genuinely help a small cafe on a big island. If we got it right — or got it wrong — we would like to hear about it."
+          size="lg"
+          align="center"
+        >
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Button href="/contact" size="lg" withArrow>
               Send us feedback
-            </Button>
-            <Button href={site.socials.instagram} size="lg" variant="secondary">
+            </Button> 
+            <Button href={site.socials.instagram} variant="secondary">
+          <span className="flex items-center gap-2">
               <Icon name="instagram" className="h-4 w-4" />
-              Follow along
-            </Button>
+            Follow along
+          </span>
+        </Button> 
           </div>
-        </Reveal>
+        </SectionHeading>
       </Section>
 
       <JsonLd id="schema-reviews" data={graph} />

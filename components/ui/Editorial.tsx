@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import type { ReactNode } from 'react'
+import type { ElementType, ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
+import { Icon, type IconName } from '@/components/ui/Icon'
 
 /**
  * The small repeating parts of the editorial system.
@@ -40,6 +41,9 @@ export function SectionLabel({
   children,
   tone = 'light',
   variant = 'rule',
+  icon,
+  as,
+  id,
   className,
 }: {
   /** Position in the page's running sequence. Rendered as `01`, `02`, … */
@@ -47,13 +51,24 @@ export function SectionLabel({
   children: ReactNode
   tone?: 'light' | 'dark'
   variant?: LabelVariant
+  /** Pill variant only — a small leading glyph. */
+  icon?: IconName
+  /**
+   * Keeps the markup honest: a label that is genuinely a section's only
+   * heading should still be an `<h2>`/`<h3>`, just styled like every other
+   * label. Defaults to `<span>` for the pill and `<p>` for the rule.
+   */
+  as?: Extract<ElementType, 'span' | 'p' | 'h2' | 'h3' | 'h4'>
+  id?: string
   className?: string
 }) {
   const dark = tone === 'dark'
 
   if (variant === 'pill') {
+    const Tag = (as ?? 'span') as ElementType
     return (
-      <span
+      <Tag
+        id={id}
         className={cn(
           'u-micro inline-flex items-center gap-2.5 rounded-full border px-4 py-2',
           dark
@@ -73,13 +88,16 @@ export function SectionLabel({
             />
           </>
         )}
+        {icon && <Icon name={icon} className="h-3 w-3 flex-none" />}
         {children}
-      </span>
+      </Tag>
     )
   }
 
+  const RuleTag = (as ?? 'p') as ElementType
+
   return (
-    <p className={cn('u-micro flex items-center gap-3', className)}>
+    <RuleTag id={id} className={cn('u-micro flex items-center gap-3', className)}>
       {index !== undefined && (
         <span className={dark ? 'text-clay' : 'text-clay-deep'}>
           {String(index).padStart(2, '0')}
@@ -90,7 +108,7 @@ export function SectionLabel({
         className={cn('h-px w-6 flex-none', dark ? 'bg-cream/30' : 'bg-coffee/25')}
       />
       <span className={dark ? 'text-cream/70' : 'text-coffee-soft'}>{children}</span>
-    </p>
+    </RuleTag>
   )
 }
 

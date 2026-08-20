@@ -65,8 +65,7 @@ export function StoryStrip() {
         {/* Copy ------------------------------------------------------------ */}
         <div className="lg:pl-4">
           <SectionHeading
-            id="story-heading"
-            index={1}
+            id="story-heading" 
             eyebrow={story.eyebrow}
             title={story.heading}
             size="md"

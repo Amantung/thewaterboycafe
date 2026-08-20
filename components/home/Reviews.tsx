@@ -26,8 +26,7 @@ export function Reviews() {
 
       <div className="relative">
         <SectionHeading
-                id="reviews-heading"
-                index={6}
+                id="reviews-heading" 
                 eyebrow="Guest reviews"
                 size="xl"
                 tone='dark'

@@ -72,7 +72,7 @@ const POSTS: Post[] = [
     identical frame — the seam is invisible because it is the same photograph. */
 const INFINITE_POSTS = [...POSTS, ...POSTS, ...POSTS]
 
-export function InstagramSection({ index }: { index?: number }) {
+export function InstagramSection() {
   return (
     <section
       aria-labelledby="instagram-heading"
@@ -80,8 +80,7 @@ export function InstagramSection({ index }: { index?: number }) {
     >
       <Container className="relative z-10">
         <SectionHeading
-          id="instagram-heading"
-          index={index}
+          id="instagram-heading" 
           eyebrow="Follow along"
           size="statement"
           title={[

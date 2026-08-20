@@ -10,8 +10,9 @@ import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
+import { SectionLabel } from '@/components/ui/Editorial'
 import { Highlights } from '@/components/home/Highlights'
+import { StoryStrip } from '@/components/home/StoryStrip'
 
 export const metadata: Metadata = {
   title: 'Our story',
@@ -41,18 +42,22 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="Since the beginning"
-        title="A family-run cafe with the best window in Cowes"
-        description={about.intro}
-        breadcrumbs={[{ name: 'About', path: '/about' }]}
+        title={['A small beachside cafe', { text: 'made for slow mornings.', accent: true }]}
+        description={about.intro} 
         imageSrc="/images/gallery-window-seat-timber-stools.jpg"
         imageAlt="Afternoon sun falling across timber stools at a cafe window counter"
       />
 
+      <StoryStrip />
       {/* Chapters ---------------------------------------------------------- */}
-      <Section aria-labelledby="chapters-heading" className="bg-linen">
-        <h2 id="chapters-heading" className="sr-only">
-          Our story
-        </h2>
+      <Section aria-labelledby="chapters-heading" className="bg-cream">
+        <SectionHeading
+          id="chapters-heading" 
+          title={['How the room', { text: 'came together', accent: true }]}
+          description="Four short chapters — the space, the kitchen, the coffee and the welcome."
+          size="xl"
+          className="mb-16 sm:mb-20"
+        />
 
         <div className="grid gap-16 lg:grid-cols-[1fr_0.85fr] lg:gap-24">
           <div className="space-y-16">
@@ -64,7 +69,7 @@ export default function AboutPage() {
                     aria-hidden="true"
                     className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full border-2 border-linen bg-clay"
                   />
-                  <Badge>{chapter.eyebrow}</Badge>
+                  <SectionLabel variant="pill">{chapter.eyebrow}</SectionLabel>
                   <h3 className="mt-3 text-display-sm text-coffee">{chapter.heading}</h3>
                   <p className="mt-4 text-body text-coffee-soft">{chapter.body}</p>
                 </article>
@@ -105,7 +110,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Values ------------------------------------------------------------ */}
-      <Section aria-labelledby="values-heading" className="bg-cream">
+      <Section aria-labelledby="values-heading" className="bg-linen">
         <SectionHeading
           id="values-heading"
           eyebrow="How we work"
@@ -133,7 +138,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Team -------------------------------------------------------------- */}
-      <Section aria-labelledby="team-heading" className="bg-linen">
+      <Section aria-labelledby="team-heading" className="bg-cream">
         <SectionHeading
           id="team-heading"
           eyebrow="The people"
@@ -146,7 +151,7 @@ export default function AboutPage() {
           {about.team.map((member) => (
             <RevealItem key={member.id}>
               <article className="h-full rounded-md border border-beige bg-cream/60 p-7 sm:p-8">
-                <Badge>{member.role}</Badge>
+                <SectionLabel variant="pill">{member.role}</SectionLabel>
                 <h3 className="mt-3 text-display-xs text-coffee">{member.name}</h3>
                 <p className="mt-4 text-body-sm text-coffee-soft">{member.bio}</p>
               </article>
@@ -158,14 +163,15 @@ export default function AboutPage() {
       <Highlights />
 
       {/* CTA --------------------------------------------------------------- */}
-      <Section className="bg-cream" space="sm" width="narrow" innerClassName="text-center">
-        <Reveal>
-          <h2 className="text-display-md text-coffee">Come and sit by the window</h2>
-          <p className="mx-auto mt-5 max-w-lg text-lead font-light text-coffee-soft">
-            Walk-ins are always welcome. If you are bringing a group, send a request
-            through and we will put some tables together.
-          </p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+      <Section className="bg-linen" space="sm" width="narrow" innerClassName="text-center">
+        <SectionHeading
+          eyebrow="Visit us"
+          title={['Good coffee. Fresh food.', { text: 'A place to slow down.', accent: true }]}
+          description="Walk-ins are always welcome. If you are bringing a group, send a request through and we will put some tables together."
+          size="lg"
+          align="center"
+        >
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Button href="/reserve" size="lg" withArrow>
               Reserve a table
             </Button>
@@ -173,7 +179,7 @@ export default function AboutPage() {
               Browse the menu
             </Button>
           </div>
-        </Reveal>
+        </SectionHeading>
       </Section>
 
       <JsonLd id="schema-about" data={graph} />

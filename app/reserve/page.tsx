@@ -6,8 +6,9 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { ReservationForm } from '@/components/forms/ReservationForm'
 import { Icon } from '@/components/ui/Icon'
-import { Badge } from '@/components/ui/Badge'
+import { SectionLabel } from '@/components/ui/Editorial'
 import { Section } from '@/components/ui/Container'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default function ReservePage() {
     <>
       <PageHeader
         eyebrow="Bookings"
-        title="Reserve a table"
+        title={['Save a seat', { text: 'by the window.', accent: true }]}
         description="Send a request and we will confirm by phone or email. Nothing is locked in until you hear back from us — we would rather be clear than have you turn up to a table that was never held."
         breadcrumbs={[{ name: 'Reserve', path: '/reserve' }]}
         imageSrc="/images/gallery-dog-friendly-patio.jpg"
@@ -63,16 +64,21 @@ export default function ReservePage() {
         innerClassName="grid gap-12 lg:grid-cols-[1fr_0.75fr] lg:gap-20"
       >
         <div>
-          <h2 id="reserve-form-heading" className="sr-only">
-            Table request form
-          </h2>
+          <SectionHeading
+            id="reserve-form-heading"
+            eyebrow="Request a table"
+            title={['Tell us when', { text: 'and how many', accent: true }]}
+            description="Small tables are kept for walk-ins, so a request is worth it for groups or a special trip down."
+            size="xl"
+            className="mb-12"
+          />
           <ReservationForm />
         </div>
 
         <aside className="space-y-8">
           <Reveal delay={0.08}>
             <div className="rounded-md border border-beige bg-cream/60 p-7">
-              <Badge as="h3">Good to know</Badge>
+              <SectionLabel variant="pill" as="h3">Good to know</SectionLabel>
               <ul className="mt-6 space-y-6">
                 {GOOD_TO_KNOW.map((item) => (
                   <li key={item.title} className="flex gap-4">
@@ -89,9 +95,9 @@ export default function ReservePage() {
 
           <Reveal delay={0.14}>
             <div className="rounded-md border border-beige bg-cream/60 p-7">
-              <Badge as="h3" icon="clock">
+              <SectionLabel variant="pill" as="h3" icon="clock">
                 When we are open
-              </Badge>
+              </SectionLabel>
               <dl className="mt-5 space-y-2.5">
                 {hours.map((row) => (
                   <div key={row.label} className="flex items-baseline justify-between gap-4 text-body-sm">

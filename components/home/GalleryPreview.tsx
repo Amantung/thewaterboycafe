@@ -94,15 +94,14 @@ export function GalleryPreview() {
         {/* Opener */}
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <SectionHeading
-            id="gallery-heading"
-            index={4}
+            id="gallery-heading" 
             eyebrow="Around the cafe"
             size="2xl"
-            title={[
+            title={
               <>
                 The world of <span className="text-clay">The Waterboy</span>
-              </>,
-            ]}
+              </>
+            }
           />
 
           <Reveal delay={0.12} className="lg:max-w-xs lg:pb-3">

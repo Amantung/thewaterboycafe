@@ -22,10 +22,10 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
  * exactly the "collection of cards" look this page is trying to shed.
  *
  * Also rendered on /about, where the same statement does the same job — hence
- * the optional `index`, which is the homepage's running sequence number and
+ * the same statement doing the same job.
  * means nothing anywhere else.
  */
-export function Highlights({ index }: { index?: number }) {
+export function Highlights() {
   return (
     <section
       id="why-us"
@@ -36,8 +36,7 @@ export function Highlights({ index }: { index?: number }) {
 
       <Container className="relative">
         <SectionHeading
-          id="highlights-heading"
-          index={index}
+          id="highlights-heading" 
           eyebrow="Why people come back"
           size="statement"
           tone="dark"
