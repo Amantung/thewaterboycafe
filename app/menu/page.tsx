@@ -39,7 +39,7 @@ export default function MenuPage() {
         eyebrow="Breakfast · Lunch · Coffee"
         title={['Fresh food, good coffee,', { text: 'and a reason to stay.', accent: true }]}
         description="Cooked to order from produce we mostly picked up ourselves. Please order and pay at the counter."
-        imageSrc="/images/gallery-kitchen-morning-prep.jpg"
+        imageSrc="/images/menu-banner.png"
         imageAlt="A chef working the pans in a warmly lit kitchen during morning service"
       >
         <div className="flex flex-wrap gap-3">
