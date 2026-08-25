@@ -42,7 +42,7 @@ const SPREAD: Placement[] = [
   },
   // --- ROW 1 (Right Side) ---
   {
-    src: '/images/gallery-window-seat-timber-stools.jpg',
+    src: '/images/waterboy-logo-philip.webp',
     frame: 'md:col-span-1',
     aspect: 'aspect-square',
     sizes: '(min-width: 768px) 20vw, 100vw',

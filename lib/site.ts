@@ -41,7 +41,7 @@ export const site = {
   /** Used in <title> templates — kept short so titles stay under ~60 chars. */
   shortName: 'The Waterboy',
   legalName: 'The Waterboy Cafe',
-  tagline: 'Cosy Beachside Coffee, Made Fresh Every Day',
+  tagline: 'Happiness comes one cup of a time.',
   altTagline: 'Homemade with Heart, Brewed with Five Senses Coffee',
   description:
     "Phillip Island's cosy beachside cafe in Cowes. Scratch-made breakfast and lunch, Five Senses specialty coffee, and a dog-friendly courtyard a short stroll from the foreshore.",

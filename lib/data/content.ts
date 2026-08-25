@@ -71,7 +71,7 @@ export const welcome = {
       title: 'Easy Parking',
       body: 'We have plenty of parking available at both the front and rear of the cafe, making it easy and convenient to visit.',
       icon: 'pin',
-      image: '/gallery/easy-park.png',
+      image: '/images/waterboy-logo-philip-1.webp',
       imageAlt: 'A dog resting beside its owner at the dog-friendly outdoor seating area',
     },
     {

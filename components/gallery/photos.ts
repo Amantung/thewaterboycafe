@@ -65,7 +65,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'normal',
   },
   {
-    src: '/images/gallery-window-seat-timber-stools.jpg',
+    src: '/images/waterboy-logo-philip.webp',
     alt: 'Afternoon sun falling across timber stools at a cafe window counter',
     width: 1400,
     height: 1750,
