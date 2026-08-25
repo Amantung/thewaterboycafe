@@ -67,7 +67,6 @@ export function Highlights() {
                 <h3 className="mt-5 font-display text-display-sm text-cream">
                   {highlight.title}
                 </h3>
-                <p className="mt-3 text-body-sm text-cream/60">{highlight.description}</p>
               </div>
             </RevealItem>
           ))}
