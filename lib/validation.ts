@@ -50,47 +50,6 @@ const honeypot = z
   .or(z.literal(''))
 
 /* -------------------------------------------------------------------------- */
-/* Reservation                                                                */
-/* -------------------------------------------------------------------------- */
-
-export const reservationSchema = z.object({
-  name,
-  email,
-  phone,
-  date: z
-    .string()
-    .trim()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Please choose a date.')
-    .refine((value) => {
-      // Compare date-only strings so a booking for "today" is never rejected
-      // by the clock, whatever timezone the server happens to sit in.
-      const today = new Date().toISOString().slice(0, 10)
-      return value >= today
-    }, 'We cannot take a booking in the past.'),
-  time: z
-    .string()
-    .trim()
-    .regex(/^\d{2}:\d{2}$/, 'Please choose a time.'),
-  guests: z.coerce
-    .number({ invalid_type_error: 'How many people are coming?' })
-    .int('Please use a whole number.')
-    .min(1, 'At least one guest.')
-    .max(20, 'For groups over 20 please call us — we will look after you properly.'),
-  occasion: z
-    .enum(['none', 'birthday', 'anniversary', 'celebration', 'business'])
-    .default('none'),
-  notes: z
-    .string()
-    .trim()
-    .max(600, 'Please keep notes under 600 characters.')
-    .optional()
-    .or(z.literal('')),
-  website: honeypot,
-})
-
-export type ReservationInput = z.infer<typeof reservationSchema>
-
-/* -------------------------------------------------------------------------- */
 /* Contact                                                                    */
 /* -------------------------------------------------------------------------- */
 
@@ -98,7 +57,7 @@ export const contactSchema = z.object({
   name,
   email,
   phone: phone.optional().or(z.literal('')),
-  subject: z.enum(['general', 'booking', 'functions', 'feedback', 'careers']),
+  subject: z.enum(['general', 'functions', 'feedback', 'careers']),
   message: z
     .string()
     .trim()

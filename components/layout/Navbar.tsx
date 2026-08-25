@@ -232,27 +232,27 @@ export function Navbar() {
             />
           </Link>
 
-          {/* Right — utility and the booking action ---------------------- */}
+          {/* Right — utility and the visit action -------------------------- */}
           <div className="flex items-center gap-4 justify-self-end xl:gap-6">
 
             <Button
-              href="/reserve"
+              href="/contact"
               size="sm"
               variant={onDark ? 'onDark' : 'primary'}
               withArrow
               className="hidden sm:inline-flex"
             >
-              Book a table
+              Visit us
             </Button>
 
             <Link
-              href="/reserve"
+              href="/contact"
               className={cn(
                 'u-micro sm:hidden',
                 onDark ? 'text-cream' : 'text-coffee',
               )}
             >
-              Book
+              Visit
             </Link>
           </div>
         </div>
@@ -318,8 +318,8 @@ export function Navbar() {
                 }}
                 className="mt-14"
               >
-                <Button href="/reserve" onClick={closeMenu} variant="onDark" withArrow block>
-                  Book a table
+                <Button href="/contact" onClick={closeMenu} variant="onDark" withArrow block>
+                  Visit us
                 </Button>
 
                 <div className="mt-10 grid gap-8 border-t border-cream/10 pt-8 sm:grid-cols-2">

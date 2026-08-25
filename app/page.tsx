@@ -5,6 +5,7 @@ import { buildGraph, menuSchema, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
 
 import { Hero } from '@/components/home/Hero'
+import { Welcome } from '@/components/home/Welcome'
 import { Marquee } from '@/components/home/Marquee'
 import { StoryStrip } from '@/components/home/StoryStrip'
 import { SignatureMenu } from '@/components/home/SignatureMenu'
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Welcome />
       <Marquee />
       <StoryStrip />
       <SignatureMenu />

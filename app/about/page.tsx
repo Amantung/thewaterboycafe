@@ -257,16 +257,16 @@ export default function AboutPage() {
         <SectionHeading
           eyebrow="Visit us"
           title={['Good coffee. Fresh food.', { text: 'A place to slow down.', accent: true }]}
-          description="Walk-ins are always welcome. If you are bringing a group, send a request through and we will put some tables together."
+          description="Walk-ins welcome — no bookings required. If you are coming as a large group, give us a call ahead and we will do our best to put some tables together."
           size="lg"
           align="center"
         >
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="/reserve" size="lg" withArrow>
-              Reserve a table
+            <Button href="/contact" size="lg" withArrow>
+              Visit us
             </Button>
             <Button href="/menu" size="lg" variant="secondary">
-              Browse the menu
+              View our menu
             </Button>
           </div>
         </SectionHeading>

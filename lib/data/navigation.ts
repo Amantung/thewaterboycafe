@@ -42,7 +42,6 @@ export const footerNav: { heading: string; links: NavLink[] }[] = [
     heading: 'Visit',
     links: [
       { label: 'Find us', href: '/contact' },
-      { label: 'Reserve a table', href: '/reserve' },
       { label: 'Reviews', href: '/reviews' },
       { label: 'Get directions', href: '/contact#find-us' },
     ],

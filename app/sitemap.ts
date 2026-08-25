@@ -7,9 +7,6 @@ import { SITE_URL } from '@/lib/site'
  * `changeFrequency` and `priority` are hints crawlers largely ignore these
  * days, but `lastModified` is still read — it is stamped at build time, so a
  * redeploy after a menu change tells Google the page is worth revisiting.
- *
- * /reserve is intentionally absent: it is noindex (see its metadata), and
- * listing a noindex URL in a sitemap is a contradiction Search Console flags.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()

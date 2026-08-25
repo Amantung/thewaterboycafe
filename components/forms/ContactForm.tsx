@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils'
 
 const SUBJECTS = [
   { value: 'general', label: 'General enquiry' },
-  { value: 'booking', label: 'Table booking' },
   { value: 'functions', label: 'Functions & group catering' },
   { value: 'feedback', label: 'Feedback' },
   { value: 'careers', label: 'Working with us' },

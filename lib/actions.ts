@@ -1,7 +1,7 @@
 'use server'
 
 /**
- * Server actions behind the reservation, contact and newsletter forms.
+ * Server actions behind the contact and newsletter forms.
  *
  * Delivery is intentionally pluggable. Submissions are validated here and then
  * POSTed as JSON to `FORM_WEBHOOK_URL` — point that at Zapier, Make, n8n,
@@ -14,7 +14,6 @@
  */
 
 import {
-  reservationSchema,
   contactSchema,
   newsletterSchema,
   formDataToObject,
@@ -23,8 +22,8 @@ import {
 import { site } from '@/lib/site'
 
 type Delivery = {
-  /** Distinguishes the three form types at the receiving end. */
-  type: 'reservation' | 'contact' | 'newsletter'
+  /** Distinguishes the two form types at the receiving end. */
+  type: 'contact' | 'newsletter'
   payload: Record<string, unknown>
 }
 
@@ -84,42 +83,6 @@ async function deliver({ type, payload }: Delivery): Promise<boolean> {
 
 /** Standard failure copy — always gives the guest a way through. */
 const DELIVERY_FAILED = `Something went wrong at our end. Please call us on ${site.phoneDisplay} and we will sort it out.`
-
-/* -------------------------------------------------------------------------- */
-/* Reservation                                                                */
-/* -------------------------------------------------------------------------- */
-
-export async function submitReservation(
-  _previous: FormState,
-  formData: FormData,
-): Promise<FormState> {
-  const raw = formDataToObject(formData)
-  const parsed = reservationSchema.safeParse(raw)
-
-  if (!parsed.success) {
-    // Honeypot tripped: report success so a bot learns nothing, and drop it.
-    if (raw.website) return { status: 'success', message: 'Thanks — request received.' }
-
-    return {
-      status: 'error',
-      message: 'Please check the highlighted fields.',
-      errors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
-      values: raw,
-    }
-  }
-
-  const { website: _honeypot, ...booking } = parsed.data
-  const delivered = await deliver({ type: 'reservation', payload: booking })
-
-  if (!delivered) {
-    return { status: 'error', message: DELIVERY_FAILED, values: raw }
-  }
-
-  return {
-    status: 'success',
-    message: `Thanks ${booking.name.split(' ')[0]} — we have your request for ${booking.guests} on ${booking.date} at ${booking.time}. We will confirm by phone or email shortly. It is a request, not a locked-in booking, until you hear from us.`,
-  }
-}
 
 /* -------------------------------------------------------------------------- */
 /* Contact                                                                    */

@@ -43,7 +43,7 @@ export function LocationHours({
               /> 
               <Reveal delay={0.12} className="lg:max-w-md lg:pb-3">
                 <p className="text-body text-coffee-soft">
-                  We are on Chapel Street in Cowes, a short walk up from the foreshore. Street parking out front, and the courtyard is around the side.
+                  We are on Chapel Street in Cowes, a short walk up from the foreshore. Street parking out front, and the courtyard is around the side. Walk-ins welcome — no bookings required.
                 </p>
               </Reveal>
               </div>
@@ -88,8 +88,8 @@ export function LocationHours({
                   Get directions
                 </span>
               </Button>
-                <Button href="/reserve" size="sm" variant="secondary">
-                  Reserve a table
+                <Button href="/menu" size="sm" variant="secondary">
+                  View our menu
                 </Button>
               </div>
             </div>

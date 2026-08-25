@@ -16,6 +16,15 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
+  async redirects() {
+    return [
+      // The cafe does not take bookings — /reserve used to be a booking-request
+      // form. Old links and bookmarks still point at it, so send them to
+      // /contact rather than leaving a 404.
+      { source: '/reserve', destination: '/contact', permanent: true },
+    ]
+  },
+
   async headers() {
     return [
       {

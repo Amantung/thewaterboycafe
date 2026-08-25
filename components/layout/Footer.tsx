@@ -52,8 +52,8 @@ export function Footer() {
               sizes="112px"
               className="h-20 w-20 rounded-full sm:h-28 sm:w-28"
             />
-            <CtaLink href="/reserve" tone="dark">
-              Book a table
+            <CtaLink href="/contact" tone="dark">
+              Visit us
             </CtaLink>
           </div>
         </div>

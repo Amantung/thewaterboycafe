@@ -46,7 +46,6 @@ export default function GalleryPage() {
         </Button> 
       </PageHeader>
 
-      <GalleryPreview />
       <Section className="bg-linen" aria-labelledby="gallery-wall-heading">
         <SectionHeading
           id="gallery-wall-heading"
@@ -67,6 +66,8 @@ export default function GalleryPage() {
       </Section>
 
       <InstagramSection />
+      
+      <GalleryPreview />
 
       <JsonLd id="schema-gallery" data={graph} />
     </>

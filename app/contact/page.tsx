@@ -35,7 +35,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Say hello"
         title={['Come for the coffee.', { text: 'Stay for the view.', accent: true }]}
-        description="Questions about the menu, a group booking, a function, or something we could be doing better — it all reaches the same small team."
+        description="Questions about the menu, a large group, a function, or something we could be doing better — it all reaches the same small team. We're a walk-in only cafe, so there's no need to book ahead."
         imageSrc="/images/sitting.jpg"
         imageAlt="The dining room's timber tables and bentwood chairs under rattan pendant lights, with Western Port Bay through the window"
         imagePosition="object-[center_60%]"

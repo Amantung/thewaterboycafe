@@ -116,10 +116,10 @@ export function Hero() {
               className="mt-9 flex flex-wrap items-center gap-x-10 gap-y-6"
             >
               <Button href="/menu" variant="onDark" size="lg" withArrow>
-                View the menu
+                View our menu
               </Button>
-              <CtaLink href="/reserve" tone="dark">
-                Book a table
+              <CtaLink href="/contact" tone="dark">
+                Visit us
               </CtaLink>
             </motion.div>
           </div>

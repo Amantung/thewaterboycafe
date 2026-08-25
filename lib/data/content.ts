@@ -25,6 +25,66 @@ export type TeamMember = {
   bio: string
 }
 
+export type WelcomeFeature = {
+  id: string
+  title: string
+  body: string
+  /** Key into the ICONS map in components/ui/Icon.tsx. */
+  icon: 'leaf' | 'paw' | 'pin' | 'heart'
+  /** Optional photo from /public/gallery — not every card carries one. */
+  image?: string
+  imageAlt?: string
+}
+
+/* -------------------------------------------------------------------------- */
+/* Homepage welcome — the SEO-facing introduction beneath the hero            */
+/* -------------------------------------------------------------------------- */
+
+export const welcome = {
+  eyebrow: 'Phillip Island cafe',
+  heading: 'Welcome to The Waterboy Cafe',
+  intro: [
+    'Located on beautiful Phillip Island, The Waterboy Cafe is a welcoming, spacious cafe known for its stunning ocean views, delicious coffee and fresh, homemade food.',
+    'Our chefs work in an open kitchen, preparing quality meals and homemade dishes throughout the day. We also offer a tempting selection of homemade cakes and slices, with plenty of options to satisfy your sweet tooth.',
+  ],
+  closing:
+    'Come and enjoy the ocean views, great coffee, homemade food and warm atmosphere that make The Waterboy Cafe a favourite destination on Phillip Island.',
+  features: [
+    {
+      id: 'everyone',
+      title: 'Something for Everyone',
+      body: 'At The Waterboy, we believe everyone should be able to enjoy a great meal. Our menu includes vegan, vegetarian and gluten-free options, with a variety of choices to suit different dietary preferences.',
+      icon: 'leaf',
+      image: '/gallery/vegan-cake.jpg',
+      imageAlt: 'A vegan cake slice from the cabinet at The Waterboy Cafe, Phillip Island',
+    },
+    {
+      id: 'space',
+      title: 'Plenty of Space for Everyone',
+      body: 'Our large cafe is perfect for families, friends and larger groups. Whether you are stopping by for breakfast, lunch, coffee or cake, there is plenty of room to relax and enjoy your time with us. For those who prefer to sit outside, our front outdoor seating area is dog-friendly, so your four-legged family members can join you too.',
+      icon: 'paw',
+      image: '/gallery/dog-friendly.jpg',
+      imageAlt: 'A dog resting beside its owner at the dog-friendly outdoor seating area',
+    },
+    {
+      id: 'parking',
+      title: 'Easy Parking',
+      body: 'We have plenty of parking available at both the front and rear of the cafe, making it easy and convenient to visit.',
+      icon: 'pin',
+      image: '/gallery/easy-park.png',
+      imageAlt: 'A dog resting beside its owner at the dog-friendly outdoor seating area',
+    },
+    {
+      id: 'local',
+      title: 'Local & Independently Run',
+      body: 'The Waterboy Cafe is proudly run by a local young couple who are passionate about creating a welcoming place for the Phillip Island community and visitors alike.',
+      icon: 'heart',
+      image: '/gallery/made-by-owner.jpg',
+      imageAlt: 'One of the owners of The Waterboy Cafe preparing food by hand in the kitchen',
+    },
+  ] satisfies WelcomeFeature[],
+} as const
+
 /* -------------------------------------------------------------------------- */
 /* Homepage story strip                                                       */
 /* -------------------------------------------------------------------------- */
@@ -176,9 +236,9 @@ export const about = {
 
 export const faqs = [
   {
-    question: 'Do you take bookings?',
+    question: 'Do you take bookings or reservations?',
     answer:
-      'Small tables are walk-in, and we hold a limited number of bookings for groups. Send a table request through the website or give us a call and we will confirm by phone or email.',
+      'No — The Waterboy is a walk-in only cafe, so there is no need to book ahead. If you are coming as a large group, give us a call before you arrive and we will do our best to seat you together.',
   },
   {
     question: 'Are dogs allowed?',

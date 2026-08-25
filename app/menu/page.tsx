@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { site } from '@/lib/site'
+import { site, directionsUrl } from '@/lib/site'
 import { menu, dietaryLabels, menuNotices } from '@/lib/data/menu'
 import { buildGraph, menuSchema, breadcrumbSchema, menuPriceSummary } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -43,8 +43,8 @@ export default function MenuPage() {
         imageAlt="A chef working the pans in a warmly lit kitchen during morning service"
       >
         <div className="flex flex-wrap gap-3">
-          <Button href="/reserve" variant="onDark" withArrow>
-            Reserve a table
+          <Button href={directionsUrl} variant="onDark" withArrow>
+            Get directions
           </Button>
           <Button href={`tel:${site.phone}`} variant="onDarkOutline">
             Call {site.phoneDisplay}

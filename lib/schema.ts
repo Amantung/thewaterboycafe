@@ -103,7 +103,8 @@ export function cafeSchema() {
     openingHoursSpecification: openingHoursSpecification(),
     sameAs: [site.socials.instagram, site.socials.facebook],
     hasMenu: { '@id': ID.menu },
-    acceptsReservations: `${SITE_URL}/reserve`,
+    // No booking/reservation system — the cafe is walk-in only, so this node
+    // deliberately omits `acceptsReservations`.
     areaServed: [
       { '@type': 'Place', name: 'Cowes, Victoria' },
       { '@type': 'Place', name: 'Phillip Island, Victoria' },

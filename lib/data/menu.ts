@@ -328,8 +328,9 @@ export const menu: MenuCategory[] = [
         image: '/images/drink-house-blend-flat-white-latte-art.jpg',
       },
       {
-        id: 'mofo-hot-chocolate',
-        name: 'MoFo Hot Chocolate',
+        id: 'hot-chocolate',
+        name: 'Hot Chocolate',
+        description: 'Made with rich chocolate powder.',
         price: 5.5,
         sizes: [
           { label: 'Reg', price: 5.5 },
