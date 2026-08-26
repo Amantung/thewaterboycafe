@@ -94,7 +94,7 @@ export function Hero() {
             lines={[ 
               <>
                 Happiness comes {' '}
-                <span className="text-clay">one cup of a time.</span>
+                <span className="text-clay">one cup at a time.</span>
               </>
             ]}
             className="max-w-[30ch]" // You may need to increase the max-width so it fits on one line!
