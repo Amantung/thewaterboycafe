@@ -29,7 +29,7 @@ export default function HomePage() {
       <Hero />
       <Welcome />
       {/* <StoryStrip /> */}
-      <SignatureMenu />
+      {/* <SignatureMenu /> */}
       {/* <Highlights /> */}
       {/* <GalleryPreview /> */}
       {/* <InstagramSection  />
