@@ -8,7 +8,7 @@ import { Container } from '@/components/ui/Container'
 import { CtaLink } from '@/components/ui/Editorial'
 import { Statement } from '@/components/ui/Statement'
 import { NewsletterForm } from '@/components/forms/NewsletterForm'
-import { cn } from '@/lib/utils'
+import { cn, isDocumentHref } from '@/lib/utils'
 
 const LOGO = { src: '/images/waterboy-logo.png', width: 1024, height: 1024 }
 
@@ -52,14 +52,14 @@ export function Footer() {
               sizes="112px"
               className="h-20 w-20 rounded-full sm:h-28 sm:w-28"
             />
-            <CtaLink href="/contact" tone="dark">
+            <CtaLink href={directionsUrl} tone="dark">
               Visit us
             </CtaLink>
           </div>
         </div>
 
         {/* Newsletter ---------------------------------------------------- */}
-        <div className="grid gap-8 border-t border-cream/12 py-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20 lg:py-14">
+        {/* <div className="grid gap-8 border-t border-cream/12 py-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20 lg:py-14">
           <div>
             <p className="u-micro text-cream/40">Keep in touch</p>
             <h2 className="mt-4 font-display text-display-sm text-cream">
@@ -71,7 +71,7 @@ export function Footer() {
             </p>
           </div>
           <NewsletterForm />
-        </div>
+        </div> */}
 
         {/* Colophon ------------------------------------------------------ */}
         <div className="grid gap-12 border-t border-cream/12 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
@@ -126,12 +126,23 @@ export function Footer() {
               <ul className="mt-5 space-y-3">
                 {column.links.map((link) => (
                   <li key={`${column.heading}-${link.href}`}>
-                    <Link
-                      href={link.href}
-                      className="u-underline text-body-sm text-cream/75 transition-colors hover:text-cream"
-                    >
-                      {link.label}
-                    </Link>
+                    {isDocumentHref(link.href) ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="u-underline text-body-sm text-cream/75 transition-colors hover:text-cream"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="u-underline text-body-sm text-cream/75 transition-colors hover:text-cream"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

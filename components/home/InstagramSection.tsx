@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import type { CSSProperties } from 'react'
 
 import { site } from '@/lib/site'
 import { Container } from '@/components/ui/Container'
@@ -10,21 +9,15 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { cn } from '@/lib/utils'
 
 /**
- * The social wall — the cafe's daily life, deliberately not the gallery.
- *
- * The gallery above is a still composition on linen with square-cropped
- * frames you click to enlarge. This is a continuously travelling strip on
- * cream, with captions inside the frame and every tile linking out to the
- * real profile. Same photography discipline, opposite energy — which is the
- * point of having both sections rather than one twice.
+ * The social wall — a quiet, static row of real cafe photographs on cream,
+ * each linking out to the Instagram profile. Deliberately calm: no
+ * continuous scroll, just five frames with a caption that appears on hover.
  *
  * Not an embed. Instagram's own widget carries header-and-caption chrome that
- * cannot be stripped, which is what made an earlier version of this section
- * tall and heavy. These are real cafe photographs, honestly presented as a
- * look inside rather than implied to be specific live posts.
+ * cannot be stripped. These are real cafe photographs, honestly presented as
+ * a look inside rather than implied to be specific live posts.
  *
- * Server component — the marquee is a CSS keyframe, so nothing here needs the
- * client. Once started it never touches the main thread.
+ * Server component — nothing here needs the client.
  */
 
 type Post = {
@@ -68,10 +61,6 @@ const POSTS: Post[] = [
   },
 ]
 
-/** Three copies, so the loop can travel exactly one third and land back on an
-    identical frame — the seam is invisible because it is the same photograph. */
-const INFINITE_POSTS = [...POSTS, ...POSTS, ...POSTS]
-
 export function InstagramSection() {
   return (
     <section
@@ -105,65 +94,50 @@ export function InstagramSection() {
         </Reveal>
       </Container>
 
-      {/* Infinite Scrolling Marquee --------------------------------------- */}
-      {/* `u-marquee-row` on the wrapper is what pauses the track on hover —
-          the pause selector is a descendant one, so the two classes must sit
-          on different elements. */}
-      <div className="u-marquee-row relative mt-12 flex w-full overflow-hidden sm:mt-20">
-        {/* 
-          Gradient masks to fade the edges seamlessly into the background 
-          so the photos look like they are emerging from nowhere.
-        */}
-        <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-16 bg-gradient-to-r from-cream to-transparent sm:w-32" />
-        <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-16 bg-gradient-to-l from-cream to-transparent sm:w-32" />
-
-        {/* The scrolling track. Three copies of the set, so a full loop
-            travels exactly one third — see `--marquee-shift` in globals.css,
-            which is the same keyframe the hero marquee uses. */}
-        <div
-          className="u-marquee-track items-center gap-4 px-4 sm:gap-6 sm:px-6"
-          style={{ '--marquee-shift': '-33.3333%', '--marquee-duration': '48s' } as CSSProperties}
-        >
-          {INFINITE_POSTS.map((post, i) => (
-            <a
-              key={`${post.src}-${i}`}
-              href={site.socials.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                'group relative block w-[280px] flex-none overflow-hidden rounded-md bg-sand shadow-soft transition-all duration-700 ease-editorial sm:w-[320px] hover:-translate-y-2 hover:shadow-lifted',
-                post.aspect,
-              )}
-            >
-              <Image
-                src={post.src}
-                alt={post.alt}
-                fill
-                loading="lazy"
-                sizes="(min-width: 640px) 320px, 280px"
-                className="object-cover transition-transform duration-1000 ease-editorial motion-ok:group-hover:scale-110"
-              />
-
-              {/* Light gradient for the cream theme */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-coffee/80 via-coffee/10 to-transparent opacity-0 transition-opacity duration-700 ease-editorial group-hover:opacity-100"
-              />
-
-              {/* Instagram Caption */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-5 bottom-5 flex items-center gap-2.5 text-cream opacity-0 transition-all duration-700 ease-editorial translate-y-3 group-hover:translate-y-0 group-hover:opacity-100"
+      {/* A still, editorial row — five real photographs, no continuous
+          motion. The gallery above is the "browse everything" experience;
+          this is a quiet glimpse of the everyday, not a second gallery. */}
+      <Container className="relative z-10">
+        <Reveal delay={0.06}>
+          <div className="mt-12 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 lg:grid-cols-5">
+            {POSTS.map((post) => (
+              <a
+                key={post.src}
+                href={site.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  'group relative block overflow-hidden rounded-md bg-sand shadow-soft transition-shadow duration-500 ease-editorial hover:shadow-lifted',
+                  'first:col-span-2 lg:first:col-span-1',
+                  post.aspect,
+                )}
               >
-                <Icon name="instagram" className="h-4 w-4 flex-none" />
-                <span className="u-micro truncate">
-                  {post.caption}
+                <Image
+                  src={post.src}
+                  alt={post.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-editorial motion-ok:group-hover:scale-105"
+                />
+
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-coffee/80 via-coffee/10 to-transparent opacity-0 transition-opacity duration-500 ease-editorial group-hover:opacity-100"
+                />
+
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-4 bottom-4 flex items-center gap-2.5 text-cream opacity-0 transition-all duration-500 ease-editorial translate-y-2 group-hover:translate-y-0 group-hover:opacity-100"
+                >
+                  <Icon name="instagram" className="h-4 w-4 flex-none" />
+                  <span className="u-micro truncate">{post.caption}</span>
                 </span>
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
+              </a>
+            ))}
+          </div>
+        </Reveal>
+      </Container>
 
       {/* Close ------------------------------------------------------------ */}
       <Container>

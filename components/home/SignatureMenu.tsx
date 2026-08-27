@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useReducedMotion } from 'framer-motion'
 
 import { menu, priceLabel, type MenuItem } from '@/lib/data/menu'
+import { menuPdfUrl } from '@/lib/site'
 import { Container } from '@/components/ui/Container'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
 import { CtaLink } from '@/components/ui/Editorial'
@@ -114,8 +115,8 @@ export function SignatureMenu() {
               with your cursor to see it — or tap, if you are reading this on
               the beach.
             </p>
-            <CtaLink href="/menu" className="mt-7">
-              See the full menu
+            <CtaLink href={menuPdfUrl} className="mt-7">
+              View the full menu
             </CtaLink>
           </Reveal>
         </div>

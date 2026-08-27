@@ -126,6 +126,13 @@ export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination
   `${site.name}, ${formattedAddress}`,
 )}`
 
+/**
+ * The menu PDF, kept as one constant so a future swap of the real file is a
+ * one-line change. No file exists at this path yet — the client will supply
+ * the final menu; every "View menu" CTA points here regardless.
+ */
+export const menuPdfUrl = '/menu.pdf'
+
 /* -------------------------------------------------------------------------- */
 /* Hours helpers                                                              */
 /* -------------------------------------------------------------------------- */

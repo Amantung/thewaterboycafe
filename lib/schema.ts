@@ -14,7 +14,7 @@
  *     markup can never disagree.
  */
 
-import { site, formattedAddress, SITE_URL } from '@/lib/site'
+import { site, formattedAddress, SITE_URL, menuPdfUrl } from '@/lib/site'
 import { menu, formatPrice, type MenuCategory } from '@/lib/data/menu'
 import {
   testimonials,
@@ -183,7 +183,7 @@ export function menuSchema() {
     '@type': 'Menu',
     '@id': ID.menu,
     name: `${site.name} menu`,
-    url: `${SITE_URL}/menu`,
+    url: `${SITE_URL}${menuPdfUrl}`,
     inLanguage: 'en-AU',
     description: `Breakfast, lunch, Five Senses coffee and house-baked sweets at ${site.name} in ${site.address.suburb}, Phillip Island.`,
     provider: { '@id': ID.business },

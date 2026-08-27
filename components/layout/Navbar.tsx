@@ -7,8 +7,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 import { primaryNav, homeSections } from '@/lib/data/navigation'
-import { site, openingSummary, formattedAddress } from '@/lib/site'
-import { cn } from '@/lib/utils'
+import { site, openingSummary, formattedAddress, directionsUrl } from '@/lib/site'
+import { cn, isDocumentHref } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 
 const SOLID_AFTER = 24
@@ -141,30 +141,48 @@ export function Navbar() {
                 const isActive =
                   pathname === link.href ||
                   (isHome && activeSection !== null && `/${activeSection}` === link.href)
+                const isDocument = isDocumentHref(link.href)
+
+                const linkClassName = cn(
+                  'u-nav-link__trigger u-micro block px-4 py-3 transition-colors duration-500',
+                  onDark
+                    ? isActive
+                      ? 'text-cream'
+                      : 'text-cream/70 hover:text-cream'
+                    : isActive
+                      ? 'text-coffee'
+                      : 'text-coffee-soft hover:text-coffee',
+                )
+
+                const linkContent = (
+                  <span className="u-nav-link">
+                    <span className="u-nav-link__inner">{link.label}</span>
+                    <span aria-hidden="true" className="u-nav-link__ghost">
+                      {link.label}
+                    </span>
+                  </span>
+                )
 
                 return (
                   <li key={link.href} className="relative">
-                    <Link
-                      href={link.href}
-                      aria-current={pathname === link.href ? 'page' : undefined}
-                      className={cn(
-                        'u-nav-link__trigger u-micro block px-4 py-3 transition-colors duration-500',
-                        onDark
-                          ? isActive
-                            ? 'text-cream'
-                            : 'text-cream/70 hover:text-cream'
-                          : isActive
-                            ? 'text-coffee'
-                            : 'text-coffee-soft hover:text-coffee',
-                      )}
-                    >
-                      <span className="u-nav-link">
-                        <span className="u-nav-link__inner">{link.label}</span>
-                        <span aria-hidden="true" className="u-nav-link__ghost">
-                          {link.label}
-                        </span>
-                      </span>
-                    </Link>
+                    {isDocument ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={linkClassName}
+                      >
+                        {linkContent}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        aria-current={pathname === link.href ? 'page' : undefined}
+                        className={linkClassName}
+                      >
+                        {linkContent}
+                      </Link>
+                    )}
 
                     <span
                       aria-hidden="true"
@@ -236,7 +254,7 @@ export function Navbar() {
           <div className="flex items-center gap-4 justify-self-end xl:gap-6">
 
             <Button
-              href="/contact"
+              href={directionsUrl}
               size="sm"
               variant={onDark ? 'onDark' : 'primary'}
               withArrow
@@ -245,15 +263,17 @@ export function Navbar() {
               Visit us
             </Button>
 
-            <Link
-              href="/contact"
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 'u-micro sm:hidden',
                 onDark ? 'text-cream' : 'text-coffee',
               )}
             >
               Visit
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -284,24 +304,41 @@ export function Navbar() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                       >
-                        <Link
-                          href={link.href}
-                          onClick={closeMenu}
-                          aria-current={pathname === link.href ? 'page' : undefined}
-                          className="group flex items-baseline gap-4 py-4 sm:py-5"
-                        >
-                          <span className="u-micro w-6 flex-none text-clay">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <span
-                            className={cn(
-                              'text-display-lg transition-[color,transform] duration-500 ease-editorial motion-ok:group-hover:translate-x-1.5',
-                              pathname === link.href ? 'text-clay' : 'text-cream',
-                            )}
+                        {isDocumentHref(link.href) ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={closeMenu}
+                            className="group flex items-baseline gap-4 py-4 sm:py-5"
                           >
-                            {link.label}
-                          </span>
-                        </Link>
+                            <span className="u-micro w-6 flex-none text-clay">
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-display-lg text-cream transition-[color,transform] duration-500 ease-editorial motion-ok:group-hover:translate-x-1.5">
+                              {link.label}
+                            </span>
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            onClick={closeMenu}
+                            aria-current={pathname === link.href ? 'page' : undefined}
+                            className="group flex items-baseline gap-4 py-4 sm:py-5"
+                          >
+                            <span className="u-micro w-6 flex-none text-clay">
+                              {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <span
+                              className={cn(
+                                'text-display-lg transition-[color,transform] duration-500 ease-editorial motion-ok:group-hover:translate-x-1.5',
+                                pathname === link.href ? 'text-clay' : 'text-cream',
+                              )}
+                            >
+                              {link.label}
+                            </span>
+                          </Link>
+                        )}
                       </motion.div>
                     </li>
                   ))}
@@ -318,7 +355,7 @@ export function Navbar() {
                 }}
                 className="mt-14"
               >
-                <Button href="/contact" onClick={closeMenu} variant="onDark" withArrow block>
+                <Button href={directionsUrl} onClick={closeMenu} variant="onDark" withArrow block>
                   Visit us
                 </Button>
 

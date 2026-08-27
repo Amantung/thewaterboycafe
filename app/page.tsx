@@ -6,7 +6,6 @@ import { JsonLd } from '@/components/seo/JsonLd'
 
 import { Hero } from '@/components/home/Hero'
 import { Welcome } from '@/components/home/Welcome'
-import { Marquee } from '@/components/home/Marquee'
 import { StoryStrip } from '@/components/home/StoryStrip'
 import { SignatureMenu } from '@/components/home/SignatureMenu'
 import { Reviews } from '@/components/home/Reviews'
@@ -29,14 +28,13 @@ export default function HomePage() {
     <>
       <Hero />
       <Welcome />
-      <Marquee />
-      <StoryStrip />
+      {/* <StoryStrip /> */}
       <SignatureMenu />
-      <Highlights />
-      <GalleryPreview />
-      <InstagramSection  />
-      <Reviews />
-      <LocationHours  />
+      {/* <Highlights /> */}
+      {/* <GalleryPreview /> */}
+      {/* <InstagramSection  />
+      <Reviews /> */}
+      {/* <LocationHours  /> */}
 
       <JsonLd id="schema-home" data={graph} />
     </>

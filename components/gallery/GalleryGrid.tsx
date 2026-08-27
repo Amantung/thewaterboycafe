@@ -10,43 +10,18 @@ import { Lightbox, useLightbox } from '@/components/gallery/Lightbox'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-/**
- * One drift pattern per tile, keyed by position rather than repeated
- * identically — the point of a choreographed entrance is that no two
- * neighbouring tiles arrive the same way. Each pairs a small directional
- * offset with a clip-path mask, so a tile reveals from an edge rather than
- * simply fading up.
- */
-const DRIFT = [
-  { x: 0, y: 24, clip: 'inset(10% 0% 0% 0%)' },
-  { x: -16, y: 8, clip: 'inset(0% 0% 0% 10%)' },
-  { x: 14, y: 16, clip: 'inset(0% 10% 0% 0%)' },
-  { x: 0, y: -14, clip: 'inset(0% 0% 10% 0%)' },
-  { x: 12, y: 10, clip: 'inset(6% 6% 0% 0%)' },
-] as const
-
-function tileVariants(index: number, isFeature: boolean, reduceMotion: boolean | null): Variants {
+/** One uniform, subtle fade-up — every tile arrives the same quiet way. */
+function tileVariants(index: number, reduceMotion: boolean | null): Variants {
   if (reduceMotion) {
     return { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.001 } } }
   }
 
-  const drift = DRIFT[index % DRIFT.length]
-
   return {
-    hidden: {
-      opacity: 0,
-      x: drift.x,
-      y: drift.y,
-      scale: isFeature ? 1.05 : 1.025,
-      clipPath: drift.clip,
-    },
+    hidden: { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
-      x: 0,
       y: 0,
-      scale: 1,
-      clipPath: 'inset(0% 0% 0% 0%)',
-      transition: { duration: isFeature ? 0.85 : 0.65, ease: EASE, delay: (index % 6) * 0.07 },
+      transition: { duration: 0.45, ease: EASE, delay: (index % 6) * 0.03 },
     },
   }
 }
@@ -101,7 +76,6 @@ export function GalleryGrid({
       >
         {images.map((image, index) => {
           const size = image.size ?? 'normal'
-          const isFeature = size === 'feature'
 
           return (
             <motion.button
@@ -109,8 +83,8 @@ export function GalleryGrid({
               ref={(element: HTMLButtonElement | null) => {
                 triggerRefs.current[index] = element
               }}
-              variants={tileVariants(index, isFeature, reduceMotion)}
-              style={{ willChange: 'transform, opacity, clip-path' }}
+              variants={tileVariants(index, reduceMotion)}
+              style={{ willChange: 'transform, opacity' }}
               type="button"
               onClick={() => open(index)}
               aria-label={`Open image: ${image.label}`}

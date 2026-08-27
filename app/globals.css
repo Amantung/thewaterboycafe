@@ -56,12 +56,6 @@
   --text-display-xs--line-height: 1.32;
   --text-display-xs--letter-spacing: -0.006em;
 
-  /* Marquee sits between the display ramp and the statement — big enough to
-     be a design element, small enough that a row still reads as words. */
-  --text-marquee: clamp(2rem, 0.9rem + 4.4vw, 4.75rem);
-  --text-marquee--line-height: 1;
-  --text-marquee--letter-spacing: -0.02em;
-
   /* ── Text ramp ─────────────────────────────────────────────────────────
      `label` and `micro` are the two small-caps rungs and they carry their
      own tracking, so no component should ever add `tracking-*` on top. */
@@ -532,27 +526,6 @@
     display: none;
   }
 
-  /* ── Marquee ───────────────────────────────────────────────────────────
-     One track, one keyframe, two callers. `--marquee-shift` is how far a
-     full loop travels and must equal exactly one copy of the content:
-     -50% for a track duplicated twice, -33.333% for three copies. There
-     used to be a second `@keyframes marquee` plus an `.animate-marquee`
-     appended below the layers to serve the three-copy case; parameterising
-     the shift removes the duplicate. */
-  .u-marquee-track {
-    display: flex;
-    width: max-content;
-    animation: u-marquee var(--marquee-duration, 42s) linear infinite;
-    will-change: transform;
-  }
-  .u-marquee-track--reverse {
-    animation-direction: reverse;
-  }
-  .u-marquee-row:hover .u-marquee-track,
-  .u-marquee-row:focus-within .u-marquee-track {
-    animation-play-state: paused;
-  }
-
   .u-spin {
     animation: u-spin 14s linear infinite;
   }
@@ -580,15 +553,6 @@
   .u-map:hover,
   .u-map:focus-within {
     filter: none;
-  }
-}
-
-@keyframes u-marquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(var(--marquee-shift, -50%), 0, 0);
   }
 }
 

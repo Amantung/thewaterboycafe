@@ -31,6 +31,11 @@ export function formatDate(iso: string, locale = 'en-AU'): string {
   }).format(new Date(iso))
 }
 
+/** True for a link that should open as a document rather than navigate (e.g. the menu PDF). */
+export function isDocumentHref(href: string): boolean {
+  return href.endsWith('.pdf')
+}
+
 /** Cheap, stable slug for anchors and ids. */
 export function slugify(value: string): string {
   return value

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { welcome } from '@/lib/data/content'
+import { menuPdfUrl } from '@/lib/site'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
@@ -72,7 +73,7 @@ export function Welcome() {
         <div className="mt-14 flex flex-col items-start justify-between gap-8 border-t border-beige pt-8 sm:mt-16 lg:flex-row lg:items-center">
           <p className="max-w-xl text-lead font-light text-coffee-soft">{welcome.closing}</p>
           <div className="flex flex-wrap gap-x-8 gap-y-3">
-            <CtaLink href="/menu">View our menu</CtaLink>
+            <CtaLink href={menuPdfUrl}>View menu</CtaLink>
             <CtaLink href="/gallery">Explore our gallery</CtaLink>
           </div>
         </div>

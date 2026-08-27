@@ -68,17 +68,18 @@ export function Statement({
   const container: Variants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: reduceMotion ? 0 : 0.09, delayChildren: delay },
+      transition: { staggerChildren: reduceMotion ? 0 : 0.03, delayChildren: delay },
     },
   }
 
   const line: Variants = reduceMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
     : {
-        hidden: { y: '108%' },
+        hidden: { opacity: 0, y: 10 },
         visible: {
-          y: '0%',
-          transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
         },
       }
 
@@ -147,8 +148,8 @@ export function MaskRise({
   const variants: Variants = reduceMotion
     ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0 } } }
     : {
-        hidden: { y: '110%' },
-        visible: { y: '0%', transition: { duration: 0.95, delay, ease: [0.22, 1, 0.36, 1] } },
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] } },
       }
 
   const motionProps =

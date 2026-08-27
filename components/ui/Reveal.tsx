@@ -33,7 +33,7 @@ type RevealProps = {
 export function Reveal({
   children,
   delay = 0,
-  distance = 24,
+  distance = 8,
   direction = 'up',
   as = 'div',
   className,
@@ -57,7 +57,7 @@ export function Reveal({
           opacity: 1,
           x: 0,
           y: 0,
-          transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] },
         },
       }
 
@@ -102,7 +102,7 @@ export function Reveal({
 export function RevealGroup({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.05,
   as = 'div',
 }: {
   children: ReactNode
@@ -124,7 +124,7 @@ export function RevealGroup({
       variants={{
         hidden: {},
         visible: {
-          transition: { staggerChildren: reduceMotion ? 0 : stagger, delayChildren: 0.05 },
+          transition: { staggerChildren: reduceMotion ? 0 : stagger, delayChildren: 0.03 },
         },
       }}
     >
@@ -147,7 +147,7 @@ type RevealItemProps = {
  * lightbox closes) when `as="button"` replaces the default `div`.
  */
 export const RevealItem = forwardRef<HTMLElement, RevealItemProps>(function RevealItem(
-  { children, className, as = 'div', distance = 22, ...rest },
+  { children, className, as = 'div', distance = 8, ...rest },
   ref,
 ) {
   const reduceMotion = useReducedMotion()
@@ -167,7 +167,7 @@ export const RevealItem = forwardRef<HTMLElement, RevealItemProps>(function Reve
               visible: {
                 opacity: 1,
                 y: 0,
-                transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+                transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
               },
             }
       }

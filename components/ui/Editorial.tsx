@@ -157,12 +157,14 @@ export function CtaLink({
     </>
   )
 
-  if (/^(https?:|mailto:|tel:)/.test(href)) {
+  if (/^(https?:|mailto:|tel:)/.test(href) || href.endsWith('.pdf')) {
     return (
       <a
         href={href}
         className={classes}
-        {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        {...(href.startsWith('http') || href.endsWith('.pdf')
+          ? { target: '_blank', rel: 'noopener noreferrer' }
+          : {})}
       >
         {content}
       </a>

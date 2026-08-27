@@ -15,6 +15,7 @@ actual site.
 |---|---|---|
 | **Reviews** | `lib/data/testimonials.ts` | Original paraphrases of recurring public-review themes, with invented names and no platform attribution ("Guest feedback", not "Google review"). `Review` / `AggregateRating` structured data is **switched off** while any review is a placeholder — see [Structured data](#seo). Replace with genuine reviews (with permission) and flip each `source` to `'verified'`. |
 | **Menu prices/descriptions** | `lib/data/menu.ts` | Transcribed from a photograph of the printed board — names and prices are the confident part, but re-check every line against the current board before launch. Small print on a photographed menu board does not always survive the transcription. |
+| **Menu PDF** | `public/menu.pdf` | In place — every "View menu" button/link sitewide points at `menuPdfUrl` (`lib/site.ts`) → `/menu.pdf`. Re-check it's the current version before launch. |
 
 Also unconfirmed: the geo coordinates in `lib/site.ts` are approximate, and the closing
 times carried in `site.hours` (used only for the LocalBusiness schema, never shown on the
@@ -62,7 +63,7 @@ the site builds and every form works without a single variable set.
 | Variable | Scope | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | public | Canonical origin. Drives `metadataBase`, canonical tags, OG URLs, `sitemap.xml` and the JSON-LD `@id` graph. **No trailing slash.** Must be set correctly in production or every canonical and OG URL points at the default domain. |
-| `FORM_WEBHOOK_URL` | server | Where reservation / contact / newsletter submissions are POSTed as JSON. Unset → submissions are validated and logged server-side, and the form still succeeds. |
+| `FORM_WEBHOOK_URL` | server | Where contact / newsletter submissions are POSTed as JSON. Unset → submissions are validated and logged server-side, and the form still succeeds. |
 | `FORM_WEBHOOK_TOKEN` | server | Optional shared secret, sent as the `X-Webhook-Token` header. |
 | `CONTACT_INBOX` | server | Reply-to address included in the webhook payload. |
 | `GOOGLE_SITE_VERIFICATION` | server | Optional Search Console verification token. |
@@ -75,7 +76,7 @@ the site builds and every form works without a single variable set.
 app/
   layout.tsx          Root layout: fonts, sitewide metadata, sitewide JSON-LD graph
   page.tsx            Homepage
-  menu/ about/ gallery/ reviews/ contact/ reserve/
+  about/ gallery/ contact/
   sitemap.ts          → /sitemap.xml
   robots.ts           → /robots.txt
   error.tsx  not-found.tsx  loading.tsx
@@ -84,21 +85,21 @@ app/
 components/
   ui/                 Button · Container · SectionHeading · Reveal · Icon · TestimonialCard
   layout/             Navbar · Footer · PageHeader
-  home/               Hero · StoryStrip · SignatureMenu · Highlights · GalleryPreview · Reviews · LocationHours
-  menu/               MenuCard (card + row) · MenuTabs
-  gallery/            GalleryGrid (masonry + lightbox)
-  forms/              FormField primitives · ReservationForm · ContactForm · NewsletterForm
+  home/               Hero · StoryStrip · SignatureMenu · Highlights · GalleryPreview · InstagramSection · Reviews · LocationHours
+  gallery/            GalleryGrid (bento wall + lightbox)
+  forms/              FormField primitives · ContactForm · NewsletterForm
   seo/                JsonLd
 
 lib/
-  site.ts             ★ NAP, hours, socials, amenities — single source of truth
+  site.ts             ★ NAP, hours, socials, amenities, menuPdfUrl — single source of truth
   schema.ts           JSON-LD builders (one connected @graph)
   validation.ts       Zod schemas + shared FormState contract
-  actions.ts          Server actions for all three forms
+  actions.ts          Server actions for both forms
   utils.ts            cn, date/slug helpers
   data/
-    menu.ts           ★ Menu content, transcribed from the printed board
-    testimonials.ts   ★ Reviews
+    menu.ts           ★ Menu content, transcribed from the printed board — feeds the homepage
+                        showcase and the "View menu" PDF button (public/menu.pdf)
+    testimonials.ts   ★ Reviews — shown as a compact homepage section, not a standalone page
     content.ts        Story, highlights, about, FAQs
     navigation.ts      Nav model
 
@@ -122,10 +123,10 @@ assets/
 Interactivity is isolated to the components that need it; everything else is a server
 component and ships no JavaScript.
 
-- `Hero` — scroll parallax
+- `Hero` — a single fade-in on load, no scroll-tied motion
 - `Navbar` — scroll state, scroll-spy, mobile panel
-- `TestimonialCarousel`, `MenuTabs`, `GalleryGrid`, `Reveal` — motion and interaction
-- The three form components
+- `GalleryGrid`, `Reveal` — subtle entrance motion
+- The two form components
 
 ---
 
@@ -219,7 +220,7 @@ transparent, disc-touches-all-edges shape) and re-run `npm run logo`.
 
 ## Forms
 
-All three forms use React 19 server actions with `useActionState`, and are validated
+Both forms use React 19 server actions with `useActionState`, and are validated
 server-side with Zod (`lib/validation.ts`). Client-side `required` attributes are a
 convenience — the server is the boundary.
 
@@ -285,8 +286,8 @@ rather than a keyword list.
 - AVIF then WebP, with `deviceSizes` trimmed to the breakpoints the layout actually uses.
 - `priority` + `fetchPriority="high"` on the hero (the LCP element) and nothing else.
 - Every other image is lazy with an explicit `sizes` matching its rendered width.
-- The hero parallax animates `transform` only — compositor-only, so scrolling never
-  triggers layout or paint.
+- Motion is deliberately minimal and subtle — a short fade-up on scroll, nothing tied to
+  scroll position — so scrolling never triggers extra layout or paint work.
 - The map iframe is lazy-loaded and its origin is preconnected.
 - Grain texture is an inline SVG data URI: no request, no bytes over the wire.
 
@@ -294,13 +295,8 @@ rather than a keyword list.
 
 - One `<h1>` per page, semantic landmarks throughout.
 - Skip-to-content link as the first tab stop.
-- Menu tabs implement the full ARIA tabs pattern with roving tabindex — and **every panel
-  is in the DOM**, hidden with the `hidden` attribute rather than unmounted, so the whole
-  menu is both crawlable and available to assistive tech on request.
 - Lightbox is a real modal: Escape closes, arrows page, focus moves in on open and returns
   to the triggering thumbnail on close, body scroll locked.
-- Carousel autoplay pauses on hover, on focus, when the tab is hidden, and permanently
-  after any manual interaction — and never starts under `prefers-reduced-motion`.
 - All motion respects `prefers-reduced-motion`; `Reveal` collapses to an instant fade
   rather than disappearing.
 - Focus rings are never removed — a clay `:focus-visible` outline is set globally.
@@ -323,6 +319,7 @@ Vercel-specific APIs.
 ### Launch checklist
 
 - [ ] Menu re-checked against the current printed board (`lib/data/menu.ts`)
+- [ ] Menu PDF at `public/menu.pdf` confirmed current (every "View menu" CTA links here)
 - [ ] **Confirmed** opening and closing times in `lib/site.ts`
 - [ ] Geo coordinates checked against the Google Business Profile
 - [ ] Real reviews in `lib/data/testimonials.ts` (with permission), every `source` `'verified'`

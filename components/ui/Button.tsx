@@ -116,14 +116,14 @@ export function Button(props: ButtonAsLink | ButtonAsButton) {
 
   if ('href' in rest && rest.href) {
     const { href, ...linkProps } = rest as ButtonAsLink
-    const isExternal = /^(https?:|mailto:|tel:)/.test(href)
+    const isExternal = /^(https?:|mailto:|tel:)/.test(href) || href.endsWith('.pdf')
 
     if (isExternal) {
       return (
         <a
           href={href}
           className={classes}
-          {...(href.startsWith('http')
+          {...(href.startsWith('http') || href.endsWith('.pdf')
             ? { target: '_blank', rel: 'noopener noreferrer' }
             : {})}
           {...(linkProps as ComponentProps<'a'>)}

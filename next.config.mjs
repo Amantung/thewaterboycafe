@@ -22,6 +22,12 @@ const nextConfig = {
       // form. Old links and bookmarks still point at it, so send them to
       // /contact rather than leaving a 404.
       { source: '/reserve', destination: '/contact', permanent: true },
+      // /menu used to be a full itemised menu page — replaced by a PDF, kept
+      // temporary since the PDF path may change.
+      { source: '/menu', destination: '/menu.pdf', permanent: false },
+      // /reviews used to be a standalone page — testimonials now live in a
+      // homepage section instead.
+      { source: '/reviews', destination: '/', permanent: false },
     ]
   },
 

@@ -6,13 +6,11 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { GalleryGrid } from '@/components/gallery/GalleryGrid'
 import { GALLERY_PHOTOS } from '@/components/gallery/photos'
-import { InstagramSection } from '@/components/home/InstagramSection'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
-import { GalleryPreview } from '@/components/home/GalleryPreview'
 
 export const metadata: Metadata = {
   title: 'Gallery',
@@ -64,10 +62,6 @@ export default function GalleryPage() {
           </p>
         </Reveal>
       </Section>
-
-      <InstagramSection />
-      
-      <GalleryPreview />
 
       <JsonLd id="schema-gallery" data={graph} />
     </>

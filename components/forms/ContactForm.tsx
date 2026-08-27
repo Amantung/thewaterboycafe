@@ -19,8 +19,7 @@ const SUBJECTS = [
 ]
 
 /**
- * General contact form. Same progressive-enhancement pattern as the
- * reservation form — see the notes there.
+ * General contact form — progressively enhanced via `useActionState`.
  */
 export function ContactForm() {
   const [state, formAction] = useActionState(submitContact, initialFormState)

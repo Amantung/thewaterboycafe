@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
 
 /**
- * Form primitives shared by the reservation and contact forms.
+ * Form primitives shared by the site's forms (contact, newsletter).
  *
  * The accessibility contract, in one place so no form can get it wrong:
  *   • every control has a real <label> bound by id

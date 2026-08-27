@@ -4,6 +4,7 @@ import {
   groupedHours,
   mapEmbedUrl,
   directionsUrl,
+  menuPdfUrl,
 } from '@/lib/site'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -88,8 +89,8 @@ export function LocationHours({
                   Get directions
                 </span>
               </Button>
-                <Button href="/menu" size="sm" variant="secondary">
-                  View our menu
+                <Button href={menuPdfUrl} size="sm" variant="secondary">
+                  View menu
                 </Button>
               </div>
             </div>
