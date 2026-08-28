@@ -42,7 +42,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="Since the beginning"
-        title={['A small beachside cafe', { text: 'made for slow mornings.', accent: true }]}
+        title={['Made with care,', { text: 'served with heart.', accent: true }]}
         description={about.intro} 
         imageSrc="/images/beach-morning-cafe.png"
         imageAlt="Afternoon sun falling across timber stools at a cafe window counter"

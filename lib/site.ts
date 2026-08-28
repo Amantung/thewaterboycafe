@@ -63,17 +63,17 @@ export const site = {
   /** E.164 for tel: links, national format for display. */
   phone: '+61359525765',
   phoneDisplay: '(03) 5952 5765',
-  email: 'hello@thewaterboycafe.com.au',
+  email: 'Info@thewaterboycafe.com.au',
 
 
   hours: [
-    { day: 'Monday', opens: '07:30', closes: '15:00' },
-    { day: 'Tuesday', opens: '07:30', closes: '15:00' },
-    { day: 'Wednesday', opens: '07:30', closes: '15:00' },
-    { day: 'Thursday', opens: '07:30', closes: '15:00' },
-    { day: 'Friday', opens: '07:30', closes: '15:00' },
-    { day: 'Saturday', opens: '07:30', closes: '15:00' },
-    { day: 'Sunday', opens: '07:30', closes: '15:00' },
+    { day: 'Monday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Tuesday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Wednesday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Thursday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Friday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Saturday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Sunday', opens: '07:30', closes: '2:30pm' },
   ] satisfies OpeningHours[],
 
   /** IANA zone — used to work out "Open now" against the roster above. */
@@ -97,8 +97,7 @@ export const site = {
     'Alfresco seating',
     'Dog friendly',
     'Family friendly',
-    'Takeaway',
-    'Free Wi-Fi',
+    'Takeaway', 
     'Car park',
     'Water views',
   ],
@@ -146,7 +145,7 @@ export function formatTime(time: string): string {
 }
 
 /**
- * "From 7:30am", or "Closed" on a day with no opening time.
+ * "Open 7:30am to 2:30pm", or "Closed" on a day with no opening time.
  *
  * Opening time only, by design. The kitchen winds down when the last table is
  * done rather than at a fixed hour, so publishing a closing time sets an

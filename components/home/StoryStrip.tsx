@@ -65,13 +65,12 @@ export function StoryStrip() {
         {/* Copy ------------------------------------------------------------ */}
         <div className="lg:pl-4">
           <SectionHeading
-            id="story-heading" 
-            eyebrow={story.eyebrow}
+            id="story-heading"  
             title={story.heading}
             size="md"
           />
 
-          <div className="mt-7 space-y-5">
+          <div className="mt-7 space-y-2">
             {story.body.map((paragraph, index) => (
               <Reveal key={index} delay={0.08 * index}>
                 <p className="text-body text-coffee-soft">{paragraph}</p>

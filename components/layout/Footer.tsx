@@ -160,7 +160,7 @@ export function Footer() {
                 >
                   <dt className="text-cream/70">{row.label}</dt>
                   <span aria-hidden="true" className="h-px flex-1 translate-y-[-2px] bg-cream/12" />
-                  <dd className="u-label whitespace-nowrap text-cream/90">{row.hours}</dd>
+                  <dd className="u-label whitespace-nowrap text-cream/90">Open 7:30am to 2:30pm</dd>
                 </div>
               ))}
             </dl>

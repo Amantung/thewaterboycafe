@@ -90,12 +90,17 @@ export const welcome = {
 /* -------------------------------------------------------------------------- */
 
 export const story = {
-  eyebrow: 'Our story',
-  heading: 'A small kitchen, a big window, and the bay just down the road',
+  eyebrow: '',
+  heading: 'Our story',
   body: [
-    'The Waterboy is a family-run cafe a short walk from the Cowes foreshore, and it runs the way small beachside places should: doors open early, the kitchen starts from scratch, and nobody is rushed out of a good table.',
-    'We cook what we would want to eat on a morning off. Eggs folded to order, bread cut thick, a cabinet of things baked before the sun properly landed. The specials board changes because the growers and the seasons change, not because a head office said so.',
-    'The coffee is Five Senses, and we have stayed with them for the same reason regulars stay with us — it is reliably, quietly excellent. Alternative milks cost nothing extra, the courtyard is dog friendly, and the window seat is the best one in the room.',
+    'The Waterboy Cafe journey began in May 2025, when Aman and Parjit decided it was time to turn their passion for hospitality into something of their own.',
+    'With many years of experience in the hospitality industry, we have always loved working with people, creating great food and making customers feel welcome. We both felt that the time was right to create a place that we could truly enjoy and share with others.',
+    'When we took over The Waterboy Cafe, our vision was simple — to create a warm, welcoming place where everyone feels at home.',
+    'From the very beginning, we have welcomed everyone through our doors — our wonderful locals, visitors, tourists and everyone exploring Phillip Island.',
+    'We love being part of the local community and seeing familiar faces return, while also meeting new people from all around Australia and the world.',
+    'For us, The Waterboy is more than just a cafe. It’s a place to enjoy good food, great coffee, friendly service and beautiful moments together.',
+    'We are proud of how far we have come and are excited to continue growing, improving and welcoming you all for many years to come.',
+    'Thank you for being part of our journey.',
   ],
   signature: 'The Waterboy family',
 } as const
@@ -155,7 +160,7 @@ export const highlights: Highlight[] = [
 
 export const about = {
   intro:
-    'We are a small beachside cafe in Cowes on Phillip Island, cooking honest food from scratch and pouring specialty coffee for locals, weekenders and everyone who wandered up from the beach still holding their thongs.',
+    'We’re a neighbourhood cafe serving honest food from scratch and specialty coffee, made for locals, weekenders and everyone who drops by for something good.',
 
   chapters: [
     {
@@ -256,9 +261,9 @@ export const faqs = [
       'There is street parking on Chapel Street and additional parking within a short walk. It gets busy over summer weekends and school holidays, so allow a few extra minutes.',
   },
   {
-    question: 'Do you charge extra for alternative milks?',
+    question: 'Do you offer alternative milk options?',
     answer:
-      'No. Oat, almond, soy and lactose-free milk are all the same price as dairy.',
+      'Yes! We offer almond, Bonsoy, oat, lactose-free and tigernut milk options for your coffee.',
   },
   {
     question: 'Can I get takeaway?',

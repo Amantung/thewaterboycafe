@@ -17,7 +17,7 @@ export type GalleryPhoto = {
 /** Real photographs, referenced directly from /public/images. */
 export const GALLERY_PHOTOS: GalleryPhoto[] = [
   {
-    src: '/images/gallery-outdoor-courtyard-seating.jpg',
+    src: '/gallery/courtyard-seating.jpeg',
     alt: 'Guests at outdoor cafe tables under a canvas umbrella, shaded by gum trees',
     width: 1400,
     height: 1750,
