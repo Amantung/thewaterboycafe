@@ -115,6 +115,21 @@ export const site = {
 /** "58 Chapel Street, Cowes VIC 3922" — the canonical one-line NAP address. */
 export const formattedAddress = `${site.address.street}, ${site.address.suburb} ${site.address.regionCode} ${site.address.postcode}`
 
+/**
+ * The one Open Graph / Twitter card image for the whole site.
+ *
+ * Next.js does not deep-merge `openGraph`/`twitter` across a layout and its
+ * page — a page that declares its own `openGraph` replaces the parent's
+ * wholesale, `images` included. Every page's metadata must therefore restate
+ * this constant rather than relying on inheriting it from the root layout.
+ */
+export const ogImage = {
+  src: '/images/og-the-waterboy-cafe-phillip-island.jpg',
+  width: 1200,
+  height: 630,
+  alt: "The Waterboy Cafe's shopfront on Chapel Street, Cowes, Phillip Island",
+}
+
 /** Keyless Google Maps embed — resolves by address, so no API key or billing. */
 export const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
   `${site.name}, ${formattedAddress}`,

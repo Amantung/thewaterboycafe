@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { site, formattedAddress, directionsUrl } from '@/lib/site'
+import { site, formattedAddress, directionsUrl, ogImage } from '@/lib/site'
 import { faqs } from '@/lib/data/content'
 import { buildGraph, breadcrumbSchema, faqSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     title: `Contact · ${site.name}`,
     description: `Find us at ${formattedAddress}. Opening hours, directions, and a way to reach the team.`,
     url: '/contact',
+    images: [{ url: ogImage.src, width: ogImage.width, height: ogImage.height, alt: ogImage.alt }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Contact · ${site.name}`,
+    description: `Find us at ${formattedAddress}. Opening hours, directions, and a way to reach the team.`,
+    images: [ogImage.src],
   },
 }
 

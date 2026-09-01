@@ -25,7 +25,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'feature',
   },
   {
-    src: '/images/gallery-pastry-cabinet-counter.jpg',
+    src: '/images/the-cabinet.webp',
     alt: 'A glass cabinet of fruit tarts and chocolate cakes on the cafe counter',
     width: 1400,
     height: 1050,
@@ -81,7 +81,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'normal',
   },
   {
-    src: '/images/gallery-cafe-frontage-signage.jpg',
+    src: '/images/resort.webp',
     alt: 'A cafe frontage with tall glazing, a lantern and its menu in the window',
     width: 1400,
     height: 1050,

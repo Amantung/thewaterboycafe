@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { site } from '@/lib/site'
+import { site, ogImage } from '@/lib/site'
 import { buildGraph, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { PageHeader } from '@/components/layout/PageHeader'
@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     description:
       'A look around our beachside cafe in Cowes — courtyard seating, the pastry cabinet, and mornings on Western Port Bay.',
     url: '/gallery',
+    images: [{ url: ogImage.src, width: ogImage.width, height: ogImage.height, alt: ogImage.alt }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Gallery · ${site.name}`,
+    description:
+      'A look around our beachside cafe in Cowes — courtyard seating, the pastry cabinet, and mornings on Western Port Bay.',
+    images: [ogImage.src],
   },
 }
 

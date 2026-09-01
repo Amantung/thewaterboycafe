@@ -240,7 +240,7 @@ export function Navbar() {
               aria-hidden="true"
               width={LOGO.width}
               height={LOGO.height}
-              priority
+              loading="eager"
               sizes="120px"
               className={cn(
                 'rounded-full transition-[height,width,transform] duration-500 ease-editorial',

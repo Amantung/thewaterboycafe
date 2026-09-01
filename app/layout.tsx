@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Serif_Display, Poppins } from 'next/font/google'
 
-import './globals.css' 
-import { site, SITE_URL } from '@/lib/site'
+import './globals.css'
+import { site, SITE_URL, ogImage } from '@/lib/site'
 import { buildGraph, cafeSchema, websiteSchema } from '@/lib/schema'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -34,14 +34,7 @@ const poppins = Poppins({
   preload: true,
 })
 
-const og = {
-  src: '/images/og-the-waterboy-cafe-phillip-island.jpg',
-  width: 1200,
-  height: 630,
-  alt: "The Waterboy Cafe's shopfront on Chapel Street, Cowes, Phillip Island",
-}
-
-export const metadata: Metadata = { 
+export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL), 
   title: {
     default: `${site.name} — Cosy Beachside Cafe in Cowes, Phillip Island`, 
@@ -74,14 +67,14 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — Cosy Beachside Cafe in Cowes, Phillip Island`,
     description: site.description,
-    images: [{ url: og.src, width: og.width, height: og.height, alt: og.alt }],
+    images: [{ url: ogImage.src, width: ogImage.width, height: ogImage.height, alt: ogImage.alt }],
   },
 
   twitter: {
     card: 'summary_large_image',
     title: `${site.name} — Cosy Beachside Cafe in Cowes`,
     description: site.description,
-    images: [og.src],
+    images: [ogImage.src],
   },
 
   robots: {

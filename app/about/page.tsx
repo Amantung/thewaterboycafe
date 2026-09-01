@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
-import { site, directionsUrl, menuPdfUrl } from '@/lib/site'
+import { site, directionsUrl, menuPdfUrl, ogImage } from '@/lib/site'
 import { about } from '@/lib/data/content'
 import { buildGraph, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -23,6 +23,14 @@ export const metadata: Metadata = {
     description:
       'A family-run beachside cafe in Cowes: scratch-made food, Five Senses coffee, and a room built around one very good window.',
     url: '/about',
+    images: [{ url: ogImage.src, width: ogImage.width, height: ogImage.height, alt: ogImage.alt }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `Our story · ${site.name}`,
+    description:
+      'A family-run beachside cafe in Cowes: scratch-made food, Five Senses coffee, and a room built around one very good window.',
+    images: [ogImage.src],
   },
 }
 
