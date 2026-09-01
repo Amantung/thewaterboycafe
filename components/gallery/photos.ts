@@ -33,7 +33,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'wide',
   },
   {
-    src: '/images/gallery-dog-friendly-patio.jpg',
+    src: '/gallery/dog-friendly.jpg',
     alt: 'A small dog waiting beside a cafe table while its owner has coffee and cake',
     width: 1400,
     height: 1400,
