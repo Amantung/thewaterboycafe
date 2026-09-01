@@ -41,8 +41,9 @@ export default function GalleryPage() {
         eyebrow="Around the cafe"
         title={['The little moments', { text: 'make the place.', accent: true }]}
         description="The room, the courtyard, the cabinet before it empties, and the bay that makes people stay an extra half hour."
-        imageSrc="/images/gallery-outdoor-courtyard-seating.jpg"
+        imageSrc="/images/galler-banner.png"
         imageAlt="Guests at outdoor cafe tables under a canvas umbrella, shaded by gum trees"
+        className='object-cover object-top'
       >
         <Button href={site.socials.instagram} variant="onDarkOutline">
           <span className="flex items-center gap-2">

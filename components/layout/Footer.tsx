@@ -186,11 +186,7 @@ export function Footer() {
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <span>Proudly serving</span>
             <span className="text-cream/70">Five Senses Coffee</span>
-            <span aria-hidden="true">·</span>
-            <span>
-              We acknowledge the Bunurong people, Traditional Custodians of this
-              land and its waters.
-            </span>
+            <span aria-hidden="true">·</span> 
           </p>
         </div>
       </Container>

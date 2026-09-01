@@ -41,7 +41,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'normal',
   },
   {
-    src: '/images/gallery-cowes-foreshore-western-port.jpg',
+    src: '/images/foreshore.jpeg',
     alt: 'The coastline from above, a long jetty reaching out into calm water past the foreshore',
     width: 1400,
     height: 1050,
@@ -57,11 +57,11 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'tall',
   },
   {
-    src: '/images/gallery-kitchen-morning-prep.jpg',
+    src: '/images/morning-view.jpeg',
     alt: 'A chef working the pans in a warmly lit kitchen during morning service',
     width: 1400,
     height: 1050,
-    label: 'Morning prep',
+    label: 'Morning view',
     size: 'normal',
   },
   {
@@ -73,7 +73,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
     size: 'tall',
   },
   {
-    src: '/images/gallery-cake-of-the-day-slice.jpg',
+    src: '/images/waffle.png',
     alt: 'A slice of butter cake on a small plate set on marble',
     width: 1400,
     height: 1050,
