@@ -19,7 +19,7 @@ import { Icon } from '@/components/ui/Icon'
  */
 export function Welcome() {
   return (
-    <Section id="welcome" aria-labelledby="welcome-heading" className="bg-cream">
+    <Section id="welcome" aria-labelledby="welcome-heading" className="bg-linen">
      <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
       <SectionHeading
         id="welcome-heading"

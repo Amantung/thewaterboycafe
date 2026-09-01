@@ -14,7 +14,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
  * and the images keep their intrinsic aspect ratios.
  */
 const interior = {
-  src: '/images/founders.jpg',
+  src: '/images/cafe-owner.webp',
   alt: "The dining room's timber tables and bentwood chairs under rattan pendant lights, with Western Port Bay through the window",
 }
 const pour = {

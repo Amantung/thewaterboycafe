@@ -94,7 +94,7 @@ export const site = {
 
   /** Rendered as the amenity chips in the highlights grid and the footer. */
   amenities: [
-    'Alfresco seating',
+    'Outside seating',
     'Dog friendly',
     'Family friendly',
     'Takeaway', 

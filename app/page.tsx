@@ -34,7 +34,7 @@ export default function HomePage() {
       {/* <GalleryPreview /> */}
       {/* <InstagramSection  />
       <Reviews /> */}
-      {/* <LocationHours  /> */}
+      <LocationHours  />
 
       <JsonLd id="schema-home" data={graph} />
     </>

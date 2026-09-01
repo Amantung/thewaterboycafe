@@ -164,6 +164,12 @@ export function Footer() {
                 </div>
               ))}
             </dl>
+             <p className="mt-5 text-body-sm text-cream/75">
+               No surcharge on Weekend
+            </p>
+            <p className="mt-5 text-body-sm text-cream/75">
+               15% surcharge Public Holidays
+            </p>
 
             <p className="mt-5 text-caption text-cream/50">
               Free coffee Monday to Friday for local police, ambulance and

@@ -21,61 +21,56 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-espresso"
+      className="relative flex flex-col justify-between overflow-hidden bg-espresso sm:min-h-svh sm:justify-end"
     >
       {/* Photography ------------------------------------------------------ */}
       <motion.div
         initial={reduceMotion ? { opacity: 0 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.9, ease: 'easeOut' }}
-        className="absolute inset-0"
+        className="relative h-[48vh] w-full shrink-0 pt-[var(--header-h)] sm:absolute sm:inset-0 sm:h-full sm:pt-0"
       >
-        <Image
-          src={hero.src}
-          alt={hero.alt}
-          fill
-          priority
-          fetchPriority="high"
-          quality={82}
-          sizes="100vw"
-          className="object-cover object-[50%_38%]"
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={hero.src}
+            alt={hero.alt}
+            fill
+            priority
+            fetchPriority="high"
+            quality={82}
+            sizes="100vw"
+            className="object-cover object-top sm:object-[50%_38%]"
+          />
+        </div>
       </motion.div>
 
-      <div aria-hidden="true" className="u-hero-scrim--home absolute inset-0" />
-
-      {/* A second, shallow scrim just for the header band. The main scrim is
-          tuned for the headline at the bottom of the frame; the transparent
-          header sits on whatever the top of the photograph happens to be,
-          which here is bright sky. This guarantees the nav is legible without
-          darkening the middle of the picture to get there. */}
+      {/* Scrim Overlays */}
+      <div aria-hidden="true" className="u-hero-scrim--home absolute inset-0 hidden sm:block" />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-espresso/55 via-espresso/20 to-transparent"
+        className="absolute inset-x-0 top-0 hidden h-48 bg-gradient-to-b from-espresso/55 via-espresso/20 to-transparent sm:block"
       />
-
-      <div aria-hidden="true" className="u-grain absolute inset-0 opacity-60" /> 
+      <div aria-hidden="true" className="u-grain absolute inset-0 opacity-60 pointer-events-none" />
 
       {/* Copy ------------------------------------------------------------- */}
       <div className="relative w-full">
         <div
-          className="mx-auto w-full max-w-(--container-shell) px-5 pb-10 sm:px-8 lg:px-12 lg:pb-12"
-          style={{ paddingTop: 'calc(var(--header-h) + 3rem)' }}
+          className="mx-auto w-full max-w-(--container-shell) px-5 pb-10 pt-6 sm:px-8 sm:pb-10 sm:pt-[calc(var(--header-h)+3rem)] lg:px-12 lg:pb-12"
         >
-         <Statement
+          <Statement
             as="h1"
             id="hero-heading"
             size="statement"
             tone="dark"
             trigger="load"
             delay={0.35}
-            lines={[ 
+            lines={[
               <>
                 Happiness comes {' '}
-                <span className="text-clay">one cup at a time.</span>
+                <span className="text-clay"> one cup at a time.</span>
               </>
             ]}
-            className="max-w-[30ch]" // You may need to increase the max-width so it fits on one line!
+            className="max-w-[30ch]"
           />
 
           <div className="mt-9 max-w-[700px] lg:mt-11">
