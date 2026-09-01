@@ -11,7 +11,7 @@ import { directionsUrl, menuPdfUrl } from '@/lib/site'
 const EASE = [0.22, 1, 0.36, 1] as const
 
 const hero = {
-  src: '/images/waterboy-resort.jpg',
+  src: '/images/hero-banner.png',
   alt: "The Waterboy Cafe's shopfront on Chapel Street, Cowes, with the cafe's name lettered across the awning and the doors open to the street",
 }
 
