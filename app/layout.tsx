@@ -120,9 +120,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en-AU" className={`${dmSerifDisplay.variable} ${poppins.variable}`}>
-      <head> 
+      <head>
+        {/* The only third-party origin the page ever requests from is the
+            lazy-loaded Google Maps embed on /contact and the homepage — it
+            resolves against google.com, not maps.googleapis.com (there is no
+            API key, see mapEmbedUrl in lib/site.ts), so that is the one
+            origin worth a hint here. */}
         <link rel="preconnect" href="https://www.google.com" />
-        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
       </head>
 
       <body className="min-h-screen antialiased"> 

@@ -28,6 +28,16 @@ const nextConfig = {
       // /reviews used to be a standalone page — testimonials now live in a
       // homepage section instead.
       { source: '/reviews', destination: '/', permanent: false },
+      // Canonical host is the bare apex domain. Both `www` and the apex were
+      // resolving with their own 200 response and no redirect between them —
+      // textbook duplicate content. Force `www` onto the apex so there is
+      // exactly one indexable URL per page.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.thewaterboycafe.com.au' }],
+        destination: 'https://thewaterboycafe.com.au/:path*',
+        permanent: true,
+      },
     ]
   },
 

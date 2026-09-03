@@ -221,9 +221,22 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
   }
 }
 
+/**
+ * The FAQPage node — emitted once, on /contact, where the questions below are
+ * the only FAQ content rendered on the page. `faqs` is the single source for
+ * both, so the markup can never drift from what a visitor actually sees:
+ * no invented questions, no hidden answers, no keyword-stuffed text.
+ *
+ * `@id` follows the same stable-node convention as every other entry in the
+ * graph (see `ID` above) rather than being anonymous, so this node is
+ * addressable and unambiguous if it is ever cross-referenced.
+ */
 export function faqSchema() {
   return {
     '@type': 'FAQPage',
+    '@id': `${SITE_URL}/contact#faq`,
+    url: `${SITE_URL}/contact`,
+    inLanguage: 'en-AU',
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,

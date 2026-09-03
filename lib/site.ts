@@ -33,7 +33,7 @@ export type OpeningHours = {
  * automatic /not-found page.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thewaterboycafe.com.au'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://thewaterboycafe.com.au'
 ).replace(/\/$/, '')
 
 export const site = {
@@ -67,13 +67,13 @@ export const site = {
 
 
   hours: [
-    { day: 'Monday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Tuesday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Wednesday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Thursday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Friday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Saturday', opens: '07:30', closes: '2:30pm' },
-    { day: 'Sunday', opens: '07:30', closes: '2:30pm' },
+    { day: 'Monday', opens: '07:30', closes: '14:30' },
+    { day: 'Tuesday', opens: '07:30', closes: '14:30' },
+    { day: 'Wednesday', opens: '07:30', closes: '14:30' },
+    { day: 'Thursday', opens: '07:30', closes: '14:30' },
+    { day: 'Friday', opens: '07:30', closes: '14:30' },
+    { day: 'Saturday', opens: '07:30', closes: '14:30' },
+    { day: 'Sunday', opens: '07:30', closes: '14:30' },
   ] satisfies OpeningHours[],
 
   /** IANA zone — used to work out "Open now" against the roster above. */
