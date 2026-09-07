@@ -462,24 +462,3 @@ export const menuNotices = {
     'Please make our staff aware of any allergy or dietary requirement. Our kitchen handles nuts, seafood, sesame, wheat flour, egg and dairy, so while we take every care we cannot guarantee an allergen-free plate.',
 } as const
 
-/* -------------------------------------------------------------------------- */
-/* Derived views                                                              */
-/* -------------------------------------------------------------------------- */
-
-/** Flat list of every item across every category. */
-export const allMenuItems: MenuItem[] = menu.flatMap((category) => category.items)
-
-/** The homepage "Signature" strip — anything flagged `featured`. */
-export const featuredItems: MenuItem[] = allMenuItems.filter((item) => item.featured)
-
-/** "$24" / "$5.50" / "MP". */
-export function formatPrice(price: number | null): string {
-  if (price === null) return 'MP'
-  return `$${Number.isInteger(price) ? price : price.toFixed(2)}`
-}
-
-/** "$5 / $6" for a two-size drink, or the plain price otherwise. */
-export function priceLabel(item: MenuItem): string {
-  if (!item.sizes?.length) return formatPrice(item.price)
-  return item.sizes.map((size) => formatPrice(size.price)).join(' / ')
-}

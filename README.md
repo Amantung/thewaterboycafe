@@ -83,9 +83,9 @@ app/
   globals.css         Design tokens (@theme) + base + component layers
 
 components/
-  ui/                 Button · Container · SectionHeading · Reveal · Icon · TestimonialCard
+  ui/                 Button · Container · SectionHeading · Reveal · Icon
   layout/             Navbar · Footer · PageHeader
-  home/               Hero · StoryStrip · SignatureMenu · Highlights · GalleryPreview · InstagramSection · Reviews · LocationHours
+  home/               Hero · Welcome · StoryStrip · LocationHours
   gallery/            GalleryGrid (bento wall + lightbox)
   forms/              FormField primitives · ContactForm · NewsletterForm
   seo/                JsonLd
@@ -95,12 +95,12 @@ lib/
   schema.ts           JSON-LD builders (one connected @graph)
   validation.ts       Zod schemas + shared FormState contract
   actions.ts          Server actions for both forms
-  utils.ts            cn, date/slug helpers
+  utils.ts            cn, document-link helper
   data/
-    menu.ts           ★ Menu content, transcribed from the printed board — feeds the homepage
-                        showcase and the "View menu" PDF button (public/menu.pdf)
-    testimonials.ts   ★ Reviews — shown as a compact homepage section, not a standalone page
-    content.ts        Story, highlights, about, FAQs
+    menu.ts           ★ Menu content, transcribed from the printed board — feeds the
+                        Menu JSON-LD and the "View menu" PDF button (public/menu.pdf)
+    testimonials.ts   ★ Reviews — feed Review/AggregateRating structured data once verified
+    content.ts        Story, about, FAQs
     navigation.ts      Nav model
 
 scripts/

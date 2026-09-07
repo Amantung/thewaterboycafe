@@ -240,28 +240,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* The vertical rhythm of a full homepage band. It was written out as the
-     same six-class literal in four different components, which is the sort
-     of thing that drifts the moment one of them is edited on its own. One
-     declaration, one rhythm. `Section` (components/ui/Container) covers the
-     same ground for sections that don't need full-bleed children. */
-  .u-section {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
-  }
-  @media (min-width: 640px) {
-    .u-section {
-      padding-top: 7rem;
-      padding-bottom: 8rem;
-    }
-  }
-  @media (min-width: 1024px) {
-    .u-section {
-      padding-top: 9rem;
-      padding-bottom: 10rem;
-    }
-  }
-
   .u-rule {
     height: 1px;
     background: linear-gradient(
@@ -526,22 +504,6 @@
     display: none;
   }
 
-  .u-spin {
-    animation: u-spin 14s linear infinite;
-  }
-
-  /* Outlined display type. At statement size a second line of solid text is
-     a second wall of ink, where the same words drawn as an outline read as a
-     counterpoint. Cheaper and sharper than an SVG stroke. */
-  .u-text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgb(248 244 232 / 0.5);
-  }
-  .u-text-outline-dark {
-    color: transparent;
-    -webkit-text-stroke: 1px color-mix(in srgb, var(--color-coffee) 55%, transparent);
-  }
-
   /* Google's map embed arrives in its own colour world, which is the reason
      an embedded map always looks bolted on. Desaturating and warming it puts
      it in the page's palette; it returns to full colour on hover, when
@@ -553,14 +515,5 @@
   .u-map:hover,
   .u-map:focus-within {
     filter: none;
-  }
-}
-
-@keyframes u-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }

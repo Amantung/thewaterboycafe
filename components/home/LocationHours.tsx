@@ -14,12 +14,11 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/ui/Reveal'
 import { cn } from '@/lib/utils'
 
-export function LocationHours({ 
+export function LocationHours({
   eyebrow = 'Visit',
   className,
 }: {
-  heading?: string
-  eyebrow?: string 
+  eyebrow?: string
   className?: string
 }) {
   const hours = groupedHours()

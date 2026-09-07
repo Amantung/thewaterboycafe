@@ -167,30 +167,3 @@ export function Icon({ name, className, title, strokeWidth = 1.4 }: IconProps) {
     </svg>
   )
 }
-
-/** Row of five stars. One accessible label, five decorative glyphs. */
-export function StarRating({
-  rating,
-  className,
-  size = 'h-4 w-4',
-}: {
-  rating: number
-  className?: string
-  size?: string
-}) {
-  return (
-    <span
-      className={cn('inline-flex items-center gap-0.5 text-clay', className)}
-      role="img"
-      aria-label={`Rated ${rating} out of 5`}
-    >
-      {Array.from({ length: 5 }, (_, index) => (
-        <Icon
-          key={index}
-          name="star"
-          className={cn(size, index < Math.round(rating) ? 'opacity-100' : 'opacity-25')}
-        />
-      ))}
-    </span>
-  )
-}

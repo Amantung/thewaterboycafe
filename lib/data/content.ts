@@ -10,14 +10,6 @@
  * Senses Coffee, dog friendly, open early.
  */
 
-export type Highlight = {
-  id: string
-  title: string
-  description: string
-  /** Key into the ICONS map in components/ui/Icon.tsx. */
-  icon: 'sunrise' | 'wave' | 'paw' | 'bean' | 'leaf' | 'heart'
-}
-
 export type TeamMember = {
   id: string
   name: string
@@ -104,55 +96,6 @@ export const story = {
   ],
   signature: 'The Waterboy family',
 } as const
-
-/* -------------------------------------------------------------------------- */
-/* Why us                                                                     */
-/* -------------------------------------------------------------------------- */
-
-export const highlights: Highlight[] = [
-  {
-    id: 'fresh-daily',
-    title: 'Made fresh daily',
-    description:
-      'Prep starts before opening and the cabinet is filled that morning. When something sells out, it is genuinely gone.',
-    icon: 'sunrise',
-  },
-  {
-    id: 'beachside',
-    title: 'Beachside seating',
-    description:
-      'A sunny courtyard and a wide window onto Western Port Bay, minutes from the Cowes foreshore.',
-    icon: 'wave',
-  },
-  {
-    id: 'dog-friendly',
-    title: 'Dog friendly',
-    description:
-      'Well-behaved dogs are welcome in the outdoor seating, and there is always a water bowl going.',
-    icon: 'paw',
-  },
-  {
-    id: 'specialty-coffee',
-    title: 'Five Senses coffee',
-    description:
-      'Specialty beans, dialled in every morning. Oat, almond, soy and lactose-free at no extra charge.',
-    icon: 'bean',
-  },
-  {
-    id: 'local-produce',
-    title: 'Local where we can',
-    description:
-      'Produce, bread and eggs from suppliers we can drive to, chosen for how they taste rather than how they invoice.',
-    icon: 'leaf',
-  },
-  {
-    id: 'family-run',
-    title: 'Family run',
-    description:
-      'Owner-operated seven days. The people who make your coffee are the people whose name is over the door.',
-    icon: 'heart',
-  },
-]
 
 /* -------------------------------------------------------------------------- */
 /* About page                                                                 */

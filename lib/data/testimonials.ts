@@ -121,8 +121,6 @@ export const testimonials: Testimonial[] = [
   },
 ]
 
-export const featuredTestimonials = testimonials.filter((review) => review.featured)
-
 /** Mean rating to one decimal, e.g. 4.9. */
 export const aggregateRating = {
   value:

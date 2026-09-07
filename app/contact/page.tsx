@@ -10,7 +10,6 @@ import { LocationHours } from '@/components/home/LocationHours'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
-import { SectionLabel } from '@/components/ui/Editorial'
 import { Reveal } from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
@@ -93,7 +92,7 @@ export default function ContactPage() {
         <ContactForm />
       </Section>
 
-      <LocationHours eyebrow="Find us" heading="Where we are" />
+      <LocationHours eyebrow="Find us" />
 
       {/* FAQ ---------------------------------------------------------------- */}
       <Section aria-labelledby="faq-heading" className="border-t border-beige bg-linen">

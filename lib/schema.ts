@@ -15,7 +15,7 @@
  */
 
 import { site, formattedAddress, SITE_URL, menuPdfUrl } from '@/lib/site'
-import { menu, formatPrice, type MenuCategory } from '@/lib/data/menu'
+import { menu, type MenuCategory } from '@/lib/data/menu'
 import {
   testimonials,
   aggregateRating,
@@ -258,15 +258,4 @@ export function buildGraph(...nodes: Record<string, unknown>[]) {
     '@context': 'https://schema.org',
     '@graph': nodes,
   }
-}
-
-/** Human-readable price range summary, handy for meta descriptions. */
-export function menuPriceSummary(): string {
-  const prices = menu
-    .flatMap((category) => category.items)
-    .map((item) => item.price)
-    .filter((price): price is number => price !== null)
-
-  if (prices.length === 0) return ''
-  return `${formatPrice(Math.min(...prices))}–${formatPrice(Math.max(...prices))}`
 }

@@ -18,11 +18,7 @@ export const primaryNav: NavLink[] = [
 ]
 
 /** In-page anchors the homepage scroll-spy tracks, in document order. */
-export const homeSections = [
-  { id: 'story', label: 'Story' },
-  { id: 'gallery', label: 'Gallery' },
-  { id: 'visit', label: 'Visit' },
-] as const
+export const homeSections = [{ id: 'visit', label: 'Visit' }] as const
 
 export const footerNav: { heading: string; links: NavLink[] }[] = [
   {

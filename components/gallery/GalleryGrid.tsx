@@ -39,10 +39,8 @@ function tileVariants(index: number, reduceMotion: boolean | null): Variants {
  *
  * Square corners and no drop shadows. The radius-and-shadow treatment this
  * used to carry turned every photograph into a card floating above the page;
- * flush edges on a shared grid read as a printed plate on a sheet. The
- * homepage runs its own, far sparser composition — see `GalleryPreview` —
- * because a wall and a spread are two different jobs. Both open the same
- * shared `Lightbox`.
+ * flush edges on a shared grid read as a printed plate on a sheet. Shares its
+ * `Lightbox` dialog with any other gallery composition on the site.
  */
 
 const SIZE_SPAN: Record<NonNullable<GalleryPhoto['size']>, string> = {

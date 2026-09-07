@@ -25,8 +25,8 @@ const nextConfig = {
       // /menu used to be a full itemised menu page — replaced by a PDF, kept
       // temporary since the PDF path may change.
       { source: '/menu', destination: '/menu.pdf', permanent: false },
-      // /reviews used to be a standalone page — testimonials now live in a
-      // homepage section instead.
+      // /reviews used to be a standalone page — reviews have no dedicated
+      // page any more, so send old links and bookmarks to the homepage.
       { source: '/reviews', destination: '/', permanent: false },
       // Canonical host is the bare apex domain. Both `www` and the apex were
       // resolving with their own 200 response and no redirect between them —

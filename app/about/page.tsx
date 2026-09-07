@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import type { Metadata } from 'next'
 
-import { site, directionsUrl, menuPdfUrl, ogImage } from '@/lib/site'
+import { site, ogImage } from '@/lib/site'
 import { about } from '@/lib/data/content'
 import { buildGraph, breadcrumbSchema } from '@/lib/schema'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -9,9 +8,6 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { Section } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
-import { Button } from '@/components/ui/Button'
-import { SectionLabel } from '@/components/ui/Editorial'
-import { Highlights } from '@/components/home/Highlights'
 import { StoryStrip } from '@/components/home/StoryStrip'
 
 export const metadata: Metadata = {
@@ -32,15 +28,6 @@ export const metadata: Metadata = {
       'A family-run beachside cafe in Cowes: scratch-made food, Five Senses coffee, and a room built around one very good window.',
     images: [ogImage.src],
   },
-}
-
-const founders = {
-  src: '/images/sitting.jpg',
-  alt: 'Two members of the cafe team smiling beside the pastry cabinet, with the espresso machine and coffee shelves behind them',
-}
-const sourcing = {
-  src: '/images/caramel-finish.png',
-  alt: 'Crates of fresh vegetables and herbs stacked at a produce market',
 }
 
 export default function AboutPage() {
@@ -117,30 +104,6 @@ export default function AboutPage() {
           ))}
         </RevealGroup>
       </Section>
-
-    
-
-      {/* <Highlights /> */}
-
-      {/* CTA --------------------------------------------------------------- */}
-      {/* <Section className="bg-linen" space="md" width="content" innerClassName="text-center">
-        <SectionHeading
-          eyebrow="Visit us"
-          title={['Good coffee. Fresh food.', { text: 'A place to slow down.', accent: true }]}
-          description="Walk-ins welcome — no bookings required. If you are coming as a large group, give us a call ahead and we will do our best to put some tables together."
-          size="lg"
-          align="center"
-        >
-          <div className="flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href={directionsUrl} size="lg" withArrow>
-              Visit us
-            </Button>
-            <Button href={menuPdfUrl} size="lg" variant="secondary">
-              View menu
-            </Button>
-          </div>
-        </SectionHeading>
-      </Section> */}
 
       <JsonLd id="schema-about" data={graph} />
     </>
