@@ -3,14 +3,12 @@
 /**
  * Server actions behind the contact and newsletter forms.
  *
- * Delivery is intentionally pluggable. Submissions are validated here and then
- * POSTed as JSON to `FORM_WEBHOOK_URL` — point that at Zapier, Make, n8n,
- * Formspree, a Google Apps Script, or your own endpoint. With no webhook
+ * Contact submissions are emailed directly via SMTP — see `sendContactEmail`
+ * in `lib/mailer.ts`. Newsletter submissions still go through the generic
+ * `deliver()` webhook below (Zapier, Make, n8n, a Google Apps Script, or
+ * your own endpoint) since they aren't part of this fix; with no webhook
  * configured the action still validates and succeeds, logging the payload
  * server-side, so local development and preview deploys never need secrets.
- *
- * To swap in a transactional email provider (Resend, Postmark, SendGrid),
- * replace the body of `deliver()` — nothing else needs to change.
  */
 
 import {
@@ -20,15 +18,15 @@ import {
   type FormState,
 } from '@/lib/validation'
 import { site } from '@/lib/site'
+import { sendContactEmail } from '@/lib/mailer'
 
 type Delivery = {
-  /** Distinguishes the two form types at the receiving end. */
-  type: 'contact' | 'newsletter'
+  type: 'newsletter'
   payload: Record<string, unknown>
 }
 
 /**
- * Ships a validated submission onward.
+ * Ships a validated newsletter submission onward via webhook.
  *
  * Returns `false` only for a genuine delivery failure, which the caller turns
  * into a "please phone us instead" message — never a silent drop.
@@ -107,7 +105,7 @@ export async function submitContact(
   }
 
   const { website: _honeypot, ...message } = parsed.data
-  const delivered = await deliver({ type: 'contact', payload: message })
+  const delivered = await sendContactEmail(message)
 
   if (!delivered) {
     return { status: 'error', message: DELIVERY_FAILED, values: raw }
