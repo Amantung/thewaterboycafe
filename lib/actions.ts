@@ -11,6 +11,8 @@
  * server-side, so local development and preview deploys never need secrets.
  */
 
+import { redirect } from 'next/navigation'
+
 import {
   contactSchema,
   newsletterSchema,
@@ -94,7 +96,7 @@ export async function submitContact(
   const parsed = contactSchema.safeParse(raw)
 
   if (!parsed.success) {
-    if (raw.website) return { status: 'success', message: 'Thanks — message received.' }
+    if (raw.website) redirect('/thank-you')
 
     return {
       status: 'error',
@@ -111,10 +113,7 @@ export async function submitContact(
     return { status: 'error', message: DELIVERY_FAILED, values: raw }
   }
 
-  return {
-    status: 'success',
-    message: `Thanks ${message.name.split(' ')[0]} — your message is with us. We read everything and usually reply within a day.`,
-  }
+  redirect('/thank-you')
 }
 
 /* -------------------------------------------------------------------------- */
