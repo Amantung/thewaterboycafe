@@ -48,7 +48,7 @@ function escapeHtml(value: string): string {
     .replace(/'/g, '&#39;')
 }
 
-type ContactMessage = Omit<ContactInput, 'website'>
+type ContactMessage = Omit<ContactInput, 'hp_field'>
 
 /**
  * Sends the contact form's HTML notification email to `TO_EMAIL`.
@@ -108,7 +108,7 @@ export async function sendContactEmail(message: ContactMessage): Promise<boolean
   ].join('\n')
 
   try {
-    await client.sendMail({
+    const info = await client.sendMail({
       from: `"The Waterboy Cafe website" <${process.env.SMTP_USER}>`,
       to,
       replyTo: `"${message.name}" <${message.email}>`,
@@ -116,6 +116,7 @@ export async function sendContactEmail(message: ContactMessage): Promise<boolean
       html,
       text,
     })
+    console.info('[mailer] Contact email sent:', info.messageId, '→', to, '|', info.response)
     return true
   } catch (error) {
     console.error('[mailer] Failed to send contact email:', error)

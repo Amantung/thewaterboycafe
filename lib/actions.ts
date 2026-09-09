@@ -96,7 +96,7 @@ export async function submitContact(
   const parsed = contactSchema.safeParse(raw)
 
   if (!parsed.success) {
-    if (raw.website) redirect('/thank-you')
+    if (raw.hp_field) redirect('/thank-you')
 
     return {
       status: 'error',
@@ -106,7 +106,7 @@ export async function submitContact(
     }
   }
 
-  const { website: _honeypot, ...message } = parsed.data
+  const { hp_field: _honeypot, ...message } = parsed.data
   const delivered = await sendContactEmail(message)
 
   if (!delivered) {
@@ -128,7 +128,7 @@ export async function subscribeToNewsletter(
   const parsed = newsletterSchema.safeParse(raw)
 
   if (!parsed.success) {
-    if (raw.website) return { status: 'success', message: 'You are on the list.' }
+    if (raw.hp_field) return { status: 'success', message: 'You are on the list.' }
 
     return {
       status: 'error',

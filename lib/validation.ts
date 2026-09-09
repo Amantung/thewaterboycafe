@@ -63,7 +63,7 @@ export const contactSchema = z.object({
     .trim()
     .min(10, 'A little more detail helps us reply properly.')
     .max(2000, 'Please keep your message under 2000 characters.'),
-  website: honeypot,
+  hp_field: honeypot,
 })
 
 export type ContactInput = z.infer<typeof contactSchema>
@@ -74,7 +74,7 @@ export type ContactInput = z.infer<typeof contactSchema>
 
 export const newsletterSchema = z.object({
   email,
-  website: honeypot,
+  hp_field: honeypot,
 })
 
 export type NewsletterInput = z.infer<typeof newsletterSchema>

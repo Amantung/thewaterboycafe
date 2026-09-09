@@ -103,22 +103,18 @@ export function Field({
 
 /**
  * Honeypot. Hidden from sight and from assistive tech, but still focusable-off
- * via tabIndex={-1} — a browser autofill or a naive bot fills it, a human
- * never does. `sr-only` alone would expose it to screen readers, hence
- * aria-hidden plus off-screen positioning.
+ * via tabIndex={-1} — a naive bot ticks it, a human never does.
+ *
+ * It's a *checkbox*, not a text field, on purpose: browsers and password
+ * managers autofill text inputs (name, email, address…) and were filling a
+ * text honeypot with the guest's own email, locking real people out. Nothing
+ * autofills an unlabelled checkbox.
  */
 export function Honeypot() {
   return (
     <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden">
-      <label htmlFor="website-field">Leave this field empty</label>
-      <input
-        id="website-field"
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        defaultValue=""
-      />
+      <label htmlFor="hp-field">Leave this box unchecked</label>
+      <input id="hp-field" type="checkbox" name="hp_field" tabIndex={-1} autoComplete="off" />
     </div>
   )
 }
