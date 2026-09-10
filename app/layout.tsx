@@ -97,9 +97,9 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
 
-  ...(process.env.GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || 'Bf1cGy1H1Sv0hvxgol4S40BuYbPxJvmm7oW9SzbWzO8',
+  },
 
   category: 'restaurant',
   formatDetection: { telephone: true, address: true, email: true },
