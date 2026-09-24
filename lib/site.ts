@@ -160,7 +160,7 @@ export function formatTime(time: string): string {
 }
 
 /**
- * "Open 7:30am to 2:30pm", or "Closed" on a day with no opening time.
+ * "Open 7am to 3pm", or "Closed" on a day with no opening time.
  *
  * Opening time only, by design. The kitchen winds down when the last table is
  * done rather than at a fixed hour, so publishing a closing time sets an

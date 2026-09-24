@@ -113,7 +113,7 @@ export function LocationHours({
                       className="min-w-4 flex-1 translate-y-[-0.25rem] border-b border-dotted border-beige-strong"
                     />
                     <dd className="u-label whitespace-nowrap text-body-sm text-coffee">
-                      Open 7:30am to 2:30pm
+                      Open 7am to 3pm
                     </dd>
                   </div>
                 ))}
